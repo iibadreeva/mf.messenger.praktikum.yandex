@@ -11,5 +11,4 @@ num run start
 ```
 
 ### Switch
-![Logo](https://github.com/vladpereskokov/soul-hunting/raw/master/docs/assets/logo.png)
-![Main](https://github.com/vladpereskokov/soul-hunting/raw/master/docs/assets/main.png)
+![Main](https://github.com/iibadreeva/mf.messenger.praktikum.yandex/blob/static/ui/messenger.png?raw=true)
