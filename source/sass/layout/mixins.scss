@@ -1,0 +1,30 @@
+@mixin centered() {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+@mixin centeredX() {
+    left: 50%;
+    transform: translateX(-50%);
+}
+@mixin centeredY() {
+    top: 50%;
+    transform: translateY(-50%);
+}
+@mixin btn() {
+    padding: 8px 0;
+    min-width: 100px;
+    background-color: $mainColor;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 13px;
+}
+@mixin arrow() {
+    color: #fff;
+    background-color: rgba($mainColor, .72);
+    width: 31px;
+    height: 31px;
+    line-height: 29px;
+    text-align: center;
+    border-radius: 50%;
+}

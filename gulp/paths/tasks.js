@@ -7,4 +7,5 @@ module.exports = [
   './gulp/tasks/serve.js',
   './gulp/tasks/watch.js',
   './gulp/tasks/foundation.js',
+  './gulp/tasks/copy.js',
 ];
