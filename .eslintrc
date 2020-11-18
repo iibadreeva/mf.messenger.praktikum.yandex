@@ -13,6 +13,7 @@
     "no-unused-vars": "off",
     "quotes": ["error", "single"],
     "eol-last": "off",
+    "max-len": "off",
     "jsx-quotes": [
       "off",
       "prefer-double"

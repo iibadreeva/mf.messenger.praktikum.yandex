@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
+    <div class="overview"></div>
     <div class="container">
       <main class="profile">
         <div class="profile__left">
@@ -30,30 +31,26 @@
           <div class="profile__items">
             <div class="profile__item">
               <div class="profile__label">Почта</div>
-              <input class="profile__value" type="email" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Почта" value="inna@yandex.ru">
+              <input class="profile__value" type="email" data-type="email" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Почта" value="inna@yandex.ru">
             </div>
             <div class="profile__item">
               <div class="profile__label">Логин</div>
-              <input class="profile__value" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Логин" value="Inna">
+              <input class="profile__value" type="text" data-type="login" data-size="3" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Логин" value="Inna">
             </div>
             <div class="profile__item">
               <div class="profile__label">Имя</div>
-              <input class="profile__value" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Имя" value="Инна">
+              <input class="profile__value" type="text" data-type="first_name" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Имя" value="Инна">
             </div>
             <div class="profile__item">
               <div class="profile__label">Фамилия</div>
-              <input class="profile__value" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Фамилия" value="Бадреева">
-            </div>
-            <div class="profile__item">
-              <div class="profile__label">Имя в чате</div>
-              <input class="profile__value" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Имя в чате" value="Инна">
+              <input class="profile__value" type="text" data-type="last_name" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Фамилия" value="Бадреева">
             </div>
             <div class="profile__item">
               <div class="profile__label">Телефон</div>
-              <input class="profile__value" autocomplete="off" type="tel" placeholder="Телефон" value="+7(909)967-30-30">
+              <input class="profile__value" autocomplete="off" data-type="phone" type="tel" placeholder="Телефон" value="+7(909)967-30-30">
             </div>
           </div>
-          <button class="profile__btn">Сохранить</button>
+          <button class="profile__btn js-update">Сохранить</button>
         </div>
       </main>
     </div>

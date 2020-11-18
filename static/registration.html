@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
+    <div class="overview"></div>
     <div class="container">
       <main>
         <div class="overview overview_active"></div>
@@ -18,29 +19,29 @@
           <div>
             <div class="log-form__title">Регистрация</div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Почта"><span class="log-form__error"></span>
+              <input class="log-form__input" type="email" placeholder="Почта" data-type="email" data-text="Email введен некорректно"><span class="log-form__error"></span>
             </div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Логин"><span class="log-form__error"></span>
+              <input class="log-form__input" placeholder="Логин" data-type="login" data-size="3" data-text="Логин дожен быть не менее 3 символов"><span class="log-form__error"></span>
             </div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Имя"><span class="log-form__error"></span>
+              <input class="log-form__input" placeholder="Имя" data-type="first_name" data-text="Поле не должно быть пустое"><span class="log-form__error"></span>
             </div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Фамилия"><span class="log-form__error"></span>
+              <input class="log-form__input" placeholder="Фамилия" data-type="last_name" data-text="Поле не должно быть пустое"><span class="log-form__error"></span>
             </div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Телефон"><span class="log-form__error"></span>
+              <input class="log-form__input" type="tel" placeholder="Телефон" data-type="phone" data-text="Телефон не соответствует +79999999999"><span class="log-form__error"></span>
             </div>
-            <div class="log-form__control log-form__control_error">
-              <input class="log-form__input" placeholder="Пароль"><span class="log-form__error"></span>
+            <div class="log-form__control">
+              <input class="log-form__input" type="password" placeholder="Пароль" data-type="password" data-text=""><span class="log-form__error"></span>
             </div>
-            <div class="log-form__control log-form__control_error">
-              <input class="log-form__input" placeholder="Пароль (еще раз)"><span class="log-form__error">Пароли не совпадают</span>
+            <div class="log-form__control">
+              <input class="log-form__input" type="password" placeholder="Пароль (еще раз)" data-type="password_again" data-text="Пароли не совпадают"><span class="log-form__error"></span>
             </div>
           </div>
           <div class="log-form__group-btn">
-            <button class="log-form__btn">Зарегистрироваться</button>
+            <button class="log-form__btn js-registration">Зарегистрироваться</button>
             <button class="log-form__btn log-form__btn_gray">Войти</button>
           </div>
         </div>

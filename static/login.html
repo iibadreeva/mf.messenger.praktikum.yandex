@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
+    <div class="overview"></div>
     <div class="container">
       <main>
         <div class="overview overview_active"></div>
@@ -18,14 +19,14 @@
           <div>
             <div class="log-form__title">Вход</div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Логин"><span class="log-form__error"></span>
+              <input class="log-form__input" placeholder="Логин" data-type="login" data-text="Ведите логин"><span class="log-form__error"></span>
             </div>
             <div class="log-form__control">
-              <input class="log-form__input" placeholder="Пароль"><span class="log-form__error"></span>
+              <input class="log-form__input" type="password" placeholder="Пароль" data-type="password" data-text="Ведите пароль"><span class="log-form__error"></span>
             </div>
           </div>
           <div class="log-form__group-btn">
-            <button class="log-form__btn">Авторизоваться</button>
+            <button class="log-form__btn js-login">Авторизоваться</button>
             <button class="log-form__btn log-form__btn_gray">Регистрация</button>
           </div>
         </div>

@@ -10,6 +10,16 @@ body {
 }
 * {
   box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 8px;
+    background-color: $grayColorbg;
+  }
 }
 
 ul, ol {
@@ -71,11 +81,11 @@ h1,h2,h3,h4,h5 {
 }
 .container {
   margin: auto;
-  width: 1000px;
+  //width: 1000px;
   //min-width: 1000px;
 }
 .window__inner {
-  width: 1000px;
+  //width: 1000px;
 }
 .hidden, .loader {
   display: none;

@@ -21,7 +21,7 @@
   &__control {
     position: relative;
     margin: 0 auto 20px;
-    width: $widthLeftProfile;
+    width: $widthFormLog;
     border-bottom: 1px solid #000;
 
     &_error {
@@ -35,10 +35,11 @@
 
   &__error {
     position: absolute;
-    font-size: 10px;
+    font-size: 9px;
     left: 0;
-    bottom: -15px;
+    top: 23px;
     color: $errorColor;
+    line-height: .8;
   }
 
   &__group-btn {
