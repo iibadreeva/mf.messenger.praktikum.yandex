@@ -1,11 +1,15 @@
-extends ../main.layout.pug
+extends ../layout
+
+block variables
+    - const title = 'Логин'
+    - const name_css = 'form'
 
 block content
     main
         .overview.overview_active
         .log-form
             div
-                .log-form__title Вход
+                span.log-form__title Вход
                 .log-form__control
                     input.log-form__input(placeholder="Логин" data-type="login" data-text="Ведите логин")
                     span.log-form__error
@@ -14,4 +18,4 @@ block content
                     span.log-form__error
             .log-form__group-btn
                 button.log-form__btn.js-login Авторизоваться
-                button.log-form__btn.log-form__btn_gray Регистрация
+                a(href="/registration.html").log-form__btn.log-form__btn_gray Регистрация

@@ -1,4 +1,8 @@
-extends ../main.layout.pug
+extends ../layout
+
+block variables
+    - const title = 'Профиль: изменение данных'
+    - const name_css = 'profile'
 
 block content
     main.profile
@@ -67,4 +71,4 @@ block content
                         placeholder="Телефон"
                         value="+7(909)967-30-30"
                         )
-            button.profile__btn.js-update Сохранить
+            button(type="button").profile__btn.js-update Сохранить

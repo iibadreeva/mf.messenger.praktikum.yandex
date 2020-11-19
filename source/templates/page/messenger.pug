@@ -1,8 +1,12 @@
-extends ../main.layout.pug
+extends ../layout
+
+block variables
+    - const title = 'Чат переписки'
+    - const name_css = 'messenger'
 
 block content
-    main.messenger
-        .messenger__left
+    .messenger
+        main.messenger__left
             header.messenger__header
                 .messenger__header__photo
                     img(
@@ -13,8 +17,8 @@ block content
                     i.fa.fa-bars
             .messenger__search
                 input(class="messenger__search__input" placeholder="Поиск")
-            .messenger__items
-                .messenger__item
+            ul.messenger__items
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -27,7 +31,7 @@ block content
                         span.messenger__item__number 1
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -41,7 +45,7 @@ block content
                         span.messenger__item__info 10:49
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -53,7 +57,7 @@ block content
                         span.messenger__item__info Пт
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -66,7 +70,7 @@ block content
                         span.messenger__item__number 2
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -78,7 +82,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -90,7 +94,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -102,7 +106,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -114,7 +118,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -126,7 +130,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -138,3 +142,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
+        aside.messenger__right
+            header.messenger__header.messenger__header_right
+            .messenger__content.messenger__content_center
+                p.messenger__text Пожалуйста, выберите чат, чтобы начать обмен сообщениями
