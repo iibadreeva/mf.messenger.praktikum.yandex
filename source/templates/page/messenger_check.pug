@@ -1,8 +1,12 @@
-extends ../main.layout.pug
+extends ../layout
+
+block variables
+    - const title = 'Чат переписки'
+    - const name_css = 'messenger'
 
 block content
-    main.messenger
-        .messenger__left
+    .messenger
+        main.messenger__left
             header.messenger__header
                 .messenger__header__photo
                     img(
@@ -13,8 +17,8 @@ block content
                     i.fa.fa-bars
             .messenger__search
                 input(class="messenger__search__input" placeholder="Поиск")
-            .messenger__items
-                .messenger__item
+            ul.messenger__items
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -27,7 +31,7 @@ block content
                         span.messenger__item__number 1
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -41,7 +45,7 @@ block content
                         span.messenger__item__info 10:49
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -53,7 +57,7 @@ block content
                         span.messenger__item__info Пт
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item.messenger__item_active
+                li.messenger__item.messenger__item_active
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -65,7 +69,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -77,7 +81,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -89,7 +93,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -101,7 +105,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -113,7 +117,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -125,7 +129,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-                .messenger__item
+                li.messenger__item
                     .messenger__item__photo
                         img(
                             class="messenger__item__image"
@@ -137,7 +141,7 @@ block content
                         span.messenger__item__info Ср
                         span.messenger__item__arrow.js-hamburger-arrow
                             i.fa.fa-caret-down
-        .messenger__right
+        aside.messenger__right
             header.messenger__header.messenger__header_right
                 .messenger__header__hamburger.js-hamburger-chat
                     i.fa.fa-bars
@@ -146,6 +150,10 @@ block content
                     .messenger__chat__body-empty
                     .messenger__chat__body
                         .messenger__chat__date Сегодня
+                        .messenger__chat__in
+                            | Страница с чатом. Два блока: слева — список с чатами, но один из них должен быть активным; справа — блок с «лентой» переписки активного чата. Нужно отображать следующую информацию о сообщениях: дата отдельного сообщения, прочитано ли, дата переписки (например, 19 июля: «лента» сообщений за этот день). Необходимо выделять собеседников (цветом или расположением сообщений), а также само сообщение. Нужно уметь отправлять и отображать: обычный текст, Emoji, картинки, видео. Также должна быть возможность удалить чат. Обратите внимание, что этого нет в примере. Даже если решите использовать макет от дизайнеров Практикума, вам нужно будет самостоятельно доработать интерфейс. Например, выбрать как будет выглядеть кнопка или иконка удаления чата (а может ссылка или меню), где она будет располагаться, будет ли модальное окно с вопросом «Вы уверены?» и как оно будет выглядеть, что будет происходить после удаления.
+                            span.messenger__chat__time 09:48
+
                         .messenger__chat__in
                             | Страница с чатом. Два блока: слева — список с чатами, но один из них должен быть активным; справа — блок с «лентой» переписки активного чата. Нужно отображать следующую информацию о сообщениях: дата отдельного сообщения, прочитано ли, дата переписки (например, 19 июля: «лента» сообщений за этот день). Необходимо выделять собеседников (цветом или расположением сообщений), а также само сообщение. Нужно уметь отправлять и отображать: обычный текст, Emoji, картинки, видео. Также должна быть возможность удалить чат. Обратите внимание, что этого нет в примере. Даже если решите использовать макет от дизайнеров Практикума, вам нужно будет самостоятельно доработать интерфейс. Например, выбрать как будет выглядеть кнопка или иконка удаления чата (а может ссылка или меню), где она будет располагаться, будет ли модальное окно с вопросом «Вы уверены?» и как оно будет выглядеть, что будет происходить после удаления.
                             span.messenger__chat__time 09:48

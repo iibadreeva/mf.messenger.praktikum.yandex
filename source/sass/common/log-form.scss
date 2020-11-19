@@ -13,6 +13,7 @@
   justify-content: space-between;
 
   &__title {
+    display: block;
     text-align: center;
     font-size: 18px;
     margin-bottom: 50px;
@@ -52,6 +53,12 @@
     @include btn;
     width: 100%;
     margin-bottom: 10px;
+    display: block;
+    text-align: center;
+
+    &:hover {
+      opacity: .9;
+    }
 
     &:last-child {
       margin-bottom: 0;
