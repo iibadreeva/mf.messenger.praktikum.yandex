@@ -1,4 +1,8 @@
-extends ../main.layout.pug
+extends ../layout
+
+block variables
+    - const title = 'Профиль'
+    - const name_css = 'profile'
 
 block content
     main.profile
@@ -28,8 +32,8 @@ block content
                     input.profile__value(disabled type="tel" placeholder="Телефон" value="+7(909)967-30-30")
             .profile__items
                 .profile__item
-                    .profile__label.profile__label_link Изменить данные
+                    a(href="/profile_change.html").profile__label.profile__label_link Изменить данные
                 .profile__item
-                    .profile__label.profile__label_link Изменить пароль
+                    a(href="/profile_password.html").profile__label.profile__label_link Изменить пароль
                 .profile__item
-                    .profile__label.profile__label_exit Выйти
+                    a(href="#").profile__label.profile__label_exit Выйти

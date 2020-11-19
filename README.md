@@ -29,7 +29,7 @@
 
 # Запуск проэкта
 ```sh
-num run start
+npm run start
 ```
 
 ### Messenger
