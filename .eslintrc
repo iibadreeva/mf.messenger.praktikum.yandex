@@ -18,6 +18,7 @@
       "off",
       "prefer-double"
     ],
+    "Supp": "off",
     "no-undef": "off",
 //    "no-console": "error",
     "no-debugger": "error"

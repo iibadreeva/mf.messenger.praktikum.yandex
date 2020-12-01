@@ -358,4 +358,95 @@
   log.in();
   log.registration();
   log.update();
+
+
+  /**/
+  (function() {
+    class Tooltip {
+      constructor() {
+        this.el = document.createElement('div');
+        this.el.style.position = 'absolute';
+
+        this.el.classList.add(this.name);
+        document.body.appendChild(this.el);
+
+        this.onHide = this.onHide.bind(this);
+        this.listeners = [];
+      }
+
+      get name() {
+        return 'tooltip';
+      }
+
+      get indent() {
+        return 5;
+      }
+
+      delegate(eventName, element, cssSelector, callback) {
+        const fn = event => {
+          if (!event.target.matches(cssSelector)) {
+            return;
+          }
+
+          callback(event);
+        };
+
+
+        element.addEventListener(eventName, fn);
+        this.listeners.push({ fn, element, eventName });
+
+        return this;
+      }
+
+      onShow = (event) => {
+        const that = event.target;
+        const text = that.dataset.tooltip;
+        const bodyHeight = document.documentElement.clientHeight;
+        const domRec = that.getBoundingClientRect();
+        const left = domRec.left;
+
+        this.el.style.display = 'block';
+        this.el.textContent = text;
+
+        const top = (num = 5) => {
+          if ( (domRec.bottom + domRec.height) < bodyHeight) {
+            return domRec.top + domRec.height + num;
+          }
+          return domRec.top - this.el.offsetHeight - num;
+        }
+
+        this.el.style.top = `${top()}px`;
+      }
+
+      onHide() {
+        this.el.style.top = '';
+        this.el.style.display = 'none';
+        this.el.textContent = '';
+        this.detach();
+        this.attach(document.body);
+      }
+
+      attach(root) {
+        this
+          .delegate('mouseover', root, '[data-tooltip]', this.onShow)
+          .delegate('mouseout', root, '[data-tooltip]', this.onHide);
+      }
+
+      detach() {
+        this.listeners.forEach(item => {
+          item.element.removeEventListener(item.eventName, item.fn)
+        });
+        this.listeners = [];
+      }
+    }
+
+    window.Tooltip = Tooltip;
+  })();
+
+  const tooltip = new Tooltip();
+  tooltip.attach(document.body);
 })();
+const test = 'test ';
+
+const fn = (arg) => console.log(arg);
+fn(test)

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Профиль: изменение данных</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shorcat icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/profile.css">
+  </head>
+  <body>
+    <div class="overview"></div>
+    <div class="container">
+      <main class="profile">
+        <div class="profile__left">
+          <div class="profile__left__arrow"><i class="fa fa-long-arrow-left"></i></div>
+        </div>
+        <div class="profile__form">
+          <div class="profile__heaed">
+            <div class="profile__photo"><img class="profile__image" src="">
+              <div class="profile__placeholder">
+                <div class="profile__placeholder__text">Поменять
+                  <div>аватар</div>
+                </div>
+              </div>
+            </div>
+            <div class="profile__name">Инна</div>
+          </div>
+          <div class="profile__items">
+            <div class="profile__item">
+              <div class="profile__label">Почта</div>
+              <input class="profile__value" type="email" data-type="email" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Почта" value="inna@yandex.ru">
+            </div>
+            <div class="profile__item">
+              <div class="profile__label">Логин</div>
+              <input class="profile__value" type="text" data-type="login" data-size="3" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Логин" value="Inna">
+            </div>
+            <div class="profile__item">
+              <div class="profile__label">Имя</div>
+              <input class="profile__value" type="text" data-type="first_name" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Имя" value="Инна">
+            </div>
+            <div class="profile__item">
+              <div class="profile__label">Фамилия</div>
+              <input class="profile__value" type="text" data-type="last_name" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Фамилия" value="Бадреева">
+            </div>
+            <div class="profile__item">
+              <div class="profile__label">Телефон</div>
+              <input class="profile__value" autocomplete="off" data-type="phone" type="tel" placeholder="Телефон" value="+7(909)967-30-30">
+            </div>
+          </div>
+          <button class="profile__btn js-update" type="button">Сохранить</button>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script src="js/foundation.js"></script>
+</html>

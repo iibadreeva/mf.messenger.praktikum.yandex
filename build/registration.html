@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Регистрация</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shorcat icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/form.css">
+  </head>
+  <body>
+    <div class="overview"></div>
+    <div class="container">
+      <main>
+        <div class="overview overview_active"></div>
+        <div class="log-form">
+          <div><span class="log-form__title">Регистрация</span>
+            <div class="log-form__control">
+              <input class="log-form__input" type="email" placeholder="Почта" data-type="email" data-text="Email введен некорректно"><span class="log-form__error"></span>
+            </div>
+            <div class="log-form__control">
+              <input class="log-form__input" placeholder="Логин" data-type="login" data-size="3" data-text="Логин дожен быть не менее 3 символов"><span class="log-form__error"></span>
+            </div>
+            <div class="log-form__control">
+              <input class="log-form__input" placeholder="Имя" data-type="first_name" data-text="Поле не должно быть пустое"><span class="log-form__error"></span>
+            </div>
+            <div class="log-form__control">
+              <input class="log-form__input" placeholder="Фамилия" data-type="last_name" data-text="Поле не должно быть пустое"><span class="log-form__error"></span>
+            </div>
+            <div class="log-form__control">
+              <input class="log-form__input" type="tel" placeholder="Телефон" data-type="phone" data-text="Телефон не соответствует +79999999999"><span class="log-form__error"></span>
+            </div>
+            <div class="log-form__control">
+              <input class="log-form__input" type="password" placeholder="Пароль" data-type="password" data-text=""><span class="log-form__error"></span>
+            </div>
+            <div class="log-form__control">
+              <input class="log-form__input" type="password" placeholder="Пароль (еще раз)" data-type="password_again" data-text="Пароли не совпадают"><span class="log-form__error"></span>
+            </div>
+          </div>
+          <div class="log-form__group-btn">
+            <button class="log-form__btn js-registration">Зарегистрироваться</button><a class="log-form__btn log-form__btn_gray" href="/login.html">Войти</a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script src="js/foundation.js"></script>
+</html>

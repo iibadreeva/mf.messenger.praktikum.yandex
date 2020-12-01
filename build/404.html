@@ -8,19 +8,17 @@
     <link rel="shorcat icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="css/error.css">
+    <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
     <div class="overview"></div>
-    <div class="container">
-      <main class="error">
-        <h1 class="error__title">404</h1>
-        <div class="error__footer">
-          <p class="error__text">Ой! Такой страницы нет на сайте :(</p>
-          <button class="error__btn">К чату?</button>
-        </div>
-      </main>
-    </div>
+    <div class="container"></div>
+
+<!--    <script src="js/core/handlebars.js"defer></script>-->
+    <script type="module" src="js/core/event-bus.js" defer></script>
+    <script type="module" src="js/core/block.js"defer></script>
+    <script type="module" src="js/core/utils.js" defer></script>
+    <script type="module" src="js/components/button/index.js" defer></script>
+    <script type="module" src="js/pages/404.js"defer></script>
   </body>
-  <script src="js/foundation.js"></script>
 </html>
