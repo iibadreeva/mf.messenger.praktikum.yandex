@@ -9,10 +9,16 @@ declare global {
 }*/
 
 interface IContext {
-  title: string
-  description: string
-  textBtn: string
-  handleClick: Function
+  title: string,
+  description: string,
+  btn: object
+}
+type btnType = {
+  text: string,
+  className: string,
+  type: string,
+  handleClick?: Function,
+  url?: string
 }
 
 class Page extends Block {
@@ -41,16 +47,21 @@ class Page extends Block {
 const context:IContext = {
   title: '404',
   description: 'Ой! Такой страницы нет на сайте :(',
-  textBtn: 'К чату?',
-  handleClick: () => {
-    console.log('404');
+  btn: {
+    text: 'К чату?',
+    clName: 'error__btn',
+    type: 'button',
+    handleClick: () => {
+      console.log('check authorisation before');
+    }
   }
 };
 
 const page = new Page(context);
 render(".container", page);
 
-const button = new Button(context);
+const btn = context.btn as btnType;
+const button = new Button(btn);
 render(".js-btn", button);
 
 

@@ -2,8 +2,11 @@ import Block from '../../core/block.js';
 import {Templator} from '../../core/utils.js';
 
 interface IContext {
-  textBtn: string
-  handleClick: Function
+  text: string
+  className: string
+  type: string
+  handleClick?: Function
+  url?: string
 }
 
 export default class Button extends Block {
@@ -12,9 +15,26 @@ export default class Button extends Block {
   }
 
   render() {
-    const templ = `<button onclick="{{ handleClick }}" class="error__btn">{{ textBtn }}</button>`;
+    let templ:string = '';
 
-    const tmpl:any = new Templator(templ);
+    switch (this.props.type) {
+      case 'link':
+        templ = `<a
+                    class="log-form__btn log-form__btn_gray"
+                    href="{{ url }}"
+                 >
+                     {{ text }}
+                 </a>`
+        break;
+      default:
+        templ = `<button
+                    class="{{ clName }}"
+                 >
+                     {{ text }}
+                 </button>`;
+    }
+
+    const tmpl = new Templator(templ);
     return tmpl.compile(this.props);
   }
 }

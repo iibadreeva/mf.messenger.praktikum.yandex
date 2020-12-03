@@ -11,29 +11,12 @@
     <link rel="stylesheet" href="css/form.css">
   </head>
   <body>
-    <div class="overview"></div>
-    <div class="container">
-      <main>
-        <div class="overview overview_active"></div>
-        <div class="log-form">
-          <div><span class="log-form__title">Вход</span>
-            <div class="log-form__control">
-              <input class="log-form__input" placeholder="Логин" data-type="login" data-text="Ведите логин"><span class="log-form__error"></span>
-            </div>
-            <div class="log-form__control">
-              <input class="log-form__input" type="password" placeholder="Пароль" data-type="password" data-text="Ведите пароль"><span class="log-form__error"></span>
-            </div>
-          </div>
-          <div class="log-form__group-btn">
-            <button class="log-form__btn js-login">Авторизоваться</button><a class="log-form__btn log-form__btn_gray" href="/registration.html">Регистрация</a>
-          </div>
-        </div>
-      </main>
-    </div>
+    <div class="container"></div>
   </body>
   <script type="module" src="js/core/event-bus.js" defer></script>
   <script type="module" src="js/core/block.js"defer></script>
   <script type="module" src="js/core/utils.js" defer></script>
   <script type="module" src="js/components/button/index.js" defer></script>
+  <script type="module" src="js/components/input/index.js" defer></script>
   <script type="module" src="js/pages/login.js"defer></script>
 </html>

@@ -6,8 +6,14 @@ interface IContext {
   title: string
   description: string
   subDescription: string
-  textBtn: string
-  handleClick: Function
+  btn: object
+}
+type btnType = {
+  text: string,
+  className: string,
+  type: string,
+  handleClick?: Function,
+  url?: string
 }
 
 class Page extends Block {
@@ -33,16 +39,21 @@ const context:IContext = {
   title: '500',
   description: 'К сожелению, страница недоступна.',
   subDescription: 'Мы уже работаем над устранением неисправностей',
-  textBtn: 'К чату?',
-  handleClick: () => {
-    console.log('500');
+  btn: {
+    text: 'К чату?',
+    clName: 'error__btn',
+    type: 'button',
+    handleClick: () => {
+      console.log('check authorisation before');
+    }
   }
 };
 
 const page = new Page(context);
 render(".container", page);
 
-const button = new Button(context);
+const btn = context.btn as btnType
+const button = new Button(btn);
 render(".js-btn", button);
 
 

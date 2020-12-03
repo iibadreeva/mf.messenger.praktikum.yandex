@@ -66,14 +66,12 @@ export default class Block {
     this._createResources();
     const eventBus:any = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    // this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   _componentDidMount() {
     this.componentDidMount();
     const eventBus:any = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    // this.eventBus().emit(Block.EVENTS.FLOW_RENDER); //--
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -108,11 +106,6 @@ export default class Block {
 
   _render(): void {
     const block = this.render();
-    // Этот небезопасный метод для упрощения логики
-    // Используйте шаблонизатор из npm или напишите свой безопасный
-    // Нужно не в строку компилировать (или делать это правильно),
-    // либо сразу в DOM-элементы возвращать из compile DOM-ноду
-    // this._element.innerHTML = block;
 
     const element: any = this._element;
     if (element) {

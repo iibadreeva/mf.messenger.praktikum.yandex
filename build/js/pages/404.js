@@ -18,13 +18,18 @@ class Page extends Block {
 const context = {
     title: '404',
     description: 'Ой! Такой страницы нет на сайте :(',
-    textBtn: 'К чату?',
-    handleClick: () => {
-        console.log('404');
+    btn: {
+        text: 'К чату?',
+        clName: 'error__btn',
+        type: 'button',
+        handleClick: () => {
+            console.log('check authorisation before');
+        }
     }
 };
 const page = new Page(context);
 render(".container", page);
-const button = new Button(context);
+const btn = context.btn;
+const button = new Button(btn);
 render(".js-btn", button);
 //# sourceMappingURL=404.js.map

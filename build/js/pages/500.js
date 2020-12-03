@@ -20,13 +20,18 @@ const context = {
     title: '500',
     description: 'К сожелению, страница недоступна.',
     subDescription: 'Мы уже работаем над устранением неисправностей',
-    textBtn: 'К чату?',
-    handleClick: () => {
-        console.log('500');
+    btn: {
+        text: 'К чату?',
+        clName: 'error__btn',
+        type: 'button',
+        handleClick: () => {
+            console.log('check authorisation before');
+        }
     }
 };
 const page = new Page(context);
 render(".container", page);
-const button = new Button(context);
+const btn = context.btn;
+const button = new Button(btn);
 render(".js-btn", button);
 //# sourceMappingURL=500.js.map

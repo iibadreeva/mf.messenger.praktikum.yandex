@@ -5,7 +5,23 @@ export default class Button extends Block {
         super('div', '', props);
     }
     render() {
-        const templ = `<button onclick="{{ handleClick }}" class="error__btn">{{ textBtn }}</button>`;
+        let templ = '';
+        switch (this.props.type) {
+            case 'link':
+                templ = `<a
+                    class="log-form__btn log-form__btn_gray"
+                    href="{{ url }}"
+                 >
+                     {{ text }}
+                 </a>`;
+                break;
+            default:
+                templ = `<button
+                    class="{{ clName }}"
+                 >
+                     {{ text }}
+                 </button>`;
+        }
         const tmpl = new Templator(templ);
         return tmpl.compile(this.props);
     }
