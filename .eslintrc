@@ -15,9 +15,10 @@
     "eol-last": "off",
     "max-len": "off",
     "jsx-quotes": [
-      "off",
-      "prefer-double"
+      "off"
     ],
+    "pars": "off",
+    "Supp": "off",
     "no-undef": "off",
 //    "no-console": "error",
     "no-debugger": "error"
