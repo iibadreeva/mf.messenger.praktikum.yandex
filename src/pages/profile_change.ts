@@ -1,7 +1,8 @@
 import Block from '../core/block.js';
-import Button from "../components/button/index.js";
-import {forma, render} from "../core/utils.js";
-import Input from "../components/input/index.js";
+import Button from '../components/button/index.js';
+import Avatar from '../components/avatar/index.js';
+import {modalCheck, render, showHamburger, Templator} from '../core/utils.js';
+import Input from '../components/input/index.js';
 
 interface IInput {
   type: string,
@@ -13,7 +14,7 @@ interface IInput {
     value: string
   }
 }
-type btnType = {
+interface IBtn {
   text: string,
   clName: string,
   type: string,
@@ -21,8 +22,11 @@ type btnType = {
 }
 
 interface IContext {
-  name: string,
-  image: string,
+  avatar: {
+    name: string,
+    image: string,
+    change: boolean
+  },
   goBack: string,
   formdata: {
     email: IInput,
@@ -31,44 +35,37 @@ interface IContext {
     lastName: IInput,
     phone: IInput,
   },
-  btn: btnType
+  btn: IBtn
 }
 
 class Page extends Block {
   constructor(props: IContext) {
-    super("main", 'error', props);
+    super('main', 'error', props);
   }
 
   render() {
-    const {name, image, goBack} = this.props;
     const templ = `
         <main class="profile">
-        <a href="${goBack}"  class="profile__left">
+        <a href="{{ goBack }}"  class="profile__left">
           <div class="profile__left__arrow"><i class="fa fa-long-arrow-left"></i></div>
         </a>
-        <div class="profile__form js-btn">
-          <div class="profile__heaed">
-            <div class="profile__photo">
-                <img class="profile__image" src="${image}">
-                <div class="profile__placeholder">
-                  <div class="profile__placeholder__text">Поменять
-                    <div>аватар</div>
-                  </div>
-                </div>
-            </div>
-            <div class="profile__name">${name}</div>
-          </div>
+        <form class="profile__form js-btn">
+          <div class="js-avatar"></div>
           <div class="profile__items js-form"></div>
-        </div>
+        </form>
       </main>`;
 
-    return templ;
+    const tmpl = new Templator(templ);
+    return tmpl.compile(this.props);
   }
 }
 
 const context:IContext = {
-  name: 'Инна',
-  image: 'images/static_cat.jpg',
+  avatar: {
+    name: 'Инна',
+    image: 'images/static_cat.jpg',
+    change: true
+  },
   goBack: '/profile.html',
   formdata: {
     email: {
@@ -125,23 +122,18 @@ const context:IContext = {
   }
 };
 
-const {formdata: {email, login, firstName, lastName, phone}, btn}: any = context;
+const {formdata: {email, login, firstName, lastName, phone}, btn, avatar}: IContext = context;
 
-
-const page = new Page(context);
-render(".container", page);
-
+// Выстраиваем разметку
+render('.container', new Page(context));
 render('.js-form', new Input(email, 'profile__item'));
 render('.js-form', new Input(login, 'profile__item'));
 render('.js-form', new Input(firstName, 'profile__item'));
 render('.js-form', new Input(lastName, 'profile__item'));
 render('.js-form', new Input(phone, 'profile__item'));
+render('.js-btn', new Button(btn));
+render('.js-avatar', new Avatar(avatar));
 
-const button = new Button(btn);
-render(".js-btn", button);
+modalCheck();
 
-const form = <HTMLDivElement>document.getElementsByClassName('profile__form')[0];
-
-if (form) {
-  forma.listeners(form, true);
-}
+showHamburger();

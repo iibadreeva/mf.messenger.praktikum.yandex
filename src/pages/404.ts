@@ -8,22 +8,22 @@ declare global {
   interface Window { Handlebars: object; }
 }*/
 
-interface IContext {
-  title: string,
-  description: string,
-  btn: object
-}
-type btnType = {
+interface IBtn {
   text: string,
-  className: string,
+  clName: string,
   type: string,
   handleClick?: Function,
   url?: string
 }
 
+interface IContext {
+  title: string,
+  description: string,
+  btn: IBtn
+}
+
 class Page extends Block {
   constructor(props: IContext) {
-    // Создаём враппер дом-элемент button
     super("main", 'error', props);
   }
 
@@ -57,19 +57,5 @@ const context:IContext = {
   }
 };
 
-const page = new Page(context);
-render(".container", page);
-
-const btn = context.btn as btnType;
-const button = new Button(btn);
-render(".js-btn", button);
-
-
-
-
-
-
-
-
-
-
+render(".container", new Page(context));
+render(".js-btn", new Button(context.btn as IBtn));

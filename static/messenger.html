@@ -12,97 +12,12 @@
   </head>
   <body>
     <div class="overview"></div>
-    <div class="container">
-      <div class="messenger">
-        <main class="messenger__left">
-          <header class="messenger__header">
-            <div class="messenger__header__photo"><img class="messenger__header__image" src=""></div>
-            <div class="messenger__header__hamburger js-hamburger-profile"><i class="fa fa-bars"></i></div>
-          </header>
-          <div class="messenger__search">
-            <input class="messenger__search__input" placeholder="Поиск">
-          </div>
-          <ul class="messenger__items">
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">10:49</span><span class="messenger__item__number">1</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Киноклуб</div>
-                <div class="messenger__item__text"><span>Вы:</span>стикер</div><span class="messenger__item__info">10:49</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src="images/static_cat.jpg"></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Друзья, у меня для вас особенный выпуск новостей!...</div><span class="messenger__item__info">Пт</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src="images/static_cat.jpg"></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Друзья, у меня для вас особенный выпуск</div><span class="messenger__item__info">Ср</span><span class="messenger__item__number">2</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">Ср</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">Ср</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">Ср</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">Ср</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">Ср</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-            <li class="messenger__item">
-              <div class="messenger__item__photo"><img class="messenger__item__image" src=""></div>
-              <div class="messenger__item__body">
-                <div class="messenger__item__title">Андрей</div>
-                <div class="messenger__item__text">Изображение</div><span class="messenger__item__info">Ср</span><span class="messenger__item__arrow js-hamburger-arrow"><i class="fa fa-caret-down"></i></span>
-              </div>
-            </li>
-          </ul>
-        </main>
-        <aside class="messenger__right">
-          <header class="messenger__header messenger__header_right"></header>
-          <div class="messenger__content messenger__content_center">
-            <p class="messenger__text">Пожалуйста, выберите чат, чтобы начать обмен сообщениями</p>
-          </div>
-        </aside>
-      </div>
-    </div>
+    <div class="container"></div>
   </body>
-  <script src="js/foundation.js"></script>
+  <script type="module" src="js/core/event-bus.js" defer></script>
+  <script type="module" src="js/core/block.js"defer></script>
+  <script type="module" src="js/core/utils.js" defer></script>
+  <script type="module" src="js/components/messenger/dialog.js" defer></script>
+  <script type="module" src="js/components/messenger/header-photo.js" defer></script>
+  <script type="module" src="js/pages/messenger.js"defer></script>
 </html>

@@ -3,11 +3,14 @@ interface Event {
 }
 type EventHandler<T extends Event> = (event: T) => void;
 
+type ObjectType = {
+  [event: string]: any;
+}
 
 export default class EventBus {
-  constructor(private listeners: any = []) {}
+  constructor(private listeners: ObjectType = []) {}
 
-  on<T extends Event>(event: string, callback: EventHandler<T>) {
+  on<T extends Event>(event: string, callback: EventHandler<T>): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -25,12 +28,12 @@ export default class EventBus {
     );
   }
 
-  emit(event: string, ...args: any) {
+  emit(event: string, ...args: string[]): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event].forEach(function(listener: any) {
+    this.listeners[event].forEach(function(listener: Function) {
       listener(...args);
     });
   }

@@ -1,7 +1,8 @@
 import Block from '../core/block.js';
-import Button from "../components/button/index.js";
-import {forma, render} from "../core/utils.js";
-import Input from "../components/input/index.js";
+import Button from '../components/button/index.js';
+import Avatar from '../components/avatar/index.js';
+import {modalCheck, render, Templator} from '../core/utils.js';
+import Input from '../components/input/index.js';
 
 interface IInput {
   type: string,
@@ -13,7 +14,7 @@ interface IInput {
     value: string
   }
 }
-type btnType = {
+interface IBtn {
   text: string,
   clName: string,
   type: string,
@@ -21,47 +22,46 @@ type btnType = {
 }
 
 interface IContext {
-  name: string,
-  image: string,
+  avatar: {
+    name: string,
+    image: string
+  },
   goBack: string,
   formdata: {
     oldPassword: IInput,
     password: IInput,
     passwordAgain: IInput,
   },
-  btn: btnType
+  btn: IBtn
 }
 
 class Page extends Block {
   constructor(props: IContext) {
-    super("main", 'error', props);
+    super('main', 'error', props);
   }
 
   render() {
-    const {name, image, goBack} = this.props;
     const templ = `
         <main class="profile">
-        <a href="${goBack}"  class="profile__left">
+        <a href="{{ goBack }}"  class="profile__left">
           <div class="profile__left__arrow"><i class="fa fa-long-arrow-left"></i></div>
         </a>
-        <div class="profile__form js-btn">
-          <div class="profile__heaed">
-            <div class="profile__photo">
-                <img class="profile__image" src="${image}">
-            </div>
-            <div class="profile__name">${name}</div>
-          </div>
+        <form class="profile__form js-btn">
+          <div class="js-avatar"></div>
           <div class="profile__items js-form"></div>
-        </div>
+        </form>
       </main>`;
 
-    return templ;
+    const tmpl = new Templator(templ);
+    return tmpl.compile(this.props);
   }
 }
 
 const context:IContext = {
-  name: 'Инна',
-  image: '',
+  avatar: {
+    name: 'Инна',
+    image: 'images/static_cat.jpg'
+  },
   goBack: '/profile.html',
   formdata: {
     oldPassword: {
@@ -102,21 +102,16 @@ const context:IContext = {
   }
 };
 
-const {formdata: {oldPassword, password, passwordAgain}, btn}: any = context;
 
+const {formdata: {oldPassword, password, passwordAgain}, btn, avatar}: IContext = context;
 
-const page = new Page(context);
-render(".container", page);
-
+// Выстраиваем разметку
+render('.container', new Page(context));
 render('.js-form', new Input(oldPassword, 'profile__item'));
 render('.js-form', new Input(password, 'profile__item'));
 render('.js-form', new Input(passwordAgain, 'profile__item'));
+render('.js-btn', new Button(btn));
 
-const button = new Button(btn);
-render(".js-btn", button);
+render('.js-avatar', new Avatar(avatar));
 
-const form = <HTMLDivElement>document.getElementsByClassName('profile__form')[0];
-
-if (form) {
-  forma.listeners(form, true);
-}
+modalCheck();

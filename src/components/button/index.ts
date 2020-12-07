@@ -2,10 +2,10 @@ import Block from '../../core/block.js';
 import {Templator} from '../../core/utils.js';
 
 interface IContext {
-  text: string
-  className: string
-  type: string
-  handleClick?: Function
+  text: string,
+  clName: string,
+  type: string,
+  handleClick?: Function,
   url?: string
 }
 
@@ -24,11 +24,12 @@ export default class Button extends Block {
                     href="{{ url }}"
                  >
                      {{ text }}
-                 </a>`
+                 </a>`;
         break;
       default:
         templ = `<button
                     class="{{ clName }}"
+                    ${this.props.handleClick ? 'onClick="{{ handleClick }}"' : ''}
                  >
                      {{ text }}
                  </button>`;

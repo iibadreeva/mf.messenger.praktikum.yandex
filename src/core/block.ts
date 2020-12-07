@@ -1,8 +1,8 @@
 import EventBus from './event-bus.js';
 
 interface IMeta {
-  tagName: string
-  className?: string
+  tagName: string,
+  className?: string,
   props?: object
 }
 
@@ -68,7 +68,7 @@ export default class Block {
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  _componentDidMount() {
+  _componentDidMount(): void {
     this.componentDidMount();
     const eventBus:any = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
@@ -77,7 +77,7 @@ export default class Block {
   // Может переопределять пользователь, необязательно трогать
   componentDidMount(): void {}
 
-  _componentDidUpdate(oldProps:MouseEvent, newProps:MouseEvent):void {
+  _componentDidUpdate(oldProps:MouseEvent, newProps:MouseEvent): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {}
   }
@@ -97,7 +97,6 @@ export default class Block {
 
     const eventBus: any = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    // this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   };
 
   get element() {
@@ -116,7 +115,7 @@ export default class Block {
   // Может переопределять пользователь, необязательно трогать
   render() {}
 
-  getContent() {
+  getContent(): HTMLElement {
     return <HTMLElement>this.element;
   }
 
@@ -151,7 +150,7 @@ export default class Block {
     return proxyProps;
   }
 
-  _createDocumentElement(tagName: string) {
+  _createDocumentElement(tagName: string): HTMLElement {
     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return <HTMLElement>document.createElement(tagName);
   }

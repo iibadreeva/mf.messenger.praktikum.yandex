@@ -2,16 +2,19 @@ import Block from '../../core/block.js';
 import {Templator} from '../../core/utils.js';
 
 interface IInput {
-  type: string
+  type: string,
   config: {
-    type: string
-    placeholder: string
-    disabled: string
+    type: string,
+    placeholder: string,
+    value: string,
+    disabled?: string,
+    dataType?: string,
+    dataSize?: string,
   }
 }
 
 export default class Input extends Block {
-  constructor(props:IInput, className: string) {
+  constructor(props: IInput, className: string) {
     super('div', className, props);
   }
 
@@ -35,7 +38,7 @@ export default class Input extends Block {
                   autocorrect="off"
              />
              <span class="log-form__error"></span>
-            `
+            `;
         break;
       case 'profile':
         templ = `
@@ -52,10 +55,18 @@ export default class Input extends Block {
                   autocapitalize="off"
                   autocorrect="off"
              />
-            `
+            `;
+        break;
+      case 'search':
+        templ = `<input
+                    type="{{ config.type }}"
+                    class="messenger__search__input"
+                    placeholder="{{ config.placeholder }}"
+                    value="{{ config.value }}"
+                 />`;
         break;
       default:
-        templ = ``;
+        templ = '';
     }
 
     const tmpl = new Templator(templ);

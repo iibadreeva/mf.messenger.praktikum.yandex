@@ -2,23 +2,22 @@ import Block from '../core/block.js';
 import Button from "../components/button/index.js";
 import {Templator, render} from "../core/utils.js";
 
-interface IContext {
-  title: string
-  description: string
-  subDescription: string
-  btn: object
-}
-type btnType = {
+interface IBtn {
   text: string,
-  className: string,
+  clName: string,
   type: string,
-  handleClick?: Function,
-  url?: string
+  handleClick: Function
+}
+
+interface IContext {
+  title: string,
+  description: string,
+  subDescription: string,
+  btn: IBtn
 }
 
 class Page extends Block {
   constructor(props: IContext) {
-    // Создаём враппер дом-элемент button
     super("main", 'error', props);
   }
 
@@ -49,12 +48,8 @@ const context:IContext = {
   }
 };
 
-const page = new Page(context);
-render(".container", page);
-
-const btn = context.btn as btnType
-const button = new Button(btn);
-render(".js-btn", button);
+render(".container", new Page(context));
+render(".js-btn", new Button(context.btn as IBtn));
 
 
 
