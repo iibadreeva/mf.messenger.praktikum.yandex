@@ -1,6 +1,7 @@
 import EventBus from './event-bus.js';
 export default class Block {
     constructor(tagName = "div", className = '', props = {}) {
+        this.props = {};
         this._element = null;
         this._meta = null;
         this.setProps = (nextProps) => {
@@ -27,7 +28,6 @@ export default class Block {
         this._registerEvents(eventBus);
         eventBus.emit(Block.EVENTS.INIT);
     }
-    eventBus() { }
     _registerEvents(eventBus) {
         eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));

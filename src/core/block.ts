@@ -6,10 +6,9 @@ interface IMeta {
   props?: object
 }
 
-export default class Block {
-  public props: any;
-  public eventBus() {}
-  // type tagName: string;
+export default abstract class Block {
+  public props: Record<string, any> = {};
+  private eventBus: () => EventBus;
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -50,7 +49,6 @@ export default class Block {
   _registerEvents(eventBus:EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    // eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));//--
   }
 
@@ -64,13 +62,13 @@ export default class Block {
 
   init(): void {
     this._createResources();
-    const eventBus:any = this.eventBus();
+    const eventBus = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
   _componentDidMount(): void {
     this.componentDidMount();
-    const eventBus:any = this.eventBus();
+    const eventBus = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -95,7 +93,7 @@ export default class Block {
 
     Object.assign(this.props, nextProps);
 
-    const eventBus: any = this.eventBus();
+    const eventBus = this.eventBus();
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
   };
 

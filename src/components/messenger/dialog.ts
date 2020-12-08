@@ -5,10 +5,10 @@ interface IDialog {
   avatar: string,
   date: string,
   count?: number,
-  active?: true,
+  isActive?: boolean,
   message: {
     text: string,
-    my?: boolean
+    isMy?: boolean
   }
 }
 interface IContext {
@@ -26,13 +26,13 @@ export default class Dialog extends Block {
     const templ = `
         ${Object.keys(dialogs).map(function(key: string) {
     const dialog = dialogs[key];
-    return `<li class="messenger__item ${dialog.active ? 'messenger__item_active' : ''}">
+    return `<li class="messenger__item ${dialog.isActive ? 'messenger__item_active' : ''}">
                     <div class="messenger__item__photo">
                     <img class="messenger__item__image" src="${dialog.avatar}"></div>
                     <div class="messenger__item__body">
                       <div class="messenger__item__title">${dialog.title}</div>
                       <div class="messenger__item__text">
-                         ${dialog.message.my ? '<span>Вы:</span>' : ''}
+                         ${dialog.message.isMy ? '<span>Вы:</span>' : ''}
                         Изображение
                       </div>
                       <span class="messenger__item__info">${dialog.date}</span>
