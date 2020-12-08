@@ -1,5 +1,5 @@
 import Block from '../../core/block.js';
-import {Templator} from '../../core/utils.js';
+import Templator from '../../core/utils/templator.js'
 
 interface IInput {
   type: string,
@@ -19,7 +19,7 @@ export default class Input extends Block {
   }
 
   render() {
-    let templ:string = '';
+    let templ = '';
 
     switch (this.props.type) {
       case 'lightForm':

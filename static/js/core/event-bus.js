@@ -1,5 +1,5 @@
 export default class EventBus {
-    constructor(listeners = []) {
+    constructor(listeners = {}) {
         this.listeners = listeners;
     }
     on(event, callback) {

@@ -1,14 +1,10 @@
 interface Event {
-  listeners: [];
+  listeners: {};
 }
 type EventHandler<T extends Event> = (event: T) => void;
 
-type ObjectType = {
-  [event: string]: any;
-}
-
 export default class EventBus {
-  constructor(private listeners: ObjectType = []) {}
+  constructor(private listeners: Record<string, Function[]> = {}) {}
 
   on<T extends Event>(event: string, callback: EventHandler<T>): void {
     if (!this.listeners[event]) {

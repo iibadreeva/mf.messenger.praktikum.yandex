@@ -1,5 +1,5 @@
 import Block from '../../core/block.js';
-import {Templator} from '../../core/utils.js';
+import Templator from '../../core/utils/templator.js'
 
 interface IContext {
   image: string
