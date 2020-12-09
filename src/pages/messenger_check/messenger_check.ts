@@ -9,7 +9,7 @@ import Templator from '../../core/utils/templator.js';
 import showHamburger from '../../core/utils/show_hamburger.js';
 import {IContext, context} from './data.js';
 
-class Page extends Block {
+class Page extends Block<IContext> {
   constructor(props: IContext) {
     super('div', 'messenger', props);
   }

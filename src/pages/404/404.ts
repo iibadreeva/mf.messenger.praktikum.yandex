@@ -4,7 +4,7 @@ import render from '../../core/utils/render.js';
 import Templator from '../../core/utils/templator.js';
 import {IBtn, IContext, context} from './data.js';
 
-class Page extends Block {
+class Page extends Block<IContext> {
   constructor(props: IContext) {
     super("main", 'error', props);
   }
@@ -16,7 +16,7 @@ class Page extends Block {
           <p class="error__text">{{ description }}</p>
         </div>`;
 
-    const tmpl:any = new Templator(templ);
+    const tmpl = new Templator(templ);
     return tmpl.compile(this.props);
   }
 }

@@ -7,7 +7,7 @@ import Templator from '../../core/utils/templator.js';
 import showHamburger from '../../core/utils/show_hamburger.js';
 import {IContext, context} from './data.js';
 
-class Page extends Block {
+class Page extends Block<IContext> {
   constructor(props: IContext) {
     super('div', 'messenger', props);
   }
@@ -23,7 +23,7 @@ class Page extends Block {
           </aside>
         `;
 
-    const tmpl:any = new Templator(templ);
+    const tmpl = new Templator(templ);
     return tmpl.compile(this.props);
   }
 }

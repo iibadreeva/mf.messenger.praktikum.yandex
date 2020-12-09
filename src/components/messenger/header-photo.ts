@@ -5,7 +5,7 @@ interface IContext {
   image: string
 }
 
-export default class HeaderPhoto extends Block {
+export default class HeaderPhoto extends Block<IContext> {
   constructor(props:IContext, className: string) {
     super('header', className, props);
   }

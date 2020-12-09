@@ -15,7 +15,7 @@ interface IContext {
   dialogs: IDialog[]
 }
 
-export default class Dialog extends Block {
+export default class Dialog extends Block<IContext> {
   constructor(props:IContext, className: string) {
     super('ul', className, props);
   }

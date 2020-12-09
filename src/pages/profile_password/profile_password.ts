@@ -7,7 +7,7 @@ import checkProfile from '../../core/utils/check_profile.js';
 import Input from '../../components/input/index.js';
 import {IContext, context} from './data.js';
 
-class Page extends Block {
+class Page extends Block<IContext> {
   constructor(props: IContext) {
     super('main', 'error', props);
   }

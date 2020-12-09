@@ -3,11 +3,11 @@ import EventBus from './event-bus.js';
 interface IMeta {
   tagName: string,
   className?: string,
-  props?: object
+  props: Record<string, any>
 }
 
-export default abstract class Block {
-  public props: Record<string, any> = {};
+export default abstract class Block<Props extends Object> {
+  public props: Record<string, any> | Props = {};
   private eventBus: () => EventBus;
   static EVENTS = {
     INIT: "init",

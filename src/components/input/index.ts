@@ -13,7 +13,7 @@ interface IInput {
   }
 }
 
-export default class Input extends Block {
+export default class Input extends Block<IInput> {
   constructor(props: IInput, className: string) {
     super('div', className, props);
   }

@@ -11,7 +11,7 @@ interface INav {
   title: string
 }
 
-export default class Hamburger extends Block {
+export default class Hamburger extends Block<INav> {
   constructor(props: INav[], className: string) {
     super('nav', className, props);
   }

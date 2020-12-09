@@ -7,7 +7,7 @@ import {overviewShow} from '../../core/utils/overview.js';
 import {forma} from '../../core/utils/form.js';
 import {IContext, context} from './data.js'
 
-class Page extends Block {
+class Page extends Block<IContext> {
   constructor(props: IContext) {
     super('main', 'container', props);
   }
@@ -21,7 +21,7 @@ class Page extends Block {
           <div class="log-form__group-btn js-btn"></div>
         </form>`;
 
-    const tmpl:any = new Templator(templ);
+    const tmpl = new Templator(templ);
     return tmpl.compile(this.props);
   }
 }

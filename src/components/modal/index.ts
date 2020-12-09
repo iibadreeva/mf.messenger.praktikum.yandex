@@ -19,7 +19,7 @@ interface IModal {
   }
 }
 
-export default class Modal extends Block {
+export default class Modal extends Block<IModal> {
   constructor(props: IModal) {
     super('div', '', props);
   }

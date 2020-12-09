@@ -7,7 +7,7 @@ interface IContext {
   change?: boolean
 }
 
-export default class Avatar extends Block {
+export default class Avatar extends Block<IContext> {
   constructor(props:IContext) {
     super('div', '', props);
   }

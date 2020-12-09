@@ -9,7 +9,7 @@ interface IContext {
   url?: string
 }
 
-export default class Button extends Block {
+export default class Button extends Block<IContext> {
   constructor(props:IContext) {
     super('div', '', props);
   }

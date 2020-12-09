@@ -16,7 +16,7 @@ interface IContext {
   currentChat: IChat[]
 }
 
-export default class Chat extends Block {
+export default class Chat extends Block<IContext> {
   constructor(props:IContext, className: string) {
     super('div', className, props);
   }
