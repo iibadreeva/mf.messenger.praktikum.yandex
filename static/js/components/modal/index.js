@@ -24,15 +24,18 @@ export default class Modal extends Block {
             ''}
             
           </div>
-          <footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
+          ${footer ?
+            `<footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
             ${Object.keys(footer.btnGroup).map((key) => {
-            const button = footer.btnGroup[key];
-            return `<button
+                console.log(key);
+                const button = footer.btnGroup[key];
+                return `<button
                           class="modal__btn ${button.clName}"
                       >
                           ${button.title}
                       </button>`;
-        }).join('')}          
+            }).join('')}` :
+            ''}
           </footer>
           </div>
         </div>`;

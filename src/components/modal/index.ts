@@ -16,7 +16,7 @@ interface IModal {
   footer?: {
     footerCenter: boolean,
     btnGroup: IBtnG[]
-  }
+  } | undefined
 }
 
 export default class Modal extends Block<IModal> {
@@ -28,7 +28,13 @@ export default class Modal extends Block<IModal> {
     if (Object.keys(this.props).length < 1) {
       return '';
     }
-    const {title, type, titleCenter, formData, footer} = this.props;
+    const {
+      title,
+      type,
+      titleCenter,
+      formData,
+      footer
+    } : IModal= this.props;
 
     let templ = `
         <div class="modal">
@@ -47,15 +53,18 @@ export default class Modal extends Block<IModal> {
             }
             
           </div>
-          <footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
-            ${Object.keys(footer.btnGroup).map((key: string) => {
+          ${footer ?
+          `<footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
+            ${Object.keys(footer.btnGroup).map((key: any) => {
+              console.log(key)
               const button = footer.btnGroup[key];
               return `<button
                           class="modal__btn ${button.clName}"
                       >
                           ${button.title}
                       </button>`
-            }).join('')}          
+            }).join('')}` :
+            ''}
           </footer>
           </div>
         </div>`;
