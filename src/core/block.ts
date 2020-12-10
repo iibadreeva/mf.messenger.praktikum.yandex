@@ -3,11 +3,11 @@ import EventBus from './event-bus.js';
 interface IMeta {
   tagName: string,
   className?: string,
-  props: Record<string, any>
+  props: Record<string, Object>
 }
 
 export default abstract class Block<Props extends Object> {
-  public props: Record<string, any> | Props = {};
+  public props: Record<string, Props> = {};
   private eventBus: () => EventBus;
   static EVENTS = {
     INIT: "init",
@@ -25,7 +25,7 @@ export default abstract class Block<Props extends Object> {
    *
    * @returns {void}
    */
-  constructor(tagName = "div", className='', props = {}) {
+  constructor(tagName: string = "div", className:string = '', props = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -117,7 +117,7 @@ export default abstract class Block<Props extends Object> {
     return <HTMLElement>this.element;
   }
 
-  _makePropsProxy(props: object): object {
+  _makePropsProxy(props: object) {
     const proxyProps = new Proxy(props, {
       get(target: any, prop: string) {
         if(prop.indexOf('_') === 0) {
@@ -129,7 +129,7 @@ export default abstract class Block<Props extends Object> {
       },
       set(target: any, prop: string, val:string) {
         if(prop.indexOf('_') === 0) {
-          throw new Error('Нет прав')
+          throw new Error('Нет прав');
         }
 
         target[prop] = val;
@@ -137,7 +137,7 @@ export default abstract class Block<Props extends Object> {
       },
       deleteProperty(target:any, prop: string) {
         if(prop.indexOf('_') === 0) {
-          throw new Error('Нет прав')
+          throw new Error('Нет прав');
         }
 
         delete target[prop];
