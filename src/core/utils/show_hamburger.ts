@@ -2,18 +2,7 @@ import Modal from "../../components/modal/index.js";
 import render from "./render.js";
 import remove from "./remove.js";
 import {overviewHide, overviewShow} from "./overview.js";
-import Hamburger from "../../components/hamburger/index.js";
-
-enum NavType {
-  Location = 'location',
-  File = 'file',
-  Media = 'photo-video',
-  Avatar = 'avatar',
-  RemoveChat = 'remove-chat',
-  RemoveUser = 'remove-user',
-  AddUser = 'add-user',
-  Profile = 'Профиль'
-}
+import Hamburger, {NavType} from "../../components/hamburger/index.js";
 
 interface INav {
   nav: HTMLElement,

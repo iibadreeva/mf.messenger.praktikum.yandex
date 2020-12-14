@@ -1,6 +1,6 @@
 import Block from '../../core/block.js';
 
-enum NavType {
+export enum NavType {
   Location = 'location',
   File = 'file',
   Media = 'photo-video',
