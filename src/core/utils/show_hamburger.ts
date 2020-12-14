@@ -4,6 +4,17 @@ import remove from "./remove.js";
 import {overviewHide, overviewShow} from "./overview.js";
 import Hamburger from "../../components/hamburger/index.js";
 
+enum NavType {
+  Location = 'location',
+  File = 'file',
+  Media = 'photo-video',
+  Avatar = 'avatar',
+  RemoveChat = 'remove-chat',
+  RemoveUser = 'remove-user',
+  AddUser = 'add-user',
+  Profile = 'Профиль'
+}
+
 interface INav {
   nav: HTMLElement,
   navWidth: number,
@@ -71,7 +82,6 @@ export default function showHamburger() {
     }
   });
 }
-
 function createNav(type: string): INav {
   let
     nav,
@@ -82,15 +92,15 @@ function createNav(type: string): INav {
     case 'profile':
       show_hamburger = new Hamburger([
         {
-          type: 'add-user',
+          type: NavType.AddUser,
           title: 'Добавить пользователя'
         },
         {
-          type: 'remove-user',
+          type: NavType.RemoveUser,
           title: 'Удалить пользователя'
         },
         {
-          title: 'Профиль'
+          title: NavType.Profile
         }
       ], 'nav-list');
       render('body', show_hamburger);
@@ -100,7 +110,7 @@ function createNav(type: string): INav {
     case 'chat':
       show_hamburger = new Hamburger([
         {
-          type: 'remove-chat',
+          type: NavType.RemoveChat,
           title: 'Удалить чат'
         }
       ], 'nav-list');
@@ -111,15 +121,15 @@ function createNav(type: string): INav {
     case 'files':
       show_hamburger = new Hamburger([
         {
-          type: 'photo-video',
+          type: NavType.Media,
           title: 'Фото или Видео'
         },
         {
-          type: 'file',
+          type: NavType.File,
           title: 'Файл'
         },
         {
-          type: 'location',
+          type: NavType.Location,
           title: 'Локация'
         }
       ], 'nav-list');
@@ -130,7 +140,7 @@ function createNav(type: string): INav {
     case 'avatar':
       show_hamburger = new Hamburger([
         {
-          type: 'avatar',
+          type: NavType.Avatar,
           title: 'Загрузить фото'
         }
       ], 'nav-list');

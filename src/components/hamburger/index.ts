@@ -3,12 +3,17 @@ import Block from '../../core/block.js';
 enum NavType {
   Location = 'location',
   File = 'file',
-  Media = 'photo-video'
+  Media = 'photo-video',
+  Avatar = 'avatar',
+  RemoveChat = 'remove-chat',
+  RemoveUser = 'remove-user',
+  AddUser = 'add-user',
+  Profile = 'Профиль'
 }
 
 interface INav {
-  type?: string,
-  title: string
+  type?: NavType;
+  title: string;
 }
 
 export default class Hamburger extends Block<INav> {
