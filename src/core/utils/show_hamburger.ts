@@ -11,7 +11,7 @@ interface INav {
 }
 
 let show_hamburger:any = undefined;
-export default function showHamburger() {
+export default function showHamburger(): void {
   // создаем модальное окно
   const modal = new Modal({});
   render('.container', modal);
