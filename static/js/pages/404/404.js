@@ -2,6 +2,7 @@ import Block from "../../core/block.js";
 import Button from "../../components/button/index.js";
 import { context } from "./data.js";
 import router from "../../router.js";
+import { CheckUserAPI } from "../../modules/http/user-api.js";
 export class Page404 extends Block {
     constructor() {
         super("main", 'error', {
@@ -11,13 +12,24 @@ export class Page404 extends Block {
         });
     }
     goHome() {
-        router.go('/');
+        new CheckUserAPI().request()
+            .then(res => res.ok)
+            .then((isAuth) => {
+            if (isAuth) {
+                router.go('/');
+            }
+            else {
+                router.go('/login');
+            }
+        });
     }
     componentDidMount() {
         this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
             const link = this.element.querySelector('.error__btn');
             if (link) {
-                link.onclick = this.goHome.bind(this);
+                link.addEventListener('click', () => {
+                    this.goHome();
+                });
             }
         });
     }

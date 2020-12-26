@@ -50,17 +50,16 @@ export default class HTTP {
       xhr.onload = function() {
         resolve(parseXHRResult(xhr));
       };
-
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
-
       xhr.timeout = timeout;
+      xhr.ontimeout = reject;
 
       if (method === METHOD.GET) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data);
       }
     });
   };

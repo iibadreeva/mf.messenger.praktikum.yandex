@@ -1,4 +1,4 @@
-import HTTP from "../core/modules/http";
+import HTTP from "../modules/http";
 // import {BaseAPI} from "../core/modules/base-api";
 
 // export interface UserI {

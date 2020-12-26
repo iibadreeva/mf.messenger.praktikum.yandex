@@ -1,8 +1,13 @@
 import router from "./router.js";
-import { CheckUserAPI } from "./pages/profile/user_api.js";
+import { CheckUserAPI } from "./modules/http/user-api.js";
 import { Page404 } from "./pages/404/404.js";
 import { Page500 } from "./pages/500/500.js";
+import { Login } from "./pages/login/login.js";
+import { Registration } from "./pages/registration/registration.js";
+import { Chat } from "./pages/messenger/messenger.js";
 router
+    .useProtect('/profile', Chat)
+    .useProtect('/', Chat)
     .use('/404', Page404)
     .use('/500', Page500);
 const authListener = function () {
@@ -10,14 +15,14 @@ const authListener = function () {
         .then(res => res.ok)
         .then((isAuth) => {
         if (isAuth) {
-            router.use('/', Page500);
-            router.use('/profile', Page500);
+            router.isProtect = false;
+            router.start();
         }
         else {
-            router.use('/login', Page404);
-            router.use('/registration', Page404);
+            router.useDefault('/login', Login);
+            router.use('/registration', Registration);
+            router.start();
         }
-        router.start();
     });
 };
 authListener();

@@ -11,33 +11,35 @@ interface INav {
 }
 
 let show_hamburger:any = undefined;
-export default function showHamburger(): void {
+export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLike<unknown> | undefined): void {
   // создаем модальное окно
   const modal = new Modal({});
   render('.container', modal);
 
-  const hamburgerBtn = document.querySelectorAll('.js-hamburger') || [];
+  // const hamburgerBtn = document.querySelectorAll('.js-hamburger') || [];
 
   // Показываем меню по клику
-  Array.from(hamburgerBtn).forEach(item => {
-    const element: HTMLElement = <HTMLElement> item;
+  if (hamburgerBtn) {
+    Array.from(hamburgerBtn).forEach(item => {
+      const element: HTMLElement = <HTMLElement> item;
 
-    element.addEventListener('click', (event: MouseEvent) => {
-      const type = element.dataset.type || '';
+      element.addEventListener('click', (event: MouseEvent) => {
+        const type = element.dataset.type || '';
 
-      if (show_hamburger) {
-        remove('body', show_hamburger);
-      }
+        if (show_hamburger) {
+          remove('body', show_hamburger);
+        }
 
-      const {nav, navWidth, navHeight}: INav = createNav(type);
+        const {nav, navWidth, navHeight}: INav = createNav(type);
 
-      const x = event.pageX;
-      const y = event.pageY;
+        const x = event.pageX;
+        const y = event.pageY;
 
-      nav.style.left = `${x - navWidth + 10}px`;
-      nav.style.top = `${y - navHeight}px`;
-    })
-  });
+        nav.style.left = `${x - navWidth + 10}px`;
+        nav.style.top = `${y - navHeight}px`;
+      })
+    });
+  }
 
   const body = document.body;
   body.addEventListener('click', (e: MouseEvent) => {

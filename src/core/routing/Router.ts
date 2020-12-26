@@ -1,4 +1,5 @@
 import { Route} from './Route';
+import {overviewHide} from "../utils/overview";
 
 export default class Router {
   routes: any;
@@ -6,8 +7,9 @@ export default class Router {
   _rootQuery: string = '';
   static __instance: any;
   private history: History = window.history
-  // private _defaultPath: string = '';
-  // public isProtect: boolean = true;
+  private _defaultPath: string = '';
+  public isProtect: boolean = true;
+  public isStart: boolean = false;
 
   constructor(rootQuery?: string) {
     if (Router.__instance) {
@@ -20,8 +22,9 @@ export default class Router {
     if (rootQuery) {
       this._rootQuery = rootQuery;
     }
-    // this._defaultPath;
-    // this.isProtect = true;
+    this._defaultPath;
+    this.isProtect = true;
+    this.isStart = false;
 
     Router.__instance = this;
 
@@ -37,26 +40,28 @@ export default class Router {
   use(pathname: string, block: Function): this {
     const route = new Route(pathname, block, {rootQuery: this._rootQuery});
     this.routes.push(route);
+    // this.isStart = false;
     return this;
   }
 
-  // useDefault(pathname: string, block: Function): this {
-  //   const route = new Route(pathname, block, {
-  //     rootQuery: this._rootQuery,
-  //   });
-  //   // this._defaultPath = pathname;
-  //   this.routes.push(route);
-  //   return this;
-  // }
-  //
-  // useProtect(pathname: string, block: Function): this {
-  //   const route = new Route(pathname, block, {
-  //     rootQuery: this._rootQuery,
-  //     protect: true,
-  //   });
-  //   this.routes.push(route);
-  //   return this;
-  // }
+  useDefault(pathname: string, block: Function): this {
+    const route = new Route(pathname, block, {
+      rootQuery: this._rootQuery
+    });
+    this._defaultPath = pathname;
+    this.isStart = true;
+    this.routes.push(route);
+    return this;
+  }
+
+  useProtect(pathname: string, block: Function): this {
+    const route = new Route(pathname, block, {
+      rootQuery: this._rootQuery,
+      protect: true,
+    });
+    this.routes.push(route);
+    return this;
+  }
 
   start(): void {
     window.onpopstate = ((event: PopStateEvent): void => {
@@ -67,18 +72,23 @@ export default class Router {
   }
 
   _onRoute(pathname: string): void {
+    overviewHide();
     const route = this.getRoute(pathname);
 
     if (!route) {
       this.go('/404');
       return;
     }
-    // console.log(route._props.protect , this.isProtect)
-    // if (route._props.protect && this.isProtect) {
-    // if (route._props.protect && this.isProtect) {
-    //   this.go(this._defaultPath);
-    //   return;
-    // }
+
+    if (pathname === '/' && pathname !== this._defaultPath) {
+      this.go(this._defaultPath);
+      return;
+    }
+
+    if (route._props.protect && this.isProtect) {
+      this.go(this._defaultPath);
+      return;
+    }
 
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();

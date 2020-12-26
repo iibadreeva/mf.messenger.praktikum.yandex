@@ -20,9 +20,7 @@ export default class Button extends Block<IContext> {
 
   render() {
     let templ:string = '';
-    // const {type} = this.props
     const {type} = this.props as unknown as IContext
-    // const {type} = this.props as unknown as propsObject
 
     switch (type) {
       case ButtonType.Link:

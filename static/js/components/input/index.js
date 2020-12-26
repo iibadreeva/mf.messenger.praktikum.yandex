@@ -7,8 +7,8 @@ export var InputType;
     InputType["Search"] = "search";
 })(InputType || (InputType = {}));
 export default class Input extends Block {
-    constructor(props, className) {
-        super('div', className, props);
+    constructor(props) {
+        super('div', '', props);
     }
     render() {
         let templ = '';

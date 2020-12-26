@@ -54,17 +54,15 @@ export const forma = (function () {
             }
         },
         send: function (inputs, modal) {
-            const data = [];
+            const data = {};
             matchList = [];
             Array.from(inputs).forEach((input) => {
                 this.validate(input, false);
-                const dataItem = {};
-                dataItem[input.dataset.type] = input.value;
-                data.push(dataItem);
+                data[input.dataset.type] = input.value;
             });
             const isValid = matchList.find(item => item === 0);
             if (isValid !== 0) {
-                console.log('Данные: ', data);
+                return data;
             }
             else if (modal) {
                 const overview = document.querySelector('.overview');
@@ -74,7 +72,7 @@ export const forma = (function () {
                 modal.show();
             }
         },
-        listeners: function (form, modal) {
+        listeners: function (form) {
             form.addEventListener("blur", (event) => {
                 const element = event.target;
                 if (element.tagName === 'INPUT') {
@@ -87,11 +85,6 @@ export const forma = (function () {
                     this.validate(element, true);
                 }
             }, true);
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const inputs = form.querySelectorAll('input');
-                this.send(inputs, modal);
-            });
         }
     };
 })();

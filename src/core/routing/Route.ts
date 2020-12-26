@@ -1,14 +1,10 @@
 import { isEqual } from '../utils/is_equal'
 import render from "../utils/render";
+import remove from "../utils/remove";
 
 type routeProps = { rootQuery: string; protect?: boolean };
-// type blockConstructor = {
-//   tagName?: string,
-//   props?: { [key: string]: string | boolean }
-// }
 
-
-class Route {
+export class Route {
   _pathname: string;
   _blockClass: any;
   _block: any;
@@ -29,7 +25,8 @@ class Route {
 
   leave() {
     if (this._block) {
-      this._block.hide();
+      remove(this._props.rootQuery, this._block);
+      return;
     }
   }
 
@@ -38,17 +35,13 @@ class Route {
   }
 
   render(): void {
-    if (!this._block) {
-      this._block = new this._blockClass();
-      // render('.container', this._block);
-      console.log('render2')
-      // render(".container", new this._blockClass);
-      render(this._props.rootQuery, this._block);
-      return;
-    }
-
-    // this._block.show();
+    // if (!this._block) {
+    //   this._block = new this._blockClass();
+    //   render(this._props.rootQuery, this._block);
+    //   return;
+    // }
+    this._block = new this._blockClass();
+    render(this._props.rootQuery, this._block);
+    return;
   }
 }
-
-export { Route };

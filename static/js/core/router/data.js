@@ -1,5 +1,5 @@
-import { page_404 } from "../../pages/404/404.js";
-import { page_500 } from "../../pages/500/500.js";
+import { Page404 } from "../../pages/404/404.js";
+import { Page500 } from "../../pages/500/500.js";
 import { login } from "../../pages/login/login.js";
 import { registration } from "../../pages/registration/registration.js";
 import { chat } from "../../pages/messenger/messenger.js";
@@ -17,11 +17,11 @@ export const routes = [
     },
     {
         path: '/500',
-        getTemplate: () => page_500(),
+        getTemplate: () => new Page404(),
     },
     {
         path: '/404',
-        getTemplate: () => page_404(),
+        getTemplate: () => new Page500(),
     },
 ];
 export const routesUser = [
@@ -43,11 +43,11 @@ export const routesUser = [
     },
     {
         path: '/500',
-        getTemplate: () => page_500(),
+        getTemplate: () => new Page404(),
     },
     {
         path: '/404',
-        getTemplate: () => page_404(),
+        getTemplate: () => new Page500(),
     },
 ];
 //# sourceMappingURL=data.js.map

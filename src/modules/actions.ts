@@ -1,3 +1,5 @@
+export const host = 'https://ya-praktikum.tech';
+
 export enum METHOD {
   GET = 'GET',
   POST = 'POST',

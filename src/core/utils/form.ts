@@ -1,4 +1,4 @@
-import {ObjectType} from "../types";
+import {ObjectKeyStringType} from "../types";
 
 export const forma = (function () {
   const phoneRe = /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
@@ -53,19 +53,19 @@ export const forma = (function () {
         this.hideError(label, input)
       }
     },
-    send: function(inputs: any, modal: any) {
-      const data: any[] = [];
+    send: function(inputs: any, modal: any):ObjectKeyStringType | undefined {
+      // const data: any[] = [];
+      const data:ObjectKeyStringType = {};
       matchList = [];
       Array.from(inputs).forEach((input: any) => {
         this.validate(input, false);
 
-        const dataItem:ObjectType = {};
-        dataItem[input.dataset.type] = input.value;
-        data.push(dataItem);
+        data[input.dataset.type] = input.value;
       });
       const isValid = matchList.find(item => item === 0);
       if (isValid !== 0) {
-        console.log('Данные: ', data);
+        // console.log('Данные: ', data);
+        return data;
       } else if (modal) {
         const overview = document.querySelector('.overview');
         if (overview) {
@@ -75,7 +75,8 @@ export const forma = (function () {
         modal.show();
       }
     },
-    listeners: function (form:HTMLDivElement, modal: any) {
+    // listeners: function (form:HTMLDivElement, modal: any) {
+    listeners: function (form:HTMLDivElement) {
       form.addEventListener("blur", (event: Event) => {
         const element = <HTMLInputElement>event.target
 
@@ -92,12 +93,12 @@ export const forma = (function () {
         }
       }, true);
 
-      form.addEventListener('submit', (event: Event) => {
-        event.preventDefault();
-
-        const inputs = form.querySelectorAll('input');
-        this.send(inputs, modal);
-      });
+      // form.addEventListener('submit', (event: Event) => {
+      //   event.preventDefault();
+      //
+      //   const inputs = form.querySelectorAll('input');
+      //   this.send(inputs, modal);
+      // });
     }
   };
 })();

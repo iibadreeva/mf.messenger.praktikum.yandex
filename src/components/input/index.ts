@@ -22,8 +22,8 @@ interface IInput {
 }
 
 export default class Input extends Block<IInput> {
-  constructor(props: IInput, className: string) {
-    super('div', className, props);
+  constructor(props: IInput) {
+    super('div', '', props);
   }
 
   render() {

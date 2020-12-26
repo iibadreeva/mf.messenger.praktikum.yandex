@@ -2,6 +2,7 @@ import Block from '../../core/block';
 import Button from "../../components/button/index";
 import {IBtn, IContext, context} from './data';
 import router from "../../router";
+import {CheckUserAPI} from "../../modules/http/user-api";
 
 export class Page404 extends Block<IContext> {
   constructor() {
@@ -13,14 +14,24 @@ export class Page404 extends Block<IContext> {
   }
 
   goHome() {
-    router.go('/');
+    new CheckUserAPI().request()
+      .then(res => res.ok)
+      .then((isAuth) => {
+        if(isAuth) {
+          router.go('/');
+        } else {
+          router.go('/login');
+        }
+      });
   }
 
   componentDidMount() {
     this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
       const link: HTMLLinkElement | null = this.element.querySelector('.error__btn');
       if (link) {
-        link.onclick = this.goHome.bind(this);
+        link.addEventListener('click', () => {
+          this.goHome();
+        });
       }
     });
   }

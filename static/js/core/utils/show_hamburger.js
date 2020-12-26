@@ -4,24 +4,26 @@ import remove from "./remove.js";
 import { overviewHide, overviewShow } from "./overview.js";
 import Hamburger, { NavType } from "../../components/hamburger/index.js";
 let show_hamburger = undefined;
-export default function showHamburger() {
+export default function showHamburger(hamburgerBtn) {
     const modal = new Modal({});
     render('.container', modal);
-    const hamburgerBtn = document.querySelectorAll('.js-hamburger') || [];
-    Array.from(hamburgerBtn).forEach(item => {
-        const element = item;
-        element.addEventListener('click', (event) => {
-            const type = element.dataset.type || '';
-            if (show_hamburger) {
-                remove('body', show_hamburger);
-            }
-            const { nav, navWidth, navHeight } = createNav(type);
-            const x = event.pageX;
-            const y = event.pageY;
-            nav.style.left = `${x - navWidth + 10}px`;
-            nav.style.top = `${y - navHeight}px`;
+    console.log('sho', hamburgerBtn);
+    if (hamburgerBtn) {
+        Array.from(hamburgerBtn).forEach(item => {
+            const element = item;
+            element.addEventListener('click', (event) => {
+                const type = element.dataset.type || '';
+                if (show_hamburger) {
+                    remove('body', show_hamburger);
+                }
+                const { nav, navWidth, navHeight } = createNav(type);
+                const x = event.pageX;
+                const y = event.pageY;
+                nav.style.left = `${x - navWidth + 10}px`;
+                nav.style.top = `${y - navHeight}px`;
+            });
         });
-    });
+    }
     const body = document.body;
     body.addEventListener('click', (e) => {
         const nav = document.querySelector('.nav-list');

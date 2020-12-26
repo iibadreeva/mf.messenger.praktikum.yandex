@@ -1,4 +1,4 @@
-import HTTP from "../core/modules/http.js";
+import HTTP from "../modules/http.js";
 export const host = 'https://ya-praktikum.tech';
 export const testApi2 = () => {
     const testAPIInstance = new HTTP(host);
