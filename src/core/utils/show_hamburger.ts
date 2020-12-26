@@ -1,8 +1,8 @@
-import Modal from "../../components/modal/index.js";
-import render from "./render.js";
-import remove from "./remove.js";
-import {overviewHide, overviewShow} from "./overview.js";
-import Hamburger, {NavType} from "../../components/hamburger/index.js";
+import Modal from "../../components/modal/index";
+import render from "./render";
+import remove from "./remove";
+import {overviewHide, overviewShow} from "./overview";
+import Hamburger, {NavType} from "../../components/hamburger/index";
 
 interface INav {
   nav: HTMLElement,
@@ -89,7 +89,9 @@ function createNav(type: string): INav {
           title: 'Удалить пользователя'
         },
         {
-          title: NavType.Profile
+          title: 'Профиль',
+          clName: 'js-route-link',
+          to: 'profile'
         }
       ], 'nav-list');
       render('body', show_hamburger);

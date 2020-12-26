@@ -1,12 +1,12 @@
-import Block from '../../core/block.js';
-import Button from '../../components/button/index.js';
-import Avatar from '../../components/avatar/index.js';
-import render from '../../core/utils/render.js';
-import Templator from '../../core/utils/templator.js';
-import checkProfile from '../../core/utils/check_profile.js';
-import showHamburger from '../../core/utils/show_hamburger.js';
-import Input from '../../components/input/index.js';
-import {IContext, context} from './data.js';
+import Block from '../../core/block';
+import Button from '../../components/button/index';
+import Avatar from '../../components/avatar/index';
+import render from '../../core/utils/render';
+import Templator from '../../core/utils/templator';
+import checkProfile from '../../core/utils/check_profile';
+import showHamburger from '../../core/utils/show_hamburger';
+import Input from '../../components/input/index';
+import {IContext, context} from './data';
 
 class Page extends Block<IContext> {
   constructor(props: IContext) {
@@ -30,18 +30,19 @@ class Page extends Block<IContext> {
   }
 }
 
-const {formdata: {email, login, firstName, lastName, phone}, btn, avatar}: IContext = context;
+export const profileChange = () => {
+  const {formdata: {email, login, firstName, lastName, phone}, btn, avatar}: IContext = context;
 
 // Выстраиваем разметку
-render('.container', new Page(context));
-render('.js-form', new Input(email, 'profile__item'));
-render('.js-form', new Input(login, 'profile__item'));
-render('.js-form', new Input(firstName, 'profile__item'));
-render('.js-form', new Input(lastName, 'profile__item'));
-render('.js-form', new Input(phone, 'profile__item'));
-render('.js-btn', new Button(btn));
-render('.js-avatar', new Avatar(avatar));
+  render('.container', new Page(context));
+  render('.js-form', new Input(email, 'profile__item'));
+  render('.js-form', new Input(login, 'profile__item'));
+  render('.js-form', new Input(firstName, 'profile__item'));
+  render('.js-form', new Input(lastName, 'profile__item'));
+  render('.js-form', new Input(phone, 'profile__item'));
+  render('.js-btn', new Button(btn));
+  render('.js-avatar', new Avatar(avatar));
 
-checkProfile();
-
-showHamburger();
+  checkProfile();
+  showHamburger();
+}

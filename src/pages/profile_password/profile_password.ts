@@ -1,11 +1,11 @@
-import Block from '../../core/block.js';
-import Button from '../../components/button/index.js';
-import Avatar from '../../components/avatar/index.js';
-import render from '../../core/utils/render.js';
-import Templator from '../../core/utils/templator.js';
-import checkProfile from '../../core/utils/check_profile.js';
-import Input from '../../components/input/index.js';
-import {IContext, context} from './data.js';
+import Block from '../../core/block';
+import Button from '../../components/button/index';
+import Avatar from '../../components/avatar/index';
+import render from '../../core/utils/render';
+import Templator from '../../core/utils/templator';
+import checkProfile from '../../core/utils/check_profile';
+import Input from '../../components/input/index';
+import {IContext, context} from './data';
 
 class Page extends Block<IContext> {
   constructor(props: IContext) {
@@ -29,15 +29,16 @@ class Page extends Block<IContext> {
   }
 }
 
-const {formdata: {oldPassword, password, passwordAgain}, btn, avatar}: IContext = context;
+export const profilePassword = () => {
+  const {formdata: {oldPassword, password, passwordAgain}, btn, avatar}: IContext = context;
 
-// Выстраиваем разметку
-render('.container', new Page(context));
-render('.js-form', new Input(oldPassword, 'profile__item'));
-render('.js-form', new Input(password, 'profile__item'));
-render('.js-form', new Input(passwordAgain, 'profile__item'));
-render('.js-btn', new Button(btn));
+  // Выстраиваем разметку
+  render('.container', new Page(context));
+  render('.js-form', new Input(oldPassword, 'profile__item'));
+  render('.js-form', new Input(password, 'profile__item'));
+  render('.js-form', new Input(passwordAgain, 'profile__item'));
+  render('.js-btn', new Button(btn));
 
-render('.js-avatar', new Avatar(avatar));
-
-checkProfile();
+  render('.js-avatar', new Avatar(avatar));
+  checkProfile();
+}

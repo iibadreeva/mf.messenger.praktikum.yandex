@@ -1,5 +1,5 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from "../../core/block.js";
+import Templator from "../../core/utils/templator.js";
 export default class Avatar extends Block {
     constructor(props) {
         super('div', '', props);

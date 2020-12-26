@@ -1,7 +1,5 @@
 declare let window:any;
-type ObjectType = {
-  [key: string]: any;
-}
+import {ObjectType} from '../types'
 
 function get<T extends object>(obj:T, path: string, defaultValue:string='something else'): any {
   const keys = path.split('.');
@@ -57,3 +55,4 @@ export default class Templator<T extends object> {
     return tmpl;
   }
 }
+

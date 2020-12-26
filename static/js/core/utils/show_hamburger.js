@@ -2,7 +2,7 @@ import Modal from "../../components/modal/index.js";
 import render from "./render.js";
 import remove from "./remove.js";
 import { overviewHide, overviewShow } from "./overview.js";
-import Hamburger from "../../components/hamburger/index.js";
+import Hamburger, { NavType } from "../../components/hamburger/index.js";
 let show_hamburger = undefined;
 export default function showHamburger() {
     const modal = new Modal({});
@@ -53,15 +53,17 @@ function createNav(type) {
         case 'profile':
             show_hamburger = new Hamburger([
                 {
-                    type: 'add-user',
+                    type: NavType.AddUser,
                     title: 'Добавить пользователя'
                 },
                 {
-                    type: 'remove-user',
+                    type: NavType.RemoveUser,
                     title: 'Удалить пользователя'
                 },
                 {
-                    title: 'Профиль'
+                    title: 'Профиль',
+                    clName: 'js-route-link',
+                    to: 'profile'
                 }
             ], 'nav-list');
             render('body', show_hamburger);
@@ -71,7 +73,7 @@ function createNav(type) {
         case 'chat':
             show_hamburger = new Hamburger([
                 {
-                    type: 'remove-chat',
+                    type: NavType.RemoveChat,
                     title: 'Удалить чат'
                 }
             ], 'nav-list');
@@ -82,15 +84,15 @@ function createNav(type) {
         case 'files':
             show_hamburger = new Hamburger([
                 {
-                    type: 'photo-video',
+                    type: NavType.Media,
                     title: 'Фото или Видео'
                 },
                 {
-                    type: 'file',
+                    type: NavType.File,
                     title: 'Файл'
                 },
                 {
-                    type: 'location',
+                    type: NavType.Location,
                     title: 'Локация'
                 }
             ], 'nav-list');
@@ -101,7 +103,7 @@ function createNav(type) {
         case 'avatar':
             show_hamburger = new Hamburger([
                 {
-                    type: 'avatar',
+                    type: NavType.Avatar,
                     title: 'Загрузить фото'
                 }
             ], 'nav-list');

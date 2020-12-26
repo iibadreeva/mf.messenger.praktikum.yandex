@@ -1,0 +1,39 @@
+.editor {
+  min-height: $heightEditor;
+  border-top: 1px solid $grayColorBorder2;
+  margin: 0 auto;
+  width: 95%;
+  padding: 7px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__file {
+    color: #B4B4B4;
+    height: 28px;
+    cursor: pointer;
+  }
+
+  &__body {
+    background-color: rgba(221, 221, 221, 0.8);
+    border-radius: 20px;
+    flex: 1 1 auto;
+    padding: 8px 15px;
+    margin: 0 10px;
+  }
+
+  &__value {
+    border: none;
+    outline: none;
+    min-height: 20px;
+    max-height: 100px;
+    white-space: pre-wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &__btn {
+    @include arrow;
+    cursor: pointer;
+  }
+}

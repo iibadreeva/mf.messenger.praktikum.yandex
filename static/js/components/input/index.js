@@ -1,13 +1,20 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from "../../core/block.js";
+import Templator from "../../core/utils/templator.js";
+export var InputType;
+(function (InputType) {
+    InputType["LightForm"] = "lightForm";
+    InputType["Profile"] = "profile";
+    InputType["Search"] = "search";
+})(InputType || (InputType = {}));
 export default class Input extends Block {
     constructor(props, className) {
         super('div', className, props);
     }
     render() {
         let templ = '';
-        switch (this.props.type) {
-            case 'lightForm':
+        const { type } = this.props;
+        switch (type) {
+            case InputType.LightForm:
                 templ = `
             <input 
                   class="log-form__input"
@@ -25,7 +32,7 @@ export default class Input extends Block {
              <span class="log-form__error"></span>
             `;
                 break;
-            case 'profile':
+            case InputType.Profile:
                 templ = `
             <div class="profile__label">{{ config.placeholder }}</div>
             <input 
@@ -42,7 +49,7 @@ export default class Input extends Block {
              />
             `;
                 break;
-            case 'search':
+            case InputType.Search:
                 templ = `<input
                     type="{{ config.type }}"
                     class="messenger__search__input"

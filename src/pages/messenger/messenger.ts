@@ -1,11 +1,11 @@
-import Block from '../../core/block.js';
-import HeaderPhoto from '../../components/messenger/header-photo.js';
-import Input from '../../components/input/index.js';
-import Dialog from '../../components/messenger/dialog.js';
-import render from '../../core/utils/render.js';
-import Templator from '../../core/utils/templator.js';
-import showHamburger from '../../core/utils/show_hamburger.js';
-import {IContext, context} from './data.js';
+import Block from '../../core/block';
+import HeaderPhoto from '../../components/messenger/header-photo';
+import Input from '../../components/input/index';
+import Dialog from '../../components/messenger/dialog';
+import render from '../../core/utils/render';
+import Templator from '../../core/utils/templator';
+import showHamburger from '../../core/utils/show_hamburger';
+import {IContext, context} from './data';
 
 class Page extends Block<IContext> {
   constructor(props: IContext) {
@@ -28,11 +28,13 @@ class Page extends Block<IContext> {
   }
 }
 
-const {avatar, search, dialogs}: IContext = context;
+export const chat = () => {
+  const {avatar, search, dialogs}: IContext = context;
 
-render('.container', new Page(context));
-render('.messenger__left', new HeaderPhoto(avatar, 'messenger__header'));
-render('.messenger__left', new Input(search, 'messenger__search'));
-render('.messenger__left', new Dialog({dialogs}, 'messenger__items'));
+  render('.container', new Page(context));
+  render('.messenger__left', new HeaderPhoto(avatar, 'messenger__header'));
+  render('.messenger__left', new Input(search, 'messenger__search'));
+  render('.messenger__left', new Dialog({dialogs}, 'messenger__items'));
 
-showHamburger();
+  showHamburger();
+}

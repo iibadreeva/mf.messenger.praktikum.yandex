@@ -1,16 +1,23 @@
-import EventBus from './event-bus.js';
+import EventBus from "./event-bus.js";
 export default class Block {
     constructor(tagName = "div", className = '', props = {}) {
         this.props = {};
+        this.EVENTS = {
+            INIT: 'init',
+            FLOW_CDM: 'flow:component-did-mount',
+            FLOW_CDU: 'flow:component-did-update',
+            FLOW_RENDER: 'flow:render',
+        };
         this._element = null;
         this._meta = null;
         this.setProps = (nextProps) => {
             if (!nextProps) {
                 return;
             }
+            this.lastActiveElement = document.activeElement;
             Object.assign(this.props, nextProps);
             const eventBus = this.eventBus();
-            eventBus.emit(Block.EVENTS.FLOW_RENDER);
+            eventBus.emit(this.EVENTS.FLOW_RENDER);
         };
         const eventBus = new EventBus();
         this._meta = {
@@ -24,14 +31,15 @@ export default class Block {
         catch (error) {
             console.log(error);
         }
+        this.lastActiveElement;
         this.eventBus = () => eventBus;
         this._registerEvents(eventBus);
-        eventBus.emit(Block.EVENTS.INIT);
+        eventBus.emit(this.EVENTS.INIT);
     }
     _registerEvents(eventBus) {
-        eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-        eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-        eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+        eventBus.on(this.EVENTS.INIT, this.init.bind(this));
+        eventBus.on(this.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+        eventBus.on(this.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
     _createResources() {
         const { tagName, className } = this._meta;
@@ -42,13 +50,12 @@ export default class Block {
     }
     init() {
         this._createResources();
-        const eventBus = this.eventBus();
-        eventBus.emit(Block.EVENTS.FLOW_RENDER);
+        this.eventBus().emit(this.EVENTS.FLOW_CDM);
     }
     _componentDidMount() {
         this.componentDidMount();
         const eventBus = this.eventBus();
-        eventBus.emit(Block.EVENTS.FLOW_RENDER);
+        eventBus.emit(this.EVENTS.FLOW_RENDER);
     }
     componentDidMount() { }
     _componentDidUpdate(oldProps, newProps) {
@@ -89,12 +96,8 @@ export default class Block {
                 target[prop] = val;
                 return true;
             },
-            deleteProperty(target, prop) {
-                if (prop.indexOf('_') === 0) {
-                    throw new Error('Нет прав');
-                }
-                delete target[prop];
-                return true;
+            deleteProperty() {
+                throw new Error('No access');
             }
         });
         return proxyProps;
@@ -103,22 +106,10 @@ export default class Block {
         return document.createElement(tagName);
     }
     show() {
-        const el = this.getContent();
-        if (el) {
-            el.style.display = "block";
-        }
+        this.getContent().style.display = "block";
     }
     hide() {
-        const el = this.getContent();
-        if (el) {
-            el.style.display = "none";
-        }
+        this.getContent().style.display = 'none';
     }
 }
-Block.EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_RENDER: "flow:render",
-    FLOW_CDU: "flow:component-did-update"
-};
 //# sourceMappingURL=block.js.map

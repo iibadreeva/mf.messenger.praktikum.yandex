@@ -1,10 +1,14 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from '../../core/block';
+import Templator from '../../core/utils/templator';
+
+enum ButtonType {
+  Link = 'link'
+}
 
 interface IContext {
   text: string,
   clName: string,
-  type: string,
+  type: ButtonType | string,
   handleClick?: Function,
   url?: string
 }
@@ -16,9 +20,12 @@ export default class Button extends Block<IContext> {
 
   render() {
     let templ:string = '';
+    // const {type} = this.props
+    const {type} = this.props as unknown as IContext
+    // const {type} = this.props as unknown as propsObject
 
-    switch (this.props.type) {
-      case 'link':
+    switch (type) {
+      case ButtonType.Link:
         templ = `<a
                     class="log-form__btn log-form__btn_gray"
                     href="{{ url }}"
@@ -29,7 +36,6 @@ export default class Button extends Block<IContext> {
       default:
         templ = `<button
                     class="{{ clName }}"
-                    ${this.props.handleClick ? 'onClick="{{ handleClick }}"' : ''}
                  >
                      {{ text }}
                  </button>`;

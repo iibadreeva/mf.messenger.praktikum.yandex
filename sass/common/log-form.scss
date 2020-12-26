@@ -1,0 +1,72 @@
+.log-form {
+  width: 340px;
+  min-height: 424px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  position: absolute;
+  @include centered;
+  z-index: 999;
+  padding: 50px 0 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__title {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+
+  &__control {
+    position: relative;
+    margin: 0 auto 20px;
+    width: $widthFormLog;
+    border-bottom: 1px solid #000;
+
+    &_error {
+      border-color: $errorColor;
+    }
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__error {
+    position: absolute;
+    font-size: 9px;
+    left: 0;
+    top: 23px;
+    color: $errorColor;
+    line-height: .8;
+  }
+
+  &__group-btn {
+    width: $widthFormLog;
+    margin: 0 auto;
+    padding-top: 40px;
+  }
+
+  &__btn {
+    @include btn;
+    width: 100%;
+    margin-bottom: 10px;
+    display: block;
+    text-align: center;
+
+    &:hover {
+      opacity: .9;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &_gray {
+      background-color: $grayColorBtn;
+      color: #000;
+    }
+  }
+}

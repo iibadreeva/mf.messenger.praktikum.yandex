@@ -29,12 +29,20 @@
 
 ### Для использования ts в консоле
 ```
-npm install -g typescript
+npm install -g ttypescript
+```
+```
+npm install -g sass
 ```
 
 # Запуск проэкта
 ```sh
 npm run start
+```
+
+# Запуск стилей
+```sh
+npm run style
 ```
 
 ### Messenger

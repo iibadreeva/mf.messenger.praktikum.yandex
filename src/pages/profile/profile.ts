@@ -1,16 +1,16 @@
-import Block from '../../core/block.js';
-import Avatar from '../../components/avatar/index.js';
-import render from '../../core/utils/render.js';
-import Input from '../../components/input/index.js';
-import {IContext, context} from './data.js';
+import Block from '../../core/block';
+import Avatar from '../../components/avatar/index';
+import render from '../../core/utils/render';
+import Input from '../../components/input/index';
+import {IContext, context} from './data';
 
 class Page extends Block<IContext> {
   constructor(props: IContext) {
-    super('main', 'error', props);
+    super('main', '', props);
   }
 
   render() {
-    const {links} = this.props;
+    const {links} = this.props as unknown as IContext;
     const templ = `
         <main class="profile">
         <div class="profile__left">
@@ -20,11 +20,11 @@ class Page extends Block<IContext> {
           <div class="js-avatar"></div>
           <div class="profile__items js-form"></div>
           <div class="profile__items">
-            ${Object.keys(links).map(function(key) {
-    return `<div class="profile__item">
-                        <a class="profile__label ${links[key].className}" href="${links[key].url}">${links[key].name}</a>
-                     </div>`;
-  }).join('')}
+            ${links.map(item => {
+              return `<div class="profile__item">
+                        <a class="profile__label ${item.className}" href="${item.url}">${item.name}</a>
+                     </div>`
+            })}
           </div>
         </div>
       </main>`;
@@ -33,13 +33,15 @@ class Page extends Block<IContext> {
   }
 }
 
-const {formdata: {email, login, firstName, lastName, phone}, avatar}: IContext = context;
+export const profile = () => {
+  const {formdata: {email, login, firstName, lastName, phone}, avatar}: IContext = context;
 
-render('.container', new Page(context));
-render('.js-avatar', new Avatar(avatar));
+  render('.container', new Page(context));
+  render('.js-avatar', new Avatar(avatar));
 
-render('.js-form', new Input(email, 'profile__item'));
-render('.js-form', new Input(login, 'profile__item'));
-render('.js-form', new Input(firstName, 'profile__item'));
-render('.js-form', new Input(lastName, 'profile__item'));
-render('.js-form', new Input(phone, 'profile__item'));
+  render('.js-form', new Input(email, 'profile__item'));
+  render('.js-form', new Input(login, 'profile__item'));
+  render('.js-form', new Input(firstName, 'profile__item'));
+  render('.js-form', new Input(lastName, 'profile__item'));
+  render('.js-form', new Input(phone, 'profile__item'));
+}

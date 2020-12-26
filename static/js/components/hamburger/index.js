@@ -1,9 +1,14 @@
-import Block from '../../core/block.js';
-var NavType;
+import Block from "../../core/block.js";
+export var NavType;
 (function (NavType) {
     NavType["Location"] = "location";
     NavType["File"] = "file";
     NavType["Media"] = "photo-video";
+    NavType["Avatar"] = "avatar";
+    NavType["RemoveChat"] = "remove-chat";
+    NavType["RemoveUser"] = "remove-user";
+    NavType["AddUser"] = "add-user";
+    NavType["Profile"] = "profiler";
 })(NavType || (NavType = {}));
 export default class Hamburger extends Block {
     constructor(props, className) {
@@ -14,12 +19,13 @@ export default class Hamburger extends Block {
             return '';
         }
         const templ = `${Object.keys(this.props).map(key => {
-            const { type, title } = this.props[key];
+            const { type, title, clName, to } = this.props[key];
             return `
           ${title ?
                 `<li
-             class="nav-list__item"
+             class="nav-list__item ${clName}"
              ${type ? `data-type="${type}"` : ''}
+             ${to ? `to="${to}"` : ''}
              >
              ${type === NavType.Media ?
                     `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">

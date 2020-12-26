@@ -1,0 +1,25 @@
+@mixin phoneHorizontal() {
+  @media screen and (min-aspect-ratio: 13/9) {
+    @content;
+  }
+}
+
+@mixin phones() {
+  @media screen and (max-width:479px) and (max-aspect-ratio: 13/9) {
+    @content;
+  }
+}
+
+@import "layout/variables";
+@import "layout/mixins";
+@import "layout/main";
+
+@import "common/error.scss";
+@import "common/log-form.scss";
+@import "common/messenger.scss";
+@import "common/profile.scss";
+@import "common/editor.scss";
+@import "common/nav-list.scss";
+@import "common/modal.scss";
+
+@import "layout/global";

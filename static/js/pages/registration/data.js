@@ -75,9 +75,9 @@ export const context = {
     },
     link: {
         text: 'Войти',
-        clName: 'log-form__btn log-form__btn_gray',
+        clName: 'log-form__btn log-form__btn_gray js-route-link',
         type: 'link',
-        url: '/login.html'
+        url: '/login'
     },
     btn: {
         text: 'Зарегистрироваться',

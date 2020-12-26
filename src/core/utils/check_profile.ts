@@ -1,7 +1,7 @@
-import Modal from "../../components/modal/index.js";
-import render from "./render.js";
-import {forma} from "./form.js";
-import {overviewHide} from "./overview.js";
+import Modal from "../../components/modal/index";
+import render from "./render";
+import {forma} from "./form";
+import {overviewHide} from "./overview";
 
 interface IBtnG {
   clName: string,
@@ -26,7 +26,7 @@ export default function checkProfile(): void {
       btnGroup: [
         {
           clName: 'modal__btn_wide js-modal-btn',
-          title: 'Поменять'
+          title: 'Поменять',
         }
       ]
     }

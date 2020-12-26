@@ -1,4 +1,4 @@
-import Block from '../../core/block.js';
+import Block from '../../core/block';
 
 export enum NavType {
   Location = 'location',
@@ -8,12 +8,14 @@ export enum NavType {
   RemoveChat = 'remove-chat',
   RemoveUser = 'remove-user',
   AddUser = 'add-user',
-  Profile = 'Профиль'
+  Profile = 'profiler',
 }
 
 interface INav {
   type?: NavType;
   title: string;
+  clName?: string;
+  to?: string;
 }
 
 export default class Hamburger extends Block<INav> {
@@ -27,12 +29,13 @@ export default class Hamburger extends Block<INav> {
     }
 
     const templ = `${Object.keys(this.props).map(key => {
-      const {type, title} = this.props[key];
+      const {type, title, clName, to} = this.props[key];
       return `
           ${title ?
             `<li
-             class="nav-list__item"
+             class="nav-list__item ${clName}"
              ${type ? `data-type="${type}"` : ''}
+             ${to ? `to="${to}"` : ''}
              >
              ${type === NavType.Media ?
               `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">

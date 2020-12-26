@@ -1,6 +1,4 @@
-type ObjectType = {
-  [key: string]: any;
-}
+import {ObjectType} from "../types";
 
 export const forma = (function () {
   const phoneRe = /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;

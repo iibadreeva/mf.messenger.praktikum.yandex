@@ -1,13 +1,18 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from "../../core/block.js";
+import Templator from "../../core/utils/templator.js";
+var ButtonType;
+(function (ButtonType) {
+    ButtonType["Link"] = "link";
+})(ButtonType || (ButtonType = {}));
 export default class Button extends Block {
     constructor(props) {
         super('div', '', props);
     }
     render() {
         let templ = '';
-        switch (this.props.type) {
-            case 'link':
+        const { type } = this.props;
+        switch (type) {
+            case ButtonType.Link:
                 templ = `<a
                     class="log-form__btn log-form__btn_gray"
                     href="{{ url }}"
@@ -18,7 +23,6 @@ export default class Button extends Block {
             default:
                 templ = `<button
                     class="{{ clName }}"
-                    ${this.props.handleClick ? 'onClick="{{ handleClick }}"' : ''}
                  >
                      {{ text }}
                  </button>`;

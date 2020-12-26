@@ -1,3 +1,14 @@
+export interface UserI {
+  avatar: string | null;
+  display_name: string | null;
+  email: string;
+  first_name: string;
+  id: number;
+  login: string;
+  phone: string;
+  second_name: string;
+}
+
 interface IInput {
   type: string,
   config: {
@@ -8,7 +19,7 @@ interface IInput {
   }
 }
 
-interface ILinks {
+export interface ILinks {
   name: string; url: string; className: string
 }
 

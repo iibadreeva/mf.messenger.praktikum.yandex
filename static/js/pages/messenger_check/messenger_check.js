@@ -1,13 +1,13 @@
-import Block from '../../core/block.js';
-import HeaderPhoto from '../../components/messenger/header-photo.js';
-import Input from '../../components/input/index.js';
-import Dialog from '../../components/messenger/dialog.js';
-import Chat from '../../components/messenger/chat.js';
-import Textarea from '../../components/messenger/textarea.js';
-import render from '../../core/utils/render.js';
-import Templator from '../../core/utils/templator.js';
-import showHamburger from '../../core/utils/show_hamburger.js';
-import { context } from './data.js';
+import Block from "../../core/block.js";
+import HeaderPhoto from "../../components/messenger/header-photo.js";
+import Input from "../../components/input/index.js";
+import Dialog from "../../components/messenger/dialog.js";
+import Chat from "../../components/messenger/chat.js";
+import Textarea from "../../components/messenger/textarea.js";
+import render from "../../core/utils/render.js";
+import Templator from "../../core/utils/templator.js";
+import showHamburger from "../../core/utils/show_hamburger.js";
+import { context } from "./data.js";
 class Page extends Block {
     constructor(props) {
         super('div', 'messenger', props);

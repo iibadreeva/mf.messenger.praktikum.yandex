@@ -1,8 +1,16 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js'
+import Block from '../../core/block';
+import Templator from '../../core/utils/templator'
+
+export enum InputType {
+  LightForm = 'lightForm',
+  Profile = 'profile',
+  Search = 'search'
+}
 
 interface IInput {
-  type: string,
+  disabled?: string;
+  dataSize?: string;
+  type: InputType | string,
   config: {
     type: string,
     placeholder: string,
@@ -20,9 +28,10 @@ export default class Input extends Block<IInput> {
 
   render() {
     let templ = '';
+    const {type} = this.props as unknown as IInput;
 
-    switch (this.props.type) {
-      case 'lightForm':
+    switch (type) {
+      case InputType.LightForm :
         templ = `
             <input 
                   class="log-form__input"
@@ -40,7 +49,7 @@ export default class Input extends Block<IInput> {
              <span class="log-form__error"></span>
             `;
         break;
-      case 'profile':
+      case InputType.Profile:
         templ = `
             <div class="profile__label">{{ config.placeholder }}</div>
             <input 
@@ -57,7 +66,7 @@ export default class Input extends Block<IInput> {
              />
             `;
         break;
-      case 'search':
+      case InputType.Search:
         templ = `<input
                     type="{{ config.type }}"
                     class="messenger__search__input"

@@ -54,9 +54,9 @@ export const context:IContext = {
   },
   link: {
     text: 'Регистрация',
-    clName: 'log-form__btn log-form__btn_gray',
+    clName: 'log-form__btn log-form__btn_gray js-route-link',
     type: 'link',
-    url: '/registration.html'
+    url: '/registration'
   },
   btn: {
     text: 'Авторизоваться',

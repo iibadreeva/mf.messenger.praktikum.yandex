@@ -11,7 +11,7 @@ export default function checkProfile() {
             btnGroup: [
                 {
                     clName: 'modal__btn_wide js-modal-btn',
-                    title: 'Поменять'
+                    title: 'Поменять',
                 }
             ]
         }
