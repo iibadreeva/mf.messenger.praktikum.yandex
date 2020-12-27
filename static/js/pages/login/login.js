@@ -24,6 +24,7 @@ export class Login extends Block {
             .then((data) => {
             const { status } = data;
             if (status === 200) {
+                router.isProtect = false;
                 router.go('/chat');
             }
             else if (status >= 500) {

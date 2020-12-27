@@ -21,7 +21,6 @@ export interface IContext {
     image: string,
     change: boolean
   },
-  goBack: string,
   formdata: {
     email: IInput,
     login: IInput,
@@ -34,11 +33,10 @@ export interface IContext {
 
 export const context:IContext = {
   avatar: {
-    name: 'Инна',
-    image: 'images/static_cat.jpg',
+    name: '',
+    image: '',
     change: true
   },
-  goBack: '/profile.html',
   formdata: {
     email: {
       type: 'profile',
@@ -46,7 +44,7 @@ export const context:IContext = {
         type: 'email',
         placeholder: 'Почта',
         dataType: 'email',
-        value: 'Inna@yandex.ru'
+        value: ''
       }
     },
     login: {
@@ -56,7 +54,7 @@ export const context:IContext = {
         placeholder: 'Логин',
         dataType: 'login',
         dataSize: '3',
-        value: 'Inna'
+        value: ''
       }
     },
     firstName: {
@@ -65,7 +63,7 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Имя',
         dataType: 'text',
-        value: 'Инна'
+        value: ''
       }
     },
     lastName: {
@@ -74,7 +72,7 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Фамилия',
         dataType: 'text',
-        value: 'Бадреева'
+        value: ''
       }
     },
     phone: {
@@ -83,7 +81,7 @@ export const context:IContext = {
         type: 'tel',
         placeholder: 'Телефон',
         dataType: 'phone',
-        value: '+7(909)967-30-30'
+        value: ''
       }
     }
   },

@@ -1,10 +1,9 @@
 export const context = {
     avatar: {
-        name: 'Инна',
-        image: 'images/static_cat.jpg',
+        name: '',
+        image: '',
         change: true
     },
-    goBack: '/profile.html',
     formdata: {
         email: {
             type: 'profile',
@@ -12,7 +11,7 @@ export const context = {
                 type: 'email',
                 placeholder: 'Почта',
                 dataType: 'email',
-                value: 'Inna@yandex.ru'
+                value: ''
             }
         },
         login: {
@@ -22,7 +21,7 @@ export const context = {
                 placeholder: 'Логин',
                 dataType: 'login',
                 dataSize: '3',
-                value: 'Inna'
+                value: ''
             }
         },
         firstName: {
@@ -31,7 +30,7 @@ export const context = {
                 type: 'text',
                 placeholder: 'Имя',
                 dataType: 'text',
-                value: 'Инна'
+                value: ''
             }
         },
         lastName: {
@@ -40,7 +39,7 @@ export const context = {
                 type: 'text',
                 placeholder: 'Фамилия',
                 dataType: 'text',
-                value: 'Бадреева'
+                value: ''
             }
         },
         phone: {
@@ -49,7 +48,7 @@ export const context = {
                 type: 'tel',
                 placeholder: 'Телефон',
                 dataType: 'phone',
-                value: '+7(909)967-30-30'
+                value: ''
             }
         }
     },

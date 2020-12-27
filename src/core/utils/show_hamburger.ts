@@ -3,6 +3,7 @@ import render from "./render";
 import remove from "./remove";
 import {overviewHide, overviewShow} from "./overview";
 import Hamburger, {NavType} from "../../components/hamburger/index";
+import router from "../../router";
 
 interface INav {
   nav: HTMLElement,
@@ -69,7 +70,11 @@ export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLik
       const element: HTMLElement = <HTMLElement> e.target;
       const type = element.dataset.type || '';
 
-      createModal(type, modal);
+      if(type === NavType.Profile) {
+        router.go('/profile');
+      } else {
+        createModal(type, modal);
+      }
     }
   });
 }
@@ -92,8 +97,7 @@ function createNav(type: string): INav {
         },
         {
           title: 'Профиль',
-          clName: 'js-route-link',
-          to: 'profile'
+          type: NavType.Profile,
         }
       ], 'nav-list');
       render('body', show_hamburger);

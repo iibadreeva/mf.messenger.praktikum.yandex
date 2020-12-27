@@ -6,20 +6,39 @@ import { overviewShow } from "../../core/utils/overview.js";
 import { forma } from "../../core/utils/form.js";
 import { context } from "./data.js";
 import router from "../../router.js";
+import { RegistrationApi } from "./registration-api.js";
 export class Registration extends Block {
     constructor() {
-        const { formdata: { email, login, firstName, lastName, phone, password, passwordAgain }, btn, link, title } = context;
+        const { formdata: { email, login, first_name, second_name, phone, password, passwordAgain }, btn, link, title } = context;
         super('main', '', {
             email: new Input(email).render(),
             login: new Input(login).render(),
-            firstName: new Input(firstName).render(),
-            lastName: new Input(lastName).render(),
+            first_name: new Input(first_name).render(),
+            second_name: new Input(second_name).render(),
             phone: new Input(phone).render(),
             password: new Input(password).render(),
             passwordAgain: new Input(passwordAgain).render(),
             button: new Button(btn).render(),
             link: new Button(link).render(),
             title
+        });
+    }
+    registration(data) {
+        new RegistrationApi()
+            .create(data)
+            .then((res) => {
+            const { status, data } = res;
+            if (status === 200) {
+                router.isProtect = false;
+                router.go('/chat');
+            }
+            else if (status >= 500) {
+                router.go('/500');
+            }
+            else {
+                let reason = JSON.parse(data).reason || 'Не правильные данные';
+                alert(reason);
+            }
         });
     }
     goLogin() {
@@ -34,7 +53,11 @@ export class Registration extends Block {
                 form.addEventListener('submit', (event) => {
                     event.preventDefault();
                     const inputs = form.querySelectorAll('input');
-                    forma.send(inputs, false);
+                    const data = forma.send(inputs, false);
+                    console.log('data', data);
+                    if (data !== undefined && data !== null) {
+                        this.registration(data);
+                    }
                 });
             }
             if (link) {
@@ -58,10 +81,10 @@ export class Registration extends Block {
                 {{ login }}
             </div>
             <div class="log-form__control">
-                {{ firstName }}
+                {{ first_name }}
             </div>
             <div class="log-form__control">
-                {{ lastName }}
+                {{ second_name }}
             </div>
             <div class="log-form__control">
                 {{ phone }}

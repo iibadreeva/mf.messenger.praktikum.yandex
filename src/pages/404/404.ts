@@ -2,7 +2,7 @@ import Block from '../../core/block';
 import Button from "../../components/button/index";
 import {IBtn, IContext, context} from './data';
 import router from "../../router";
-import {CheckUserAPI} from "../../modules/http/user-api";
+import {UserAPI} from "../../modules/http/user-api";
 
 export class Page404 extends Block<IContext> {
   constructor() {
@@ -14,7 +14,7 @@ export class Page404 extends Block<IContext> {
   }
 
   goHome() {
-    new CheckUserAPI().request()
+    new UserAPI().request()
       .then(res => res.ok)
       .then((isAuth) => {
         if(isAuth) {

@@ -1,7 +1,7 @@
 export const context = {
     avatar: {
-        name: 'Инна',
-        image: 'images/static_cat.jpg'
+        name: '',
+        image: ''
     },
     formdata: {
         email: {
@@ -10,7 +10,7 @@ export const context = {
                 type: 'email',
                 placeholder: 'Почта',
                 disabled: 'disabled',
-                value: 'Inna@yandex.ru'
+                value: '1'
             }
         },
         login: {
@@ -19,25 +19,25 @@ export const context = {
                 type: 'text',
                 placeholder: 'Логин',
                 disabled: 'disabled',
-                value: 'Inna'
+                value: ''
             }
         },
-        firstName: {
+        first_name: {
             type: 'profile',
             config: {
                 type: 'text',
                 placeholder: 'Имя',
                 disabled: 'disabled',
-                value: 'Инна'
+                value: ''
             }
         },
-        lastName: {
+        second_name: {
             type: 'profile',
             config: {
                 type: 'text',
                 placeholder: 'Фамилия',
                 disabled: 'disabled',
-                value: 'Бадреева'
+                value: ''
             }
         },
         phone: {
@@ -46,24 +46,24 @@ export const context = {
                 type: 'tel',
                 placeholder: 'Телефон',
                 disabled: 'disabled',
-                value: '+7(909)967-30-30'
+                value: ''
             }
         }
     },
     links: [
         {
             name: 'Изменить данные',
-            url: '/profile_change.html',
-            className: 'profile__label_link'
+            url: '/change',
+            className: 'profile__label_link js-change'
         },
         {
             name: 'Изменить пароль',
-            url: '/profile_password.html',
-            className: 'profile__label_link'
+            url: '/password',
+            className: 'profile__label_link js-password'
         },
         {
             name: 'Выйти',
-            url: '#',
+            url: '/',
             className: 'profile__label_exit'
         }
     ]

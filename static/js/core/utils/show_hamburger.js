@@ -3,11 +3,11 @@ import render from "./render.js";
 import remove from "./remove.js";
 import { overviewHide, overviewShow } from "./overview.js";
 import Hamburger, { NavType } from "../../components/hamburger/index.js";
+import router from "../../router.js";
 let show_hamburger = undefined;
 export default function showHamburger(hamburgerBtn) {
     const modal = new Modal({});
     render('.container', modal);
-    console.log('sho', hamburgerBtn);
     if (hamburgerBtn) {
         Array.from(hamburgerBtn).forEach(item => {
             const element = item;
@@ -45,7 +45,12 @@ export default function showHamburger(hamburgerBtn) {
         if (navList) {
             const element = e.target;
             const type = element.dataset.type || '';
-            createModal(type, modal);
+            if (type === NavType.Profile) {
+                router.go('/profile');
+            }
+            else {
+                createModal(type, modal);
+            }
         }
     });
 }
@@ -64,8 +69,7 @@ function createNav(type) {
                 },
                 {
                     title: 'Профиль',
-                    clName: 'js-route-link',
-                    to: 'profile'
+                    type: NavType.Profile,
                 }
             ], 'nav-list');
             render('body', show_hamburger);

@@ -6,18 +6,20 @@ import {overviewShow} from '../../core/utils/overview';
 import {forma} from '../../core/utils/form';
 import {IContext, context} from './data'
 import router from "../../router";
+import {RegistrationApi} from "./registration-api";
 
 export class Registration extends Block<IContext> {
   constructor() {
-    const {formdata: {email, login, firstName, lastName, phone, password, passwordAgain}, btn, link, title}: IContext = context;
+    const {formdata: {email, login, first_name, second_name, phone, password, passwordAgain}, btn, link, title}: IContext = context;
+    // console.log('fi', first_name)
     super(
       'main',
       '',
       {
         email: new Input(email).render(),
         login: new Input(login).render(),
-        firstName: new Input(firstName).render(),
-        lastName: new Input(lastName).render(),
+        first_name: new Input(first_name).render(),
+        second_name: new Input(second_name).render(),
         phone: new Input(phone).render(),
         password: new Input(password).render(),
         passwordAgain: new Input(passwordAgain).render(),
@@ -26,6 +28,24 @@ export class Registration extends Block<IContext> {
         title
       }
     );
+  }
+
+  registration(data:object) {
+    new RegistrationApi()
+      .create(data)
+      .then((res) => {
+        const { status, data } = res;
+
+        if(status === 200) {
+          router.isProtect = false;
+          router.go('/chat');
+        } else if (status >= 500) {
+          router.go('/500');
+        } else {
+          let reason = JSON.parse(data).reason || 'Не правильные данные';
+          alert(reason);
+        }
+      })
   }
 
   goLogin() {
@@ -43,7 +63,11 @@ export class Registration extends Block<IContext> {
           event.preventDefault();
 
           const inputs = form.querySelectorAll('input');
-          forma.send(inputs, false);
+          const data = forma.send(inputs, false);
+          console.log('data', data)
+          if (data !== undefined && data !== null) {
+            this.registration(data);
+          }
         });
       }
       // перейти на страницу формы входа в систему
@@ -69,10 +93,10 @@ export class Registration extends Block<IContext> {
                 {{ login }}
             </div>
             <div class="log-form__control">
-                {{ firstName }}
+                {{ first_name }}
             </div>
             <div class="log-form__control">
-                {{ lastName }}
+                {{ second_name }}
             </div>
             <div class="log-form__control">
                 {{ phone }}

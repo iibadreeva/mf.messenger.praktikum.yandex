@@ -40,7 +40,7 @@ export default function checkProfile(): void {
   // Валидация полей
   const form = <HTMLDivElement>document.getElementsByClassName('profile__form')[0];
   if (form) {
-    forma.listeners(form, modal);
+    forma.listeners(form);
   }
 
   // скрываем модалку

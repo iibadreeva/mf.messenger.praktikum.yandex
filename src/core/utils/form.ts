@@ -1,7 +1,7 @@
 import {ObjectKeyStringType} from "../types";
 
 export const forma = (function () {
-  const phoneRe = /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
+  const phoneRe = /^\+7|8[-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
   const emailRe = /^[\w-\.]+@[\w-]+\.[a-z]{2,3}$/i;
   let matchList:number[] = [];
 
@@ -60,7 +60,9 @@ export const forma = (function () {
       Array.from(inputs).forEach((input: any) => {
         this.validate(input, false);
 
-        data[input.dataset.type] = input.value;
+        if(input.dataset.type !== 'password_again') {
+          data[input.dataset.type] = input.value;
+        }
       });
       const isValid = matchList.find(item => item === 0);
       if (isValid !== 0) {

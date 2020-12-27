@@ -22,22 +22,22 @@ export const context = {
                 value: ''
             }
         },
-        firstName: {
+        first_name: {
             type: 'lightForm',
             config: {
                 type: 'text',
                 placeholder: 'Имя',
-                dataType: 'text',
+                dataType: 'first_name',
                 dataText: 'Поле не должно быть пустое',
                 value: ''
             }
         },
-        lastName: {
+        second_name: {
             type: 'lightForm',
             config: {
                 type: 'text',
                 placeholder: 'Фамилия',
-                dataType: 'text',
+                dataType: 'second_name',
                 dataText: 'Поле не должно быть пустое',
                 value: ''
             }

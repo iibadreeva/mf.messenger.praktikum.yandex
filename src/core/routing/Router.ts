@@ -75,6 +75,7 @@ export default class Router {
     overviewHide();
     const route = this.getRoute(pathname);
 
+    // console.log('route is', route)
     if (!route) {
       this.go('/404');
       return;
@@ -99,6 +100,7 @@ export default class Router {
   }
 
   go(pathname: string): void {
+    // console.log('pathname', pathname)
     this.history.pushState({}, '', pathname);
 
     this._onRoute(pathname);
@@ -113,6 +115,7 @@ export default class Router {
   }
 
   getRoute(pathname: string): any {
+    // console.log('getroute', this.routes, pathname)
     return this.routes.find((route: { _pathname: string; }) => {
       return route._pathname.match(pathname);
     });
