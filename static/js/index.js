@@ -1,5 +1,5 @@
 import router from "./router.js";
-import { CheckUserAPI } from "./modules/http/user-api.js";
+import { UserAPI } from "./modules/http/user-api.js";
 import { Page404 } from "./pages/404/404.js";
 import { Page500 } from "./pages/500/500.js";
 import { Login } from "./pages/login/login.js";
@@ -8,7 +8,6 @@ import { Chat } from "./pages/messenger/messenger.js";
 import { Profile } from "./pages/profile/profile.js";
 import { ProfileChange } from "./pages/profile_change/profile_change.js";
 router
-    .useProtect('/', Chat)
     .useProtect('/chat', Chat)
     .useProtect('/profile', Profile)
     .useProtect('/change', ProfileChange)
@@ -16,7 +15,7 @@ router
     .use('/404', Page404)
     .use('/500', Page500);
 const authListener = function () {
-    new CheckUserAPI().request()
+    new UserAPI().request()
         .then(res => res.ok)
         .then((isAuth) => {
         if (isAuth) {

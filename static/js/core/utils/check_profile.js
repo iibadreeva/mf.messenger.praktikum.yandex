@@ -21,7 +21,7 @@ export default function checkProfile() {
     render('.container', modal);
     const form = document.getElementsByClassName('profile__form')[0];
     if (form) {
-        forma.listeners(form, modal);
+        forma.listeners(form);
     }
     const btnModal = document.querySelector('.js-modal-btn');
     if (btnModal) {

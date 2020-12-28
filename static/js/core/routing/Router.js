@@ -49,7 +49,7 @@ export default class Router {
     }
     start() {
         window.onpopstate = ((event) => {
-            this._onRoute(event.currentTarget.location.hash);
+            this._onRoute(event.currentTarget.location.pathname);
         }).bind(this);
         this._onRoute(window.location.pathname);
     }
@@ -67,9 +67,6 @@ export default class Router {
         if (route._props.protect && this.isProtect) {
             this.go(this._defaultPath);
             return;
-        }
-        if (this._currentRoute && this._currentRoute !== route) {
-            this._currentRoute.leave();
         }
         this._currentRoute = route;
         route.render();

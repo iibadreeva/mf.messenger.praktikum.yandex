@@ -24,8 +24,8 @@ export interface IContext {
   formdata: {
     email: IInput,
     login: IInput,
-    firstName: IInput,
-    lastName: IInput,
+    first_name: IInput,
+    second_name: IInput,
     phone: IInput,
   },
   btn: IBtn
@@ -57,21 +57,21 @@ export const context:IContext = {
         value: ''
       }
     },
-    firstName: {
+    first_name: {
       type: 'profile',
       config: {
         type: 'text',
         placeholder: 'Имя',
-        dataType: 'text',
+        dataType: 'first_name',
         value: ''
       }
     },
-    lastName: {
+    second_name: {
       type: 'profile',
       config: {
         type: 'text',
         placeholder: 'Фамилия',
-        dataType: 'text',
+        dataType: 'second_name',
         value: ''
       }
     },

@@ -17,7 +17,7 @@ export class Chat extends Block {
     }
     componentDidMount() {
         this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-            const hamburgerBtn = this.element.querySelectorAll('.js-hamburger');
+            const hamburgerBtn = this.element.querySelectorAll('.js-hamburger') || [];
             showHamburger(hamburgerBtn);
         });
     }

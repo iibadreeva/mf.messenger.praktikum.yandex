@@ -9,7 +9,12 @@ export class BaseAPI {
 
   request() { throw new Error('Not implemented'); }
 
-  update() { throw new Error('Not implemented'); }
+  update(res: object) {
+    if(this._res) {
+      this._res = res;
+    }
+    throw new Error('Not implemented');
+  }
 
   delete() { throw new Error('Not implemented'); }
 }

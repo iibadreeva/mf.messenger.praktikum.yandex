@@ -2,7 +2,7 @@ import Block from "../../core/block.js";
 import Avatar from "../../components/avatar/index.js";
 import Input from "../../components/input/index.js";
 import { context } from "./data.js";
-import { UserAPI } from "./user_api.js";
+import { UserAPI } from "../../modules/http/user-api.js";
 import router from "../../router.js";
 import { host } from "../../modules/actions.js";
 export class Profile extends Block {
@@ -50,10 +50,16 @@ export class Profile extends Block {
     goPassword() {
         router.go('/password');
     }
+    goChat() {
+        router.go('/chat');
+    }
     componentDidMount() {
+        console.log('componentDidMount');
         this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
+            console.log('componentDidMount eventBus');
             const change = this.element.querySelector('.js-change');
             const password = this.element.querySelector('.js-password');
+            const back = this.element.querySelector('.profile__left');
             if (change) {
                 change.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -64,6 +70,13 @@ export class Profile extends Block {
                 password.addEventListener('click', (event) => {
                     event.preventDefault();
                     this.goPassword();
+                });
+            }
+            if (back) {
+                console.log('back', back);
+                back.addEventListener('click', () => {
+                    console.log('click');
+                    this.goChat();
                 });
             }
         });

@@ -24,21 +24,21 @@ export const context = {
                 value: ''
             }
         },
-        firstName: {
+        first_name: {
             type: 'profile',
             config: {
                 type: 'text',
                 placeholder: 'Имя',
-                dataType: 'text',
+                dataType: 'first_name',
                 value: ''
             }
         },
-        lastName: {
+        second_name: {
             type: 'profile',
             config: {
                 type: 'text',
                 placeholder: 'Фамилия',
-                dataType: 'text',
+                dataType: 'second_name',
                 value: ''
             }
         },

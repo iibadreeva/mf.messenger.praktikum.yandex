@@ -30,8 +30,12 @@ export default function showHamburger(hamburgerBtn) {
         const that = e.target;
         if (nav) {
             if (!that.closest('.js-hamburger')) {
-                remove('body', show_hamburger);
-                show_hamburger = undefined;
+                setTimeout(() => {
+                    if (show_hamburger) {
+                        remove('body', show_hamburger);
+                        show_hamburger = undefined;
+                    }
+                }, 100);
             }
         }
         const isBtn = that.classList.contains('js-modal-btn') ||

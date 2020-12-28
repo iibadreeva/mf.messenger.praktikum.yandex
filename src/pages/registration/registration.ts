@@ -6,7 +6,7 @@ import {overviewShow} from '../../core/utils/overview';
 import {forma} from '../../core/utils/form';
 import {IContext, context} from './data'
 import router from "../../router";
-import {RegistrationApi} from "./registration-api";
+import {RegistrationUserApi} from "./registration-user-api";
 
 export class Registration extends Block<IContext> {
   constructor() {
@@ -31,7 +31,7 @@ export class Registration extends Block<IContext> {
   }
 
   registration(data:object) {
-    new RegistrationApi()
+    new RegistrationUserApi()
       .create(data)
       .then((res) => {
         const { status, data } = res;
@@ -64,7 +64,6 @@ export class Registration extends Block<IContext> {
 
           const inputs = form.querySelectorAll('input');
           const data = forma.send(inputs, false);
-          console.log('data', data)
           if (data !== undefined && data !== null) {
             this.registration(data);
           }

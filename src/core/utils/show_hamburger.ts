@@ -50,8 +50,12 @@ export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLik
     // удаляем меню, если кликаем в нет элемента
     if (nav) {
       if (!that.closest('.js-hamburger')) {
-        remove('body', show_hamburger);
-        show_hamburger = undefined;
+        setTimeout(() => {
+          if(show_hamburger) {
+            remove('body', show_hamburger);
+            show_hamburger = undefined;
+          }
+        }, 100);
       }
     }
 

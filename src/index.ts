@@ -16,14 +16,19 @@ import {ProfileChange} from "./pages/profile_change/profile_change";
 // isAlreadyLogin(authorization);
 
 router
-  // .useProtect('/', Page404)
-  // .useProtect('/chat', Page500)
-  // .use('/', Login)
-  .useProtect('/', Chat)
+  // .useProtect('/', Chat)
   .useProtect('/chat', Chat)
   .useProtect('/profile', Profile)
   .useProtect('/change', ProfileChange)
   .useProtect('/password', Profile)
+
+  // .use('/', Chat)
+  // .use('/chat', Chat)
+  // .use('/profile', Profile)
+  // .use('/change', ProfileChange)
+  // .use('/password', Profile)
+
+
   .use('/404', Page404)
   .use('/500', Page500)
   // .start();

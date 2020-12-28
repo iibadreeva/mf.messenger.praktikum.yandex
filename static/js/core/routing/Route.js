@@ -1,7 +1,6 @@
 import { isEqual } from "../utils/is_equal.js";
 import render from "../utils/render.js";
-import remove from "../utils/remove.js";
-export class Route {
+class Route {
     constructor(pathname, view, props) {
         this._pathname = pathname;
         this._blockClass = view;
@@ -16,17 +15,21 @@ export class Route {
     }
     leave() {
         if (this._block) {
-            remove(this._props.rootQuery, this._block);
-            return;
+            this._block.hide();
         }
     }
     match(pathname) {
         return isEqual(pathname, this._pathname);
     }
     render() {
-        this._block = new this._blockClass();
-        render(this._props.rootQuery, this._block);
-        return;
+        const app = document.querySelector(this._props.rootQuery);
+        if (app) {
+            app.innerHTML = '';
+            this._block = new this._blockClass();
+            render(this._props.rootQuery, this._block);
+            return;
+        }
     }
 }
+export { Route };
 //# sourceMappingURL=Route.js.map

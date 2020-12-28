@@ -24,7 +24,7 @@ export class Login extends Block<IContext> {
     );
   }
 
-  signin(data:object) {
+  signin(data: object) {
     new LoginAPI()
       .create(data)
       .then((data) => {

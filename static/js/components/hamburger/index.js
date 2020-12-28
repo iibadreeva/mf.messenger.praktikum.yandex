@@ -42,7 +42,10 @@ export default class Hamburger extends Block {
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5 11C20.5 16.247 16.2467 20.5 11 20.5C5.7533 20.5 1.5 16.247 1.5 11C1.5 5.753 5.7533 1.5 11 1.5C16.2467 1.5 20.5 5.753 20.5 11ZM22 11C22 17.075 17.0751 22 11 22C4.9249 22 0 17.075 0 11C0 4.925 4.9249 0 11 0C17.0751 0 22 4.925 22 11ZM11 14C12.6569 14 14 12.657 14 11C14 9.343 12.6569 8 11 8C9.3431 8 8 9.343 8 11C8 12.657 9.3431 14 11 14Z" fill="#2F43F2"></path>
               </svg>` :
                     ''}
-              ${title}
+             ${type === NavType.Avatar ?
+                    `<label for="avatar">${title}</label>` :
+                    `${title}`}
+              
             </li>` :
                 ''}`;
         }).join('')}`;

@@ -2,7 +2,7 @@ import Block from "../../core/block.js";
 import Button from "../../components/button/index.js";
 import { context } from "./data.js";
 import router from "../../router.js";
-import { CheckUserAPI } from "../../modules/http/user-api.js";
+import { UserAPI } from "../../modules/http/user-api.js";
 export class Page500 extends Block {
     constructor() {
         super("main", 'error', {
@@ -12,7 +12,7 @@ export class Page500 extends Block {
         });
     }
     goHome() {
-        new CheckUserAPI().request()
+        new UserAPI().request()
             .then(res => res.ok)
             .then((isAuth) => {
             if (isAuth) {

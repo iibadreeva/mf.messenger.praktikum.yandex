@@ -6,7 +6,7 @@ import { overviewShow } from "../../core/utils/overview.js";
 import { forma } from "../../core/utils/form.js";
 import { context } from "./data.js";
 import router from "../../router.js";
-import { RegistrationApi } from "./registration-api.js";
+import { RegistrationUserApi } from "./registration-user-api.js";
 export class Registration extends Block {
     constructor() {
         const { formdata: { email, login, first_name, second_name, phone, password, passwordAgain }, btn, link, title } = context;
@@ -24,7 +24,7 @@ export class Registration extends Block {
         });
     }
     registration(data) {
-        new RegistrationApi()
+        new RegistrationUserApi()
             .create(data)
             .then((res) => {
             const { status, data } = res;
@@ -54,7 +54,6 @@ export class Registration extends Block {
                     event.preventDefault();
                     const inputs = form.querySelectorAll('input');
                     const data = forma.send(inputs, false);
-                    console.log('data', data);
                     if (data !== undefined && data !== null) {
                         this.registration(data);
                     }
