@@ -19,7 +19,6 @@ export class ProfileChange extends Block<IContext> {
   constructor() {
     const {formdata: {email, login, first_name, second_name, phone}, btn, avatar}: IContext = context;
 
-
     super(
       'main',
       'profile',

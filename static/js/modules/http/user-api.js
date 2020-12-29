@@ -6,5 +6,8 @@ export class UserAPI extends BaseAPI {
     request() {
         return userAPIInstance.get('/api/v2/auth/user');
     }
+    logout() {
+        return userAPIInstance.post('/api/v2/auth/logout');
+    }
 }
 //# sourceMappingURL=user-api.js.map

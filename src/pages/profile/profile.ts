@@ -54,6 +54,24 @@ export class Profile extends Block<IContext> {
       });
   }
 
+  logout() {
+    new UserAPI()
+      .logout()
+      .then(res => {
+        console.log('res', res);
+        const { status } = res;
+
+        if(status === 200) {
+          router.isProtect = false;
+          router.go('/login');
+        } else if (status >= 500) {
+          router.go('/500');
+        } else {
+          alert('Произошла ошибка');
+        }
+      })
+  }
+
   goChange() {
     router.go('/change');
   }
@@ -88,12 +106,15 @@ export class Profile extends Block<IContext> {
       }
 
       if(back) {
-        back.addEventListener('click', () => {
-          this.goChat();
-        });
+        back.addEventListener('click', this.goChat);
       }
 
-      if (exit) {}
+      if (exit) {
+        exit.addEventListener('click', (event: MouseEvent) => {
+          event.preventDefault();
+          this.logout();
+        });
+      }
     });
   }
 

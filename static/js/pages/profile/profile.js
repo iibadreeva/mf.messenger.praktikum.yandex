@@ -44,6 +44,24 @@ export class Profile extends Block {
             });
         });
     }
+    logout() {
+        new UserAPI()
+            .logout()
+            .then(res => {
+            console.log('res', res);
+            const { status } = res;
+            if (status === 200) {
+                router.isProtect = false;
+                router.go('/login');
+            }
+            else if (status >= 500) {
+                router.go('/500');
+            }
+            else {
+                alert('Произошла ошибка');
+            }
+        });
+    }
     goChange() {
         router.go('/change');
     }
@@ -58,6 +76,7 @@ export class Profile extends Block {
             const change = this.element.querySelector('.js-change');
             const password = this.element.querySelector('.js-password');
             const back = this.element.querySelector('.profile__left');
+            const exit = this.element.querySelector('.profile__label_exit');
             if (change) {
                 change.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -71,8 +90,12 @@ export class Profile extends Block {
                 });
             }
             if (back) {
-                back.addEventListener('click', () => {
-                    this.goChat();
+                back.addEventListener('click', this.goChat);
+            }
+            if (exit) {
+                exit.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    this.logout();
                 });
             }
         });

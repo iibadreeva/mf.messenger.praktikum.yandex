@@ -9,6 +9,6 @@ export class UserAPI extends BaseAPI {
   }
 
   logout() {
-    return userAPIInstance.get('/api/v2/auth/logout');
+    return userAPIInstance.post('/api/v2/auth/logout');
   }
 }

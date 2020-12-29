@@ -16,10 +16,9 @@ interface IModal {
   footer?: {
     footerCenter: boolean,
     btnGroup: IBtnG[],
-    //map(param: (button: IBtnG) => string): HTMLElement
   } | undefined
 }
-// type Class = map(param: (button: IBtnG) => string): HTMLElement;
+
 export default class Modal extends Block<IModal> {
   constructor(props: IModal) {
     super('div', '', props);

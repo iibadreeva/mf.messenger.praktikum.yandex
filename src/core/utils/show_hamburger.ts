@@ -12,14 +12,12 @@ interface INav {
 }
 
 let show_hamburger:any = undefined;
-export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLike<unknown> | undefined, popub: boolean=false): void {
+export default function showHamburger(hamburgerBtn: NodeListOf<Element>, popub: boolean=false): void {
   // создаем модальное окно
   const modal = new Modal({});
   if(popub) {
     render('.container', modal);
   }
-
-  // const hamburgerBtn = document.querySelectorAll('.js-hamburger') || [];
 
   // Показываем меню по клику
   if (hamburgerBtn) {

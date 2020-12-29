@@ -94,13 +94,6 @@ export const forma = (function () {
           this.validate(element, true);
         }
       }, true);
-
-      // form.addEventListener('submit', (event: Event) => {
-      //   event.preventDefault();
-      //
-      //   const inputs = form.querySelectorAll('input');
-      //   this.send(inputs, modal);
-      // });
     }
   };
 })();

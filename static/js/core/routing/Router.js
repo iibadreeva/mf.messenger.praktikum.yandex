@@ -51,6 +51,7 @@ export default class Router {
         window.onpopstate = ((event) => {
             this._onRoute(event.currentTarget.location.pathname);
         }).bind(this);
+        history.pushState('', '', window.location.pathname);
         this._onRoute(window.location.pathname);
     }
     _onRoute(pathname) {

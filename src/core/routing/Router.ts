@@ -68,6 +68,7 @@ export default class Router {
       this._onRoute((<Window>event.currentTarget).location.pathname);
     }).bind(this);
 
+    history.pushState( '', '', window.location.pathname );
     this._onRoute(window.location.pathname);
   }
 
@@ -96,7 +97,6 @@ export default class Router {
 
   go(pathname: string): void {
     this.history.pushState({}, '', pathname);
-
     this._onRoute(pathname);
   }
 

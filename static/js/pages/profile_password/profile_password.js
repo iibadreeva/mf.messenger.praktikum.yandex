@@ -52,6 +52,23 @@ export class ProfilePassword extends Block {
             });
         });
     }
+    updatePassword(data) {
+        new ChangePasswordApi()
+            .update(data)
+            .then(res => {
+            const { status, data } = res;
+            if (status === 200) {
+                alert('Данные успешно заменены');
+            }
+            else if (status >= 500) {
+                router.go('/500');
+            }
+            else {
+                let reason = data || 'Не правильный пароль';
+                alert(reason);
+            }
+        });
+    }
     pupub() {
         const { modal } = context;
         const popub = new Modal(modal);
@@ -73,25 +90,7 @@ export class ProfilePassword extends Block {
             const inputs = form.querySelectorAll('input');
             const data = forma.send(inputs, popub);
             if (data !== undefined && data !== null) {
-                console.log('data', data);
                 this.updatePassword(data);
-            }
-        });
-    }
-    updatePassword(data) {
-        new ChangePasswordApi()
-            .update(data)
-            .then(res => {
-            const { status, data } = res;
-            if (status === 200) {
-                alert('Данные успешно заменены');
-            }
-            else if (status >= 500) {
-                router.go('/500');
-            }
-            else {
-                let reason = data || 'Не правильный пароль';
-                alert(reason);
             }
         });
     }
