@@ -15,6 +15,20 @@ interface IBtn {
   handleClick?: Function
 }
 
+interface IBtnG {
+  clName: string,
+  title: string
+}
+
+interface IModal {
+  title: string,
+  titleCenter: boolean,
+  footer: {
+    footerCenter: boolean,
+    btnGroup: IBtnG[]
+  }
+}
+
 export interface IContext {
   avatar: {
     name: string,
@@ -28,7 +42,8 @@ export interface IContext {
     second_name: IInput,
     phone: IInput,
   },
-  btn: IBtn
+  btn: IBtn,
+  modal: IModal
 }
 
 export const context:IContext = {
@@ -89,5 +104,18 @@ export const context:IContext = {
     text: 'Сохранить',
     type: 'button',
     clName: 'profile__btn js-submit',
+  },
+  modal: {
+    title: 'Не все поля правильно заполнены',
+    titleCenter: true,
+    footer: {
+      footerCenter: true,
+      btnGroup: [
+        {
+          clName: 'modal__btn_wide js-modal-btn',
+          title: 'Поменять',
+        }
+      ]
+    }
   }
 };

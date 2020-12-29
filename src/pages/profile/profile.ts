@@ -67,12 +67,11 @@ export class Profile extends Block<IContext> {
   }
 
   componentDidMount(): void {
-    console.log('componentDidMount')
     this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-      console.log('componentDidMount eventBus')
       const change = this.element.querySelector('.js-change');
       const password = this.element.querySelector('.js-password');
       const back = <HTMLDivElement>this.element.querySelector('.profile__left');
+      const exit = <HTMLDivElement>this.element.querySelector('.profile__label_exit');
 
       if(change) {
         change.addEventListener('click', (event: Event) => {
@@ -89,13 +88,12 @@ export class Profile extends Block<IContext> {
       }
 
       if(back) {
-        console.log('back', back)
         back.addEventListener('click', () => {
-
-          console.log('click')
           this.goChat();
         });
       }
+
+      if (exit) {}
     });
   }
 

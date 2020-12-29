@@ -12,10 +12,12 @@ interface INav {
 }
 
 let show_hamburger:any = undefined;
-export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLike<unknown> | undefined): void {
+export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLike<unknown> | undefined, popub: boolean=false): void {
   // создаем модальное окно
   const modal = new Modal({});
-  render('.container', modal);
+  if(popub) {
+    render('.container', modal);
+  }
 
   // const hamburgerBtn = document.querySelectorAll('.js-hamburger') || [];
 
@@ -63,7 +65,7 @@ export default function showHamburger(hamburgerBtn: Iterable<unknown> | ArrayLik
     const isBtn = that.classList.contains('js-modal-btn') ||
       that.classList.contains('js-close-modal') ||
       that.classList.contains('js-remove-chat');
-    if (isBtn) {
+    if (popub && isBtn) {
       modal.hide();
       overviewHide();
     }

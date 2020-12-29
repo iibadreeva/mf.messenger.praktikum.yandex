@@ -2,7 +2,6 @@ import Block from '../../core/block';
 import Button from '../../components/button/index';
 import Avatar from '../../components/avatar/index';
 import Templator from '../../core/utils/templator';
-import checkProfile from '../../core/utils/check_profile';
 import showHamburger from '../../core/utils/show_hamburger';
 import Input from '../../components/input/index';
 import {IContext, context} from './data';
@@ -12,10 +11,14 @@ import {forma} from "../../core/utils/form";
 import {ChangeUserApi} from "./change-user-api";
 import router from "../../router";
 import {ObjectKeyStringType} from "../../core/types";
+import Modal from "../../components/modal/index";
+import render from "../../core/utils/render";
+import {overviewHide} from "../../core/utils/overview";
 
 export class ProfileChange extends Block<IContext> {
   constructor() {
     const {formdata: {email, login, first_name, second_name, phone}, btn, avatar}: IContext = context;
+
 
     super(
       'main',
@@ -27,10 +30,32 @@ export class ProfileChange extends Block<IContext> {
         first_name: new Input(first_name).render(),
         second_name: new Input(second_name).render(),
         phone: new Input(phone).render(),
-        button: new Button(btn).render(),
+        button: new Button(btn).render()
       }
     );
     this.getData();
+  }
+
+  componentDidMount(): void {
+    const popub = this.pupub();
+    this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
+      const hamburgerBtn = this.element.querySelectorAll('.js-hamburger');
+      const avatar = <HTMLInputElement>this.element.querySelector('#avatar');
+      const image = <HTMLImageElement>this.element.querySelector('.profile__image');
+      const form = <HTMLDivElement>this.element.querySelector('.profile__form');
+      const back = <HTMLDivElement>this.element.querySelector('.profile__left');
+
+      if (form) {
+        this.checkForm(form, avatar, popub);
+      }
+
+      if(back) {
+        back.addEventListener('click', this.goBack);
+      }
+
+      showHamburger(hamburgerBtn);
+      this.loadAvatar(avatar, image);
+    });
   }
 
   goBack() {
@@ -46,83 +71,27 @@ export class ProfileChange extends Block<IContext> {
       });
   }
 
-  setData(data: ObjectKeyStringType) {
-    let {formdata: {email, login, first_name, second_name, phone}, avatar}: IContext = context;
+  updateUser(data: ObjectKeyStringType, input: HTMLInputElement) {
+    new ChangeUserApi()
+      .update(data)
+      .then(res => {
+        const { status } = res;
 
-    email.config.value = data.email;
-    login.config.value = data.login;
-    first_name.config.value = data.first_name;
-    second_name.config.value = data.second_name;
-    phone.config.value = data.phone;
-    if (data.avatar) {
-      avatar.image = `${host}${data.avatar}`;
-    }
-    avatar.name = data.first_name;
+        if(status === 200) {
 
-    this.setProps({
-      email: new Input(email).render(),
-      login: new Input(login).render(),
-      first_name: new Input(first_name).render(),
-      second_name: new Input(second_name).render(),
-      phone: new Input(phone).render(),
-      avatar: new Avatar(avatar).render(),
-    })
-  }
-
-  componentDidMount(): void {
-    this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-      const hamburgerBtn = this.element.querySelectorAll('.js-hamburger');
-      const avatar = <HTMLInputElement>this.element.querySelector('#avatar');
-      const image = <HTMLImageElement>this.element.querySelector('.profile__image');
-      const form = <HTMLDivElement>this.element.querySelector('.profile__form');
-      const back = <HTMLDivElement>this.element.querySelector('.profile__left');
-
-      if (form) {
-        forma.listeners(form);
-
-        form.addEventListener('submit', (event: Event) => {
-          event.preventDefault();
-
-          const inputs = form.querySelectorAll('input');
-          const data = forma.send(inputs, false);
-          if (data !== undefined && data !== null) {
-            data.display_name = `${data.first_name} ${data.second_name}`;
-
-            if (data !== undefined && data !== null) {
-              this.updateUser(data, avatar);
-            }
+          if (input.files?.length) {
+            this.updateAvatar(input);
+          } else {
+            this.setData(data);
+            alert('Данные успешно заменены');
           }
-        });
-      }
 
-      if(back) {
-        back.addEventListener('click', this.goBack);
-      }
-
-      checkProfile();
-      showHamburger(hamburgerBtn);
-      this.loadAvatar(avatar, image);
-    });
-  }
-
-  loadAvatar(avatar: HTMLInputElement, image: HTMLImageElement) {
-    const fileReading = new FileReader();
-    fileReading.addEventListener('load', function () {
-      if (typeof this.result === "string") {
-        image.src = this.result;
-      }
-    });
-
-    if (avatar) {
-      avatar.addEventListener('change', function (evt: Event) {
-        const input = evt.target as HTMLInputElement;
-        if (!input.files?.length) {
-          return;
+        } else if (status >= 500) {
+          router.go('/500');
+        } else {
+          alert('Произошла ошибка');
         }
-        const file = input.files[0];
-        fileReading.readAsDataURL(file);
       });
-    }
   }
 
   updateAvatar(input: HTMLInputElement) {
@@ -150,27 +119,83 @@ export class ProfileChange extends Block<IContext> {
       });
   }
 
-  updateUser(data: ObjectKeyStringType, input: HTMLInputElement) {
-    new ChangeUserApi()
-      .update(data)
-      .then(res => {
-        const { status } = res;
+  setData(data: ObjectKeyStringType) {
+    let {formdata: {email, login, first_name, second_name, phone}, avatar}: IContext = context;
 
-        if(status === 200) {
+    email.config.value = data.email;
+    login.config.value = data.login;
+    first_name.config.value = data.first_name;
+    second_name.config.value = data.second_name;
+    phone.config.value = data.phone;
+    if (data.avatar) {
+      avatar.image = `${host}${data.avatar}`;
+    }
+    avatar.name = data.first_name;
 
-          if (input.files?.length) {
-            this.updateAvatar(input);
-          } else {
-            this.setData(data);
-            alert('Данные успешно заменены');
-          }
+    this.setProps({
+      email: new Input(email).render(),
+      login: new Input(login).render(),
+      first_name: new Input(first_name).render(),
+      second_name: new Input(second_name).render(),
+      phone: new Input(phone).render(),
+      avatar: new Avatar(avatar).render(),
+    })
+  }
 
-        } else if (status >= 500) {
-          router.go('/500');
-        } else {
-          alert('Произошла ошибка');
+  loadAvatar(avatar: HTMLInputElement, image: HTMLImageElement) {
+    const fileReading = new FileReader();
+    fileReading.addEventListener('load', function () {
+      if (typeof this.result === "string") {
+        image.src = this.result;
+      }
+    });
+
+    if (avatar) {
+      avatar.addEventListener('change', function (evt: Event) {
+        const input = evt.target as HTMLInputElement;
+        if (!input.files?.length) {
+          return;
         }
+        const file = input.files[0];
+        fileReading.readAsDataURL(file);
       });
+    }
+  }
+
+  pupub() {
+    // Подготавливаем мадальное окно
+    const {modal}: IContext = context;
+    const popub = new Modal(modal);
+    popub.hide();
+    render('.container', popub);
+
+    const btnModal = document.querySelector('.js-modal-btn');
+    if (btnModal) {
+      btnModal.addEventListener('click', () => {
+        popub.hide();
+        overviewHide();
+      })
+    }
+
+    return popub;
+  }
+
+  checkForm(form: HTMLDivElement, avatar: HTMLInputElement, popub: object) {
+    forma.listeners(form);
+
+    form.addEventListener('submit', (event: Event) => {
+      event.preventDefault();
+
+      const inputs = form.querySelectorAll('input');
+      const data = forma.send(inputs, popub);
+      if (data !== undefined && data !== null) {
+        data.display_name = `${data.first_name} ${data.second_name}`;
+
+        if (data !== undefined && data !== null) {
+          this.updateUser(data, avatar);
+        }
+      }
+    });
   }
 
   render() {

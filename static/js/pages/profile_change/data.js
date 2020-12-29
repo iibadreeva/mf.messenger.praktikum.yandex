@@ -56,6 +56,19 @@ export const context = {
         text: 'Сохранить',
         type: 'button',
         clName: 'profile__btn js-submit',
+    },
+    modal: {
+        title: 'Не все поля правильно заполнены',
+        titleCenter: true,
+        footer: {
+            footerCenter: true,
+            btnGroup: [
+                {
+                    clName: 'modal__btn_wide js-modal-btn',
+                    title: 'Поменять',
+                }
+            ]
+        }
     }
 };
 //# sourceMappingURL=data.js.map

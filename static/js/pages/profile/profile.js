@@ -54,9 +54,7 @@ export class Profile extends Block {
         router.go('/chat');
     }
     componentDidMount() {
-        console.log('componentDidMount');
         this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-            console.log('componentDidMount eventBus');
             const change = this.element.querySelector('.js-change');
             const password = this.element.querySelector('.js-password');
             const back = this.element.querySelector('.profile__left');
@@ -73,9 +71,7 @@ export class Profile extends Block {
                 });
             }
             if (back) {
-                console.log('back', back);
                 back.addEventListener('click', () => {
-                    console.log('click');
                     this.goChat();
                 });
             }

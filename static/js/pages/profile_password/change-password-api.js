@@ -2,9 +2,9 @@ import HTTP from "../../modules/http.js";
 import { BaseAPI } from "../../modules/http/base-api.js";
 import { host } from "../../modules/actions.js";
 const userAPIInstance = new HTTP(host);
-export class RegistrationApi extends BaseAPI {
-    create(data) {
-        return userAPIInstance.post('/api/v2/auth/signup', {
+export class ChangePasswordApi extends BaseAPI {
+    update(data) {
+        return userAPIInstance.put('/api/v2/user/password', {
             headers: {
                 'content-type': 'application/json'
             },
@@ -12,4 +12,4 @@ export class RegistrationApi extends BaseAPI {
         });
     }
 }
-//# sourceMappingURL=registration-api.js.map
+//# sourceMappingURL=change-password-api.js.map

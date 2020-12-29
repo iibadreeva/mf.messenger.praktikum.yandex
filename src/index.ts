@@ -11,6 +11,7 @@ import {Registration} from "./pages/registration/registration";
 import {Chat} from "./pages/messenger/messenger";
 import {Profile} from "./pages/profile/profile";
 import {ProfileChange} from "./pages/profile_change/profile_change";
+import {ProfilePassword} from "./pages/profile_password/profile_password";
 
 
 // isAlreadyLogin(authorization);
@@ -20,7 +21,7 @@ router
   .useProtect('/chat', Chat)
   .useProtect('/profile', Profile)
   .useProtect('/change', ProfileChange)
-  .useProtect('/password', Profile)
+  .useProtect('/password', ProfilePassword)
 
   // .use('/', Chat)
   // .use('/chat', Chat)

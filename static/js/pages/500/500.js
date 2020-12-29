@@ -16,7 +16,7 @@ export class Page500 extends Block {
             .then(res => res.ok)
             .then((isAuth) => {
             if (isAuth) {
-                router.go('/');
+                router.go('/chat');
             }
             else {
                 router.go('/login');

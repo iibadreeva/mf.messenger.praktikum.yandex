@@ -5,9 +5,11 @@ import { overviewHide, overviewShow } from "./overview.js";
 import Hamburger, { NavType } from "../../components/hamburger/index.js";
 import router from "../../router.js";
 let show_hamburger = undefined;
-export default function showHamburger(hamburgerBtn) {
+export default function showHamburger(hamburgerBtn, popub = false) {
     const modal = new Modal({});
-    render('.container', modal);
+    if (popub) {
+        render('.container', modal);
+    }
     if (hamburgerBtn) {
         Array.from(hamburgerBtn).forEach(item => {
             const element = item;
@@ -41,7 +43,7 @@ export default function showHamburger(hamburgerBtn) {
         const isBtn = that.classList.contains('js-modal-btn') ||
             that.classList.contains('js-close-modal') ||
             that.classList.contains('js-remove-chat');
-        if (isBtn) {
+        if (popub && isBtn) {
             modal.hide();
             overviewHide();
         }

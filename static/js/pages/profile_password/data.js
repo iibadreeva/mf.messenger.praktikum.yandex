@@ -1,28 +1,27 @@
 export const context = {
     avatar: {
-        name: 'Инна',
-        image: 'images/static_cat.jpg'
+        name: '',
+        image: ''
     },
-    goBack: '/profile.html',
     formdata: {
         oldPassword: {
             type: 'profile',
             config: {
                 type: 'password',
                 placeholder: 'Старый пароль',
-                dataType: 'password_old',
+                dataType: 'oldPassword',
                 dataText: '',
-                value: 'yandex.ru'
+                value: ''
             }
         },
-        password: {
+        newPassword: {
             type: 'profile',
             config: {
                 type: 'password',
                 placeholder: 'Пароль',
-                dataType: 'password',
+                dataType: 'newPassword',
                 dataText: '',
-                value: 'inna@yandex.ru'
+                value: ''
             }
         },
         passwordAgain: {
@@ -32,7 +31,7 @@ export const context = {
                 placeholder: 'Пароль (еще раз)',
                 dataType: 'password_again',
                 dataText: 'Пароли не совпадают',
-                value: 'inna@yandex.ru'
+                value: ''
             }
         }
     },
@@ -40,6 +39,19 @@ export const context = {
         text: 'Сохранить',
         type: 'button',
         clName: 'profile__btn js-submit',
+    },
+    modal: {
+        title: 'Не все поля правильно заполнены',
+        titleCenter: true,
+        footer: {
+            footerCenter: true,
+            btnGroup: [
+                {
+                    clName: 'modal__btn_wide js-modal-btn',
+                    title: 'Поменять',
+                }
+            ]
+        }
     }
 };
 //# sourceMappingURL=data.js.map
