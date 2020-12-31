@@ -19,8 +19,7 @@ export default class Avatar extends Block<IContext> {
                 <img class="profile__image" src="{{ image }}">
                 ${this.props.change ? `
                     <div class="profile__placeholder js-hamburger" data-type="avatar">
-                      <div class="profile__placeholder__text">Поменять
-                        <div>аватар</div>
+                      <div class="profile__placeholder__text">Поменять <br>аватар
                       </div>
                     </div>`:
                   ''}

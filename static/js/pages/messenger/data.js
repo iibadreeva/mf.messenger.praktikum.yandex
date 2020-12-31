@@ -14,61 +14,31 @@ export const context = {
     dialogs: [
         {
             title: 'Андрей',
-            avatar: '',
-            date: 'Пт',
-            message: {
-                text: 'Изображение'
-            }
+            avatar: null
         },
         {
             title: 'Киноклуб',
-            avatar: '',
-            date: '10:49',
-            message: {
-                text: 'стикер',
-                isMy: true
-            }
+            avatar: ''
         },
         {
             title: 'Андрей',
-            avatar: 'images/static_cat.jpg',
-            date: 'Пт',
-            message: {
-                text: 'Друзья, у меня для вас особенный выпуск новостей!...'
-            }
+            avatar: 'images/static_cat.jpg'
         },
         {
             title: 'Андрей',
-            avatar: '',
-            date: 'Ср',
-            count: 2,
-            message: {
-                text: 'Друзья, у меня для вас особенный выпуск'
-            }
+            avatar: ''
         },
         {
             title: 'Андрей',
-            avatar: '',
-            date: 'Ср',
-            message: {
-                text: 'Изображение'
-            }
+            avatar: ''
         },
         {
             title: 'Андрей',
-            avatar: '',
-            date: 'Ср',
-            message: {
-                text: 'Изображение'
-            }
+            avatar: ''
         },
         {
             title: 'Андрей',
-            avatar: '',
-            date: 'Ср',
-            message: {
-                text: 'Изображение'
-            }
+            avatar: ''
         }
     ]
 };

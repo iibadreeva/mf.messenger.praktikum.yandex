@@ -1,3 +1,4 @@
+import { escape } from "./escape.js";
 export const forma = (function () {
     const phoneRe = /^\+7|8[-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
     const emailRe = /^[\w-\.]+@[\w-]+\.[a-z]{2,3}$/i;
@@ -58,8 +59,9 @@ export const forma = (function () {
             matchList = [];
             Array.from(inputs).forEach((input) => {
                 this.validate(input, false);
+                const value = escape(input);
                 if (input.dataset.type !== 'password_again') {
-                    data[input.dataset.type] = input.value;
+                    data[input.dataset.type] = value;
                 }
             });
             const isValid = matchList.find(item => item === 0);

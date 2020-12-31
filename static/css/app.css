@@ -257,10 +257,15 @@ h1, h2, h3, h4, h5 {
   border-radius: 50%;
   overflow: hidden;
   background-color: #F1F1F1;
+  position: relative;
 }
 .messenger__header__image {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  width: auto;
+  position: absolute;
+  left: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .messenger__header__hamburger {
   color: #ABABAB;
@@ -327,10 +332,15 @@ h1, h2, h3, h4, h5 {
   overflow: hidden;
   background-color: #F1F1F1;
   margin-right: 5px;
+  position: relative;
 }
 .messenger__item__image {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  width: auto;
+  position: absolute;
+  left: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .messenger__item__body {
   width: calc(350px - 75px );
@@ -482,6 +492,7 @@ h1, h2, h3, h4, h5 {
   background: #EFEFEF url("../images/profil_logo.svg") 50% 50% no-repeat;
   cursor: pointer;
   display: flex;
+  overflow: hidden;
 }
 .profile__photo:hover .profile__placeholder {
   opacity: 1;
@@ -507,9 +518,12 @@ h1, h2, h3, h4, h5 {
   transform: translate(-50%, -50%);
 }
 .profile__image {
-  border-radius: 50%;
   width: 100%;
   height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .profile__name {
   font-size: 18px;
@@ -690,6 +704,22 @@ h1, h2, h3, h4, h5 {
 .modal__control {
   margin: 0 30px;
   border-bottom: 1px solid #000;
+}
+.modal__lists {
+  margin: 0 30px;
+  padding-top: 30px;
+}
+.modal__list {
+  position: relative;
+  padding-left: 20px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.modal__radio {
+  position: absolute;
+  left: 0;
+  vertical-align: bottom;
+  top: 5px;
 }
 .modal__input {
   font-size: 15px;

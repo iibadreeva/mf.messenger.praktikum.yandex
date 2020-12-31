@@ -36,11 +36,15 @@ $widthLeftMessenger: 350px;
       border-radius: 50%;
       overflow: hidden;
       background-color: #F1F1F1;
+      position: relative;
     }
 
     &__image {
-      width: 100%;
-      height: auto;
+      height: 100%;
+      width: auto;
+      position: absolute;
+      left: 50%;
+      @include centeredX;
     }
 
     &__hamburger {
@@ -120,11 +124,15 @@ $widthLeftMessenger: 350px;
       overflow: hidden;
       background-color: #F1F1F1;
       margin-right: 5px;
+      position: relative;
     }
 
     &__image {
-      width: 100%;
-      height: auto;
+      height: 100%;
+      width: auto;
+      position: absolute;
+      left: 50%;
+      @include centeredX;
     }
 
     &__body {

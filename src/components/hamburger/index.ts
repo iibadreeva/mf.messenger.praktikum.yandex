@@ -5,14 +5,15 @@ export enum NavType {
   File = 'file',
   Media = 'photo-video',
   Avatar = 'avatar',
+  CreateChat = 'create-chat',
   RemoveChat = 'remove-chat',
-  RemoveUser = 'remove-user',
   AddUser = 'add-user',
+  RemoveUser = 'remove-user',
   Profile = 'profiler',
 }
 
 interface INav {
-  type?: NavType;
+  type?: NavType | string;
   title: string;
   clName?: string;
   to?: string;
@@ -33,7 +34,7 @@ export default class Hamburger extends Block<INav> {
       return `
           ${title ?
             `<li
-             class="nav-list__item ${clName}"
+             class="nav-list__item ${clName ? `${clName}` : ''}"
              ${type ? `data-type="${type}"` : ''}
              ${to ? `to="${to}"` : ''}
              >

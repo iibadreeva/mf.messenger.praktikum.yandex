@@ -7,7 +7,7 @@ export default class Modal extends Block {
         if (Object.keys(this.props).length < 1) {
             return '';
         }
-        const { title, type, titleCenter, formData, footer } = this.props;
+        const { title, type, titleCenter, formData, footer, radio, info } = this.props;
         let templ = `
       <div class="modal">
         <div class="modal ${type === 'average' ? 'modal_average' : ''}">
@@ -21,16 +21,38 @@ export default class Modal extends Block {
                 <input class="modal__value" value="${formData.value}" autofocus>
               </div>` :
             ''}
+            ${radio ?
+            `<ul class="modal__lists">
+              ${radio.map((item) => {
+                return `
+                    <li class="modal__list">
+                      <label>
+                          <input class="modal__radio" type="radio" name="user" value="${item.id}">${item.login}
+                      </label>
+                    </li>`;
+            }).join('')}
+            </ul>` :
+            ''}
+            ${info ?
+            `<div class="modal__text modal__text_center">
+              ${info}
+            </div>` :
+            ''}
+            
           </div>
           ${footer ?
             `<footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
-            ${footer.btnGroup.map((button) => {
-                return `<button class="modal__btn ${button.clName}">
-                          ${button.title}
-                      </button>`;
-            })}` :
+              ${footer.btnGroup.map((button) => {
+                return `
+                  <button
+                    class="modal__btn ${button.clName}"
+                    ${button.id ? `data-id="${button.id}"` : ''}
+                  >
+                      ${button.title}
+                  </button>`;
+            }).join('')}` :
             ''}
-            </footer>
+              </footer>
         </div>
       </div>`;
         return templ;

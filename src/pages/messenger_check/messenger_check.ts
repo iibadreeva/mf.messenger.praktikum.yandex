@@ -11,7 +11,7 @@
 //
 // class Page extends Block<IContext> {
 //   constructor(props: IContext) {
-//     super('div', 'messenger', props);
+//     super('div', 'chat', props);
 //   }
 //
 //   render() {

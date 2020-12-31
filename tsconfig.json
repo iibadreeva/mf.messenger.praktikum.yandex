@@ -16,13 +16,6 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "handlebars": ["./node_modules/handlebars/dist/handlebars.js"]
-    },
-    "types": ["handlebars"],
-    "baseUrl": ".",
-    "allowSyntheticDefaultImports": true,
     "plugins": [
       {
         "transform": "./node_modules/@zoltu/typescript-transformer-append-js-extension/output/index.js",

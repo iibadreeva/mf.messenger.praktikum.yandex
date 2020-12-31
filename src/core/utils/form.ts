@@ -1,4 +1,5 @@
 import {ObjectKeyStringType} from "../types";
+import {escape} from "./escape";
 
 export const forma = (function () {
   const phoneRe = /^\+7|8[-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
@@ -53,20 +54,20 @@ export const forma = (function () {
         this.hideError(label, input)
       }
     },
-    send: function(inputs: any, modal: any):ObjectKeyStringType | undefined {
-      // const data: any[] = [];
+    send: function(inputs: NodeListOf<Element>, modal: any):ObjectKeyStringType | undefined {
       const data:ObjectKeyStringType = {};
       matchList = [];
       Array.from(inputs).forEach((input: any) => {
         this.validate(input, false);
 
+        const value = escape(input);
+
         if(input.dataset.type !== 'password_again') {
-          data[input.dataset.type] = input.value;
+          data[input.dataset.type] = value;
         }
       });
       const isValid = matchList.find(item => item === 0);
       if (isValid !== 0) {
-        // console.log('Данные: ', data);
         return data;
       } else if (modal) {
         const overview = document.querySelector('.overview');
@@ -77,7 +78,6 @@ export const forma = (function () {
         modal.show();
       }
     },
-    // listeners: function (form:HTMLDivElement, modal: any) {
     listeners: function (form:HTMLDivElement) {
       form.addEventListener("blur", (event: Event) => {
         const element = <HTMLInputElement>event.target

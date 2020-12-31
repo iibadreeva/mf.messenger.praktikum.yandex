@@ -40,6 +40,7 @@
     background: #EFEFEF url("../images/profil_logo.svg") 50% 50% no-repeat;
     cursor: pointer;
     display: flex;
+    overflow: hidden;
 
     &:hover {
       .profile__placeholder {
@@ -69,9 +70,10 @@
   }
 
   &__image {
-    border-radius: 50%;
     width: 100%;
     height: auto;
+    position: absolute;
+    @include centered;
   }
 
   &__name {

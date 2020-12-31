@@ -38,7 +38,6 @@ export class ProfileChange extends Block<IContext> {
   componentDidMount(): void {
     const popub = this.pupub();
     this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-      const hamburgerBtn = this.element.querySelectorAll('.js-hamburger');
       const avatar = <HTMLInputElement>this.element.querySelector('#avatar');
       const image = <HTMLImageElement>this.element.querySelector('.profile__image');
       const form = <HTMLDivElement>this.element.querySelector('.profile__form');
@@ -52,9 +51,9 @@ export class ProfileChange extends Block<IContext> {
         back.addEventListener('click', this.goBack);
       }
 
-      showHamburger(hamburgerBtn);
       this.loadAvatar(avatar, image);
     });
+    showHamburger(false);
   }
 
   goBack() {

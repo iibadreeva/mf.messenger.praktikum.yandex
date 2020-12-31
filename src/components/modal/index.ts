@@ -2,21 +2,29 @@ import Block from '../../core/block';
 
 interface IBtnG {
   clName: string,
-  title: string
+  title: string,
+  id?: string
 }
 
 interface IModal {
-  title?: string,
-  type?: string,
-  titleCenter?: boolean,
+  title?: string;
+  type?: string;
+  titleCenter?: boolean;
   formData?: {
-    label: string,
-    value: string
+    label: string;
+    value: string;
   },
   footer?: {
-    footerCenter: boolean,
-    btnGroup: IBtnG[],
-  } | undefined
+    footerCenter: boolean;
+    btnGroup: IBtnG[];
+  } | undefined;
+  radio?: [
+    {
+      id: number;
+      login: string;
+    }
+  ] | undefined;
+  info?: string
 }
 
 export default class Modal extends Block<IModal> {
@@ -33,7 +41,9 @@ export default class Modal extends Block<IModal> {
       type,
       titleCenter,
       formData,
-      footer
+      footer,
+      radio,
+      info
     } : IModal= this.props;
 
     let templ = `
@@ -50,16 +60,38 @@ export default class Modal extends Block<IModal> {
               </div>` :
               ''
             }
+            ${radio ?
+            `<ul class="modal__lists">
+              ${radio.map((item) => {
+                return `
+                    <li class="modal__list">
+                      <label>
+                          <input class="modal__radio" type="radio" name="user" value="${item.id}">${item.login}
+                      </label>
+                    </li>`
+              }).join('')}
+            </ul>` :
+            ''}
+            ${info ?
+            `<div class="modal__text modal__text_center">
+              ${info}
+            </div>` :
+            ''}
+            
           </div>
           ${footer ?
             `<footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
-            ${footer.btnGroup.map((button: IBtnG) => {
-              return `<button class="modal__btn ${button.clName}">
-                          ${button.title}
-                      </button>`
-            })}` :
-            ''}
-            </footer>
+              ${footer.btnGroup.map((button: IBtnG) => {
+                return `
+                  <button
+                    class="modal__btn ${button.clName}"
+                    ${button.id ? `data-id="${button.id}"` : ''}
+                  >
+                      ${button.title}
+                  </button>`
+              }).join('')}` :
+              ''}
+              </footer>
         </div>
       </div>`;
 

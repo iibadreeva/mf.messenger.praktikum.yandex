@@ -69,6 +69,25 @@
     border-bottom: 1px solid #000;
   }
 
+  &__lists {
+    margin: 0 30px;
+    padding-top: 30px;
+  }
+
+  &__list {
+    position: relative;
+    padding-left: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  &__radio {
+    position: absolute;
+    left: 0;
+    vertical-align: bottom;
+    top: 5px;
+  }
+
   &__input {
     font-size: 15px;
     width: 100%;

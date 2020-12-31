@@ -5,9 +5,10 @@ export var NavType;
     NavType["File"] = "file";
     NavType["Media"] = "photo-video";
     NavType["Avatar"] = "avatar";
+    NavType["CreateChat"] = "create-chat";
     NavType["RemoveChat"] = "remove-chat";
-    NavType["RemoveUser"] = "remove-user";
     NavType["AddUser"] = "add-user";
+    NavType["RemoveUser"] = "remove-user";
     NavType["Profile"] = "profiler";
 })(NavType || (NavType = {}));
 export default class Hamburger extends Block {
@@ -23,7 +24,7 @@ export default class Hamburger extends Block {
             return `
           ${title ?
                 `<li
-             class="nav-list__item ${clName}"
+             class="nav-list__item ${clName ? `${clName}` : ''}"
              ${type ? `data-type="${type}"` : ''}
              ${to ? `to="${to}"` : ''}
              >

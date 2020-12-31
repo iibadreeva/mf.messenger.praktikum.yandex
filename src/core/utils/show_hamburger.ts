@@ -12,40 +12,46 @@ interface INav {
 }
 
 let show_hamburger:any = undefined;
-export default function showHamburger(hamburgerBtn: NodeListOf<Element>, popub: boolean=false): void {
-  // создаем модальное окно
-  const modal = new Modal({});
-  if(popub) {
+// создаем модальное окно
+let modal: Modal;
+let id: string;
+export default function showHamburger(popub: any) {
+  if(popub && !modal) {
+    modal = new Modal({});
     render('.container', modal);
-  }
-
-  // Показываем меню по клику
-  if (hamburgerBtn) {
-    Array.from(hamburgerBtn).forEach(item => {
-      const element: HTMLElement = <HTMLElement> item;
-
-      element.addEventListener('click', (event: MouseEvent) => {
-        const type = element.dataset.type || '';
-
-        if (show_hamburger) {
-          remove('body', show_hamburger);
-        }
-
-        const {nav, navWidth, navHeight}: INav = createNav(type);
-
-        const x = event.pageX;
-        const y = event.pageY;
-
-        nav.style.left = `${x - navWidth + 10}px`;
-        nav.style.top = `${y - navHeight}px`;
-      })
-    });
   }
 
   const body = document.body;
   body.addEventListener('click', (e: MouseEvent) => {
     const nav = document.querySelector('.nav-list');
     const that = <HTMLElement>e.target;
+
+
+
+    if(that.closest('.js-hamburger')) {
+      let element = <HTMLElement> that;
+      if (!element.dataset.type) {
+        element = <HTMLElement>that.parentNode;
+      }
+      const type = element.dataset.type || '';
+      const dialog: HTMLDivElement | null = element.closest('.messenger__item');
+
+      if(dialog) {
+        id = <string>dialog.dataset.id;
+      }
+
+      if (show_hamburger) {
+        remove('body', show_hamburger);
+      }
+
+      const {nav, navWidth, navHeight}: INav = createNav(type);
+
+      const x = e.pageX;
+      const y = e.pageY;
+
+      nav.style.left = `${x - navWidth + 10}px`;
+      nav.style.top = `${y - navHeight}px`;
+    }
 
     // удаляем меню, если кликаем в нет элемента
     if (nav) {
@@ -57,13 +63,12 @@ export default function showHamburger(hamburgerBtn: NodeListOf<Element>, popub: 
           }
         }, 100);
       }
+
     }
 
     // скрываем модальное окно
-    const isBtn = that.classList.contains('js-modal-btn') ||
-      that.classList.contains('js-close-modal') ||
-      that.classList.contains('js-remove-chat');
-    if (popub && isBtn) {
+    const overview = that.classList.contains('overview');
+    if (popub && overview) {
       modal.hide();
       overviewHide();
     }
@@ -81,7 +86,12 @@ export default function showHamburger(hamburgerBtn: NodeListOf<Element>, popub: 
       }
     }
   });
+
+  if(popub) {
+    return modal;
+  }
 }
+
 function createNav(type: string): INav {
   let
     nav,
@@ -92,12 +102,8 @@ function createNav(type: string): INav {
     case 'profile':
       show_hamburger = new Hamburger([
         {
-          type: NavType.AddUser,
-          title: 'Добавить пользователя'
-        },
-        {
-          type: NavType.RemoveUser,
-          title: 'Удалить пользователя'
+          type: NavType.CreateChat,
+          title: 'Создать новый чат '
         },
         {
           title: 'Профиль',
@@ -110,6 +116,15 @@ function createNav(type: string): INav {
       break;
     case 'chat':
       show_hamburger = new Hamburger([
+        {
+          type: NavType.AddUser,
+          title: 'Добавить пользователя'
+        },
+        {
+          type: id,
+          clName: 'js-btn-search-user-to-remove',
+          title: 'Удалить пользователя'
+        },
         {
           type: NavType.RemoveChat,
           title: 'Удалить чат'
@@ -158,9 +173,9 @@ function createNav(type: string): INav {
 
 function createModal(type: string, modal: any): void {
   switch (type) {
-    case 'add-user':
+    case 'create-chat':
       modal.setProps({
-        title: 'Добавить новго пользователя',
+        title: 'Добавить новый чат',
         type: '',
         titleCenter: true,
         formData: {
@@ -171,11 +186,36 @@ function createModal(type: string, modal: any): void {
           footerCenter: true,
           btnGroup: [
             {
-              clName: 'modal__btn_wide js-modal-btn',
+              clName: 'modal__btn_wide js-btn-create-chat',
               title: 'Добавить'
             }
           ]
-        }
+        },
+        radio: undefined
+      });
+      overviewShow();
+      modal.show();
+      break;
+    case 'add-user':
+      modal.setProps({
+        title: 'Добавить нового пользователя',
+        type: '',
+        titleCenter: true,
+        formData: {
+          label: 'Логин',
+          value: ''
+        },
+        footer: {
+          footerCenter: true,
+          btnGroup: [
+            {
+              clName: 'modal__btn_wide js-btn-search-user-to-add',
+              title: 'Поиск',
+              id: id
+            }
+          ]
+        },
+        radio: undefined
       });
       overviewShow();
       modal.show();
@@ -193,33 +233,37 @@ function createModal(type: string, modal: any): void {
           footerCenter: true,
           btnGroup: [
             {
-              clName: 'modal__btn_wide js-modal-btn',
-              title: 'Удалить'
+              clName: 'modal__btn_wide js-btn-search-user-to-remove',
+              title: 'Поиск',
+              id: id
             }
           ]
-        }
+        },
+        radio: undefined
       });
       overviewShow();
       modal.show();
       break;
     case 'remove-chat':
       modal.setProps({
-        title: 'Удалить чат с “Андрей',
+        title: 'Удалить чат',
         type: 'average',
         titleCenter: false,
         formData: false,
         footer: {
           btnGroup: [
             {
-              clName: 'modal__btn_secondary js-close-modal',
+              clName: 'modal__btn_secondary js-btn-close-modal',
               title: 'ОТМЕНА'
             },
             {
-              clName: 'js-remove-chat',
-              title: 'УДАЛИТЬ'
+              clName: 'js-btn-remove-chat',
+              title: 'УДАЛИТЬ',
+              id: id
             }
           ]
-        }
+        },
+        radio: undefined
       });
       overviewShow();
       modal.show();

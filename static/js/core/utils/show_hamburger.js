@@ -5,31 +5,36 @@ import { overviewHide, overviewShow } from "./overview.js";
 import Hamburger, { NavType } from "../../components/hamburger/index.js";
 import router from "../../router.js";
 let show_hamburger = undefined;
-export default function showHamburger(hamburgerBtn, popub = false) {
-    const modal = new Modal({});
-    if (popub) {
+let modal;
+let id;
+export default function showHamburger(popub) {
+    if (popub && !modal) {
+        modal = new Modal({});
         render('.container', modal);
-    }
-    if (hamburgerBtn) {
-        Array.from(hamburgerBtn).forEach(item => {
-            const element = item;
-            element.addEventListener('click', (event) => {
-                const type = element.dataset.type || '';
-                if (show_hamburger) {
-                    remove('body', show_hamburger);
-                }
-                const { nav, navWidth, navHeight } = createNav(type);
-                const x = event.pageX;
-                const y = event.pageY;
-                nav.style.left = `${x - navWidth + 10}px`;
-                nav.style.top = `${y - navHeight}px`;
-            });
-        });
     }
     const body = document.body;
     body.addEventListener('click', (e) => {
         const nav = document.querySelector('.nav-list');
         const that = e.target;
+        if (that.closest('.js-hamburger')) {
+            let element = that;
+            if (!element.dataset.type) {
+                element = that.parentNode;
+            }
+            const type = element.dataset.type || '';
+            const dialog = element.closest('.messenger__item');
+            if (dialog) {
+                id = dialog.dataset.id;
+            }
+            if (show_hamburger) {
+                remove('body', show_hamburger);
+            }
+            const { nav, navWidth, navHeight } = createNav(type);
+            const x = e.pageX;
+            const y = e.pageY;
+            nav.style.left = `${x - navWidth + 10}px`;
+            nav.style.top = `${y - navHeight}px`;
+        }
         if (nav) {
             if (!that.closest('.js-hamburger')) {
                 setTimeout(() => {
@@ -40,10 +45,8 @@ export default function showHamburger(hamburgerBtn, popub = false) {
                 }, 100);
             }
         }
-        const isBtn = that.classList.contains('js-modal-btn') ||
-            that.classList.contains('js-close-modal') ||
-            that.classList.contains('js-remove-chat');
-        if (popub && isBtn) {
+        const overview = that.classList.contains('overview');
+        if (popub && overview) {
             modal.hide();
             overviewHide();
         }
@@ -59,6 +62,9 @@ export default function showHamburger(hamburgerBtn, popub = false) {
             }
         }
     });
+    if (popub) {
+        return modal;
+    }
 }
 function createNav(type) {
     let nav, navHeight = 0, navWidth = 0;
@@ -66,12 +72,8 @@ function createNav(type) {
         case 'profile':
             show_hamburger = new Hamburger([
                 {
-                    type: NavType.AddUser,
-                    title: 'Добавить пользователя'
-                },
-                {
-                    type: NavType.RemoveUser,
-                    title: 'Удалить пользователя'
+                    type: NavType.CreateChat,
+                    title: 'Создать новый чат '
                 },
                 {
                     title: 'Профиль',
@@ -84,6 +86,15 @@ function createNav(type) {
             break;
         case 'chat':
             show_hamburger = new Hamburger([
+                {
+                    type: NavType.AddUser,
+                    title: 'Добавить пользователя'
+                },
+                {
+                    type: id,
+                    clName: 'js-btn-search-user-to-remove',
+                    title: 'Удалить пользователя'
+                },
                 {
                     type: NavType.RemoveChat,
                     title: 'Удалить чат'
@@ -129,9 +140,9 @@ function createNav(type) {
 }
 function createModal(type, modal) {
     switch (type) {
-        case 'add-user':
+        case 'create-chat':
             modal.setProps({
-                title: 'Добавить новго пользователя',
+                title: 'Добавить новый чат',
                 type: '',
                 titleCenter: true,
                 formData: {
@@ -142,11 +153,36 @@ function createModal(type, modal) {
                     footerCenter: true,
                     btnGroup: [
                         {
-                            clName: 'modal__btn_wide js-modal-btn',
+                            clName: 'modal__btn_wide js-btn-create-chat',
                             title: 'Добавить'
                         }
                     ]
-                }
+                },
+                radio: undefined
+            });
+            overviewShow();
+            modal.show();
+            break;
+        case 'add-user':
+            modal.setProps({
+                title: 'Добавить нового пользователя',
+                type: '',
+                titleCenter: true,
+                formData: {
+                    label: 'Логин',
+                    value: ''
+                },
+                footer: {
+                    footerCenter: true,
+                    btnGroup: [
+                        {
+                            clName: 'modal__btn_wide js-btn-search-user-to-add',
+                            title: 'Поиск',
+                            id: id
+                        }
+                    ]
+                },
+                radio: undefined
             });
             overviewShow();
             modal.show();
@@ -164,33 +200,37 @@ function createModal(type, modal) {
                     footerCenter: true,
                     btnGroup: [
                         {
-                            clName: 'modal__btn_wide js-modal-btn',
-                            title: 'Удалить'
+                            clName: 'modal__btn_wide js-btn-search-user-to-remove',
+                            title: 'Поиск',
+                            id: id
                         }
                     ]
-                }
+                },
+                radio: undefined
             });
             overviewShow();
             modal.show();
             break;
         case 'remove-chat':
             modal.setProps({
-                title: 'Удалить чат с “Андрей',
+                title: 'Удалить чат',
                 type: 'average',
                 titleCenter: false,
                 formData: false,
                 footer: {
                     btnGroup: [
                         {
-                            clName: 'modal__btn_secondary js-close-modal',
+                            clName: 'modal__btn_secondary js-btn-close-modal',
                             title: 'ОТМЕНА'
                         },
                         {
-                            clName: 'js-remove-chat',
-                            title: 'УДАЛИТЬ'
+                            clName: 'js-btn-remove-chat',
+                            title: 'УДАЛИТЬ',
+                            id: id
                         }
                     ]
-                }
+                },
+                radio: undefined
             });
             overviewShow();
             modal.show();

@@ -4,7 +4,7 @@ import { Page404 } from "./pages/404/404.js";
 import { Page500 } from "./pages/500/500.js";
 import { Login } from "./pages/login/login.js";
 import { Registration } from "./pages/registration/registration.js";
-import { Chat } from "./pages/messenger/messenger.js";
+import { Chat } from "./pages/chat/chat.js";
 import { Profile } from "./pages/profile/profile.js";
 import { ProfileChange } from "./pages/profile_change/profile_change.js";
 import { ProfilePassword } from "./pages/profile_password/profile_password.js";
@@ -15,7 +15,7 @@ router
     .useProtect('/password', ProfilePassword)
     .use('/404', Page404)
     .use('/500', Page500);
-const authListener = function () {
+const app = function () {
     new UserAPI().request()
         .then(res => res.ok)
         .then((isAuth) => {
@@ -32,5 +32,5 @@ const authListener = function () {
         }
     });
 };
-authListener();
+app();
 //# sourceMappingURL=index.js.map

@@ -5,27 +5,32 @@
 [![javascript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://messenger-79133f.netlify.app/messenger.html)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/31a244ad-39e0-458e-887f-1ba2d2a1969a/deploy-status)](https://app.netlify.com/sites/messenger-79133f/deploys)
 
+## Описание
+- Статику раздает `express` на `nodejs`;
+- Защита от DOS атак`express-rate-limit`;
+- Верстка `HTML`, `CSS`, `БЭМ`;
+- Проэкт написан с использование `SCSS` `TYPESCRIPT`
+- Реализация `fetch`;
+
 # Примеры с netlify
-- «[404](https://messenger-79133f.netlify.app/404.html)»,
-- «[500](https://messenger-79133f.netlify.app/500.html)»,
-- «[авторизация](https://messenger-79133f.netlify.app/login.html)»,
-- «[регистрация](https://messenger-79133f.netlify.app/registration.html)»,
-- «[список чатов](https://messenger-79133f.netlify.app/messenger.html)»,
-- «[лента переписки](https://messenger-79133f.netlify.app/messenger_check.html)»,
-- «[настройки пользователя](https://messenger-79133f.netlify.app/profile.html)»,
-- «[настройки пользователя - Изменить данные](https://messenger-79133f.netlify.app/profile_change.html)»,
-- «[настройки пользователя - Изменить пароль](https://messenger-79133f.netlify.app/profile_password.html)»,
+- «[404](https://messenger-79133f.netlify.app/404)»,
+- «[500](https://messenger-79133f.netlify.app/500)»,
+- «[авторизация](https://messenger-79133f.netlify.app/login)»,
+- «[регистрация](https://messenger-79133f.netlify.app/registration)»,
+- «[список чатов](https://messenger-79133f.netlify.app/chat)»,
+- «[настройки пользователя](https://messenger-79133f.netlify.app/profile)»,
+- «[настройки пользователя - Изменить данные](https://messenger-79133f.netlify.app/change)»,
+- «[настройки пользователя - Изменить пароль](https://messenger-79133f.netlify.app/password)»,
 
 # Примеры с express
-- «[404](http://localhost:3000/404.html)»,
-- «[500](http://localhost:3000/500.html)»,
-- «[авторизация](http://localhost:3000/login.html)»,
-- «[регистрация](http://localhost:3000/registration.html)»,
-- «[список чатов](http://localhost:3000/messenger.html)»,
-- «[лента переписки](http://localhost:3000/messenger_check.html)»,
-- «[настройки пользователя](http://localhost:3000/profile.html)»,
-- «[настройки пользователя - Изменить данные](http://localhost:3000/profile_change.html)»,
-- «[настройки пользователя - Изменить пароль](http://localhost:3000/profile_password.html)»,
+- «[404](http://localhost:3000/404)»,
+- «[500](http://localhost:3000/500)»,
+- «[авторизация](http://localhost:3000/login)»,
+- «[регистрация](http://localhost:3000/registration)»,
+- «[список чатов](http://localhost:3000/chat)»,
+- «[настройки пользователя](http://localhost:3000/profile)»,
+- «[настройки пользователя - Изменить данные](http://localhost:3000/change)»,
+- «[настройки пользователя - Изменить пароль](http://localhost:3000/password)»,
 
 ### Для использования ts в консоле
 ```

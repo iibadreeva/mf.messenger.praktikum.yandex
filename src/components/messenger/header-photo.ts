@@ -6,8 +6,8 @@ interface IContext {
 }
 
 export default class HeaderPhoto extends Block<IContext> {
-  constructor(props:IContext, className: string) {
-    super('header', className, props);
+  constructor(props:IContext) {
+    super('header', '', props);
   }
 
   render() {
