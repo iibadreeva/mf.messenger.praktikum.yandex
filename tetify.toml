@@ -1,4 +1,7 @@
+[build]
+  base = "./"
+  publish = "./static"
+
 [[redirects]]
-  from = "/*"
-  to = "/static/index.html"
-  status = 200
+  to = "/"
+  status = 404

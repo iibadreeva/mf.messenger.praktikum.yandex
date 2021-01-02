@@ -461,7 +461,6 @@ export class Chat extends Block {
             btn.addEventListener('click', (e) => {
                 const that = e.target;
                 const value = escape(document.querySelector('.modal__value'));
-                console.log('esc', value);
                 const id = +that.dataset.id;
                 if (value !== '' && id) {
                     this.searchUser(id, value);

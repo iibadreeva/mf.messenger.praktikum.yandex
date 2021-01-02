@@ -499,7 +499,6 @@ export class Chat extends Block<IContext> {
       btn.addEventListener('click', (e: Event) => {
         const that = <HTMLElement>e.target;
         const value = escape(document.querySelector('.modal__value') as HTMLInputElement);
-        console.log('esc', value)
         const id = +<string>that.dataset.id;
         if (value !== '' && id) {
           this.searchUser(id, value);

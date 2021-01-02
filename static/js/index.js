@@ -15,22 +15,19 @@ router
     .useProtect('/password', ProfilePassword)
     .use('/404', Page404)
     .use('/500', Page500);
-const app = function () {
-    new UserAPI().request()
-        .then(res => res.ok)
-        .then((isAuth) => {
-        if (isAuth) {
-            router.use('/login', Login);
-            router.use('/registration', Registration);
-            router.isProtect = false;
-            router.start();
-        }
-        else {
-            router.useDefault('/login', Login);
-            router.use('/registration', Registration);
-            router.start();
-        }
-    });
-};
-app();
+new UserAPI().request()
+    .then(res => res.ok)
+    .then((isAuth) => {
+    if (isAuth) {
+        router.use('/login', Login);
+        router.use('/registration', Registration);
+        router.isProtect = false;
+        router.start();
+    }
+    else {
+        router.useDefault('/login', Login);
+        router.use('/registration', Registration);
+        router.start();
+    }
+});
 //# sourceMappingURL=index.js.map

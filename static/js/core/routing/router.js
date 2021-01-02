@@ -27,7 +27,9 @@ export default class Router {
     }
     use(pathname, block) {
         const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-        this.routes.push(route);
+        if (this.routes) {
+            this.routes.push(route);
+        }
         return this;
     }
     useDefault(pathname, block) {
@@ -36,7 +38,9 @@ export default class Router {
         });
         this._defaultPath = pathname;
         this.isStart = true;
-        this.routes.push(route);
+        if (this.routes) {
+            this.routes.push(route);
+        }
         return this;
     }
     useProtect(pathname, block) {
@@ -44,13 +48,15 @@ export default class Router {
             rootQuery: this._rootQuery,
             protect: true,
         });
-        this.routes.push(route);
+        if (this.routes) {
+            this.routes.push(route);
+        }
         return this;
     }
     start() {
         window.onpopstate = ((event) => {
             this._onRoute(event.currentTarget.location.pathname);
-        }).bind(this);
+        });
         history.pushState('', '', window.location.pathname);
         this._onRoute(window.location.pathname);
     }
@@ -83,9 +89,11 @@ export default class Router {
         this.history.forward();
     }
     getRoute(pathname) {
-        return this.routes.find((route) => {
-            return route._pathname.match(pathname);
-        });
+        if (this.routes) {
+            return this.routes.find((route) => {
+                return route._pathname.match(pathname);
+            });
+        }
     }
 }
 //# sourceMappingURL=router.js.map

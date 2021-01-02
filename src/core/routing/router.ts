@@ -1,15 +1,22 @@
-import { Route} from './route';
+import { Route, routeProps} from './route';
 import {overviewHide} from "../utils/overview";
 
+interface IRoute {
+  _props: routeProps;
+  _pathname: string;
+
+  render(): void;
+}
+
 export default class Router {
-  routes: any;
-  _currentRoute: any;
+  _currentRoute: IRoute | null | undefined;
   _rootQuery: string = '';
-  static __instance: any;
+  static __instance: Router;
   private history: History = window.history
   private _defaultPath: string = '';
   public isProtect: boolean = true;
   public isStart: boolean = false;
+  routes: IRoute[] | undefined;
 
   constructor(rootQuery?: string) {
     if (Router.__instance) {
@@ -17,7 +24,6 @@ export default class Router {
     }
 
     this.routes = [];
-    // this.history = window.history;
     this._currentRoute = null;
     if (rootQuery) {
       this._rootQuery = rootQuery;
@@ -39,8 +45,9 @@ export default class Router {
 
   use(pathname: string, block: Function): this {
     const route = new Route(pathname, block, {rootQuery: this._rootQuery});
-    this.routes.push(route);
-    // this.isStart = false;
+    if(this.routes) {
+      this.routes.push(route);
+    }
     return this;
   }
 
@@ -50,7 +57,9 @@ export default class Router {
     });
     this._defaultPath = pathname;
     this.isStart = true;
-    this.routes.push(route);
+    if(this.routes) {
+      this.routes.push(route);
+    }
     return this;
   }
 
@@ -59,14 +68,16 @@ export default class Router {
       rootQuery: this._rootQuery,
       protect: true,
     });
-    this.routes.push(route);
+    if(this.routes) {
+      this.routes.push(route);
+    }
     return this;
   }
 
   start(): void {
     window.onpopstate = ((event: PopStateEvent): void => {
       this._onRoute((<Window>event.currentTarget).location.pathname);
-    }).bind(this);
+    });
 
     history.pushState( '', '', window.location.pathname );
     this._onRoute(window.location.pathname);
@@ -108,9 +119,11 @@ export default class Router {
     this.history.forward();
   }
 
-  getRoute(pathname: string): any {
-    return this.routes.find((route: { _pathname: string; }) => {
-      return route._pathname.match(pathname);
-    });
+  getRoute(pathname: string) {
+    if(this.routes) {
+      return this.routes.find((route: { _pathname: string; }) => {
+        return route._pathname.match(pathname);
+      });
+    }
   }
 }
