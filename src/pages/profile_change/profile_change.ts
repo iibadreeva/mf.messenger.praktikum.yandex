@@ -1,7 +1,7 @@
 import Block from '../../core/block';
 import Button from '../../components/button/index';
 import Avatar from '../../components/avatar/index';
-import Templator from '../../core/utils/templator';
+import Templator from '../../core/utils/templator/templator';
 import showHamburger from '../../core/utils/show_hamburger';
 import Input from '../../components/input/index';
 import {IContext, context} from './data';
@@ -53,7 +53,8 @@ export class ProfileChange extends Block<IContext> {
 
       this.loadAvatar(avatar, image);
     });
-    showHamburger(false);
+    showHamburger(undefined);
+    // showHamburger(false);
   }
 
   goBack() {

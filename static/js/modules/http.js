@@ -1,4 +1,4 @@
-import { METHOD, DEFAULT_REQUEST_OPTIONS, queryStringify, parseXHRResult } from "./actions.js";
+import { METHOD, DEFAULT_REQUEST_OPTIONS } from "./actions.js";
 export default class HTTP {
     constructor(host) {
         this.get = (url, options = {}) => {
@@ -17,10 +17,15 @@ export default class HTTP {
             const { method, headers, data } = options;
             const timeout = options.timeout || DEFAULT_REQUEST_OPTIONS.timeout;
             let url = `${this.host}${path}`;
+            const that = this;
             return new Promise((resolve, reject) => {
+                if (!method) {
+                    reject('Need to use method');
+                    return;
+                }
                 const xhr = new XMLHttpRequest();
                 if (method === METHOD.GET && data) {
-                    url = url + queryStringify(data);
+                    url = url + this.queryStringify(data);
                 }
                 xhr.open(method, url);
                 xhr.withCredentials = true;
@@ -30,7 +35,7 @@ export default class HTTP {
                     });
                 }
                 xhr.onload = function () {
-                    resolve(parseXHRResult(xhr));
+                    resolve(that.parseXHRResult(xhr));
                 };
                 xhr.onabort = reject;
                 xhr.onerror = reject;
@@ -46,6 +51,26 @@ export default class HTTP {
             });
         };
         this.host = host;
+        this.request = this.request.bind(this);
+    }
+    parseXHRResult(xhr) {
+        return {
+            ok: xhr.status >= 200 && xhr.status < 300,
+            status: xhr.status,
+            statusText: xhr.statusText,
+            headers: xhr.getAllResponseHeaders(),
+            data: xhr.responseText,
+            json: () => JSON.parse(xhr.responseText),
+        };
+    }
+    queryStringify(data = {}) {
+        if (typeof data !== 'object') {
+            throw new Error('Data must be object');
+        }
+        const keys = Object.keys(data);
+        return keys.reduce((result, key, index) => {
+            return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
+        }, '?');
     }
 }
 //# sourceMappingURL=http.js.map

@@ -2,15 +2,17 @@ import Block from "../../core/block.js";
 import HeaderPhoto from "../../components/messenger/header-photo.js";
 import Input from "../../components/input/index.js";
 import Dialog from "../../components/messenger/dialog.js";
-import Templator from "../../core/utils/templator.js";
+import Templator from "../../core/utils/templator/templator.js";
 import showHamburger from "../../core/utils/show_hamburger.js";
 import { context } from "./data.js";
 import { overviewHide, overviewShow } from "../../core/utils/overview.js";
 import { UserAPI } from "../../modules/http/user-api.js";
 import { host } from "../../modules/actions.js";
 import { ChatApi } from "./chat-api.js";
+import Modal from "../../components/modal/index.js";
 import { escape } from "../../core/utils/escape.js";
 import router from "../../router.js";
+import render from "../../core/utils/render.js";
 export class Chat extends Block {
     constructor() {
         const { avatar, search } = context;
@@ -23,8 +25,39 @@ export class Chat extends Block {
         this.getData();
     }
     componentDidMount() {
-        this.modal = showHamburger(true);
-        this.handlers();
+        const modal = new Modal({});
+        if (!this.modal) {
+            render('.container', modal);
+            this.modal = modal;
+            showHamburger(modal);
+            const navList = document.getElementsByClassName('nav-list')[0];
+            if (navList) {
+                navList.addEventListener('click', (e) => {
+                    const element = e.target;
+                    const type = element.dataset.type || '';
+                    if (element.classList.contains('js-btn-search-user-to-remove')) {
+                        if (this.id) {
+                            this.getUsers(this.id);
+                        }
+                    }
+                    else {
+                        this.createModal(type, modal);
+                    }
+                });
+            }
+        }
+        this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
+            const hamburgers = this.element.querySelectorAll('.js-hamburger');
+            Array.from(hamburgers).forEach((list) => {
+                list.addEventListener('click', (e) => {
+                    const element = e.target;
+                    const dialog = element.closest('.messenger__item');
+                    if (dialog) {
+                        this.id = +dialog.dataset.id;
+                    }
+                });
+            });
+        });
     }
     getData() {
         const { avatar } = context;
@@ -32,7 +65,7 @@ export class Chat extends Block {
             .request()
             .then(res => JSON.parse(res.data))
             .then(data => {
-            this.id = data.id;
+            this.myId = data.id;
             if (data.avatar) {
                 avatar.image = `${host}${data.avatar}`;
             }
@@ -169,6 +202,12 @@ export class Chat extends Block {
                         info: result.info
                     });
                 }
+                if (data.length > 0) {
+                    this.handleAddUser();
+                }
+                else {
+                    this.handleSearchUser();
+                }
             }
             else if (status >= 500) {
                 router.go('/500');
@@ -234,7 +273,7 @@ export class Chat extends Block {
             };
             let userData = [];
             data.forEach((item) => {
-                if (item.id !== this.id) {
+                if (item.id !== this.myId) {
                     userData.push(item);
                 }
             });
@@ -266,10 +305,14 @@ export class Chat extends Block {
                     title: 'Удалить пользователя',
                     type: '',
                     titleCenter: true,
+                    formData: false,
                     footer: result.footer,
                     radio: result.radio,
                     info: result.info
                 });
+            }
+            if (userData.length > 0) {
+                this.handleRemoveUser();
             }
         });
     }
@@ -308,27 +351,128 @@ export class Chat extends Block {
             }
         });
     }
-    handlers() {
-        const body = document.body;
-        body.addEventListener('click', (e) => {
-            const that = e.target;
-            const value = escape(document.querySelector('.modal__value'));
-            if (that.classList.contains('js-btn-create-chat') && value !== '') {
-                this.createDialog(value);
-            }
-            if (that.classList.contains('js-btn-remove-chat')) {
+    createModal(type, modal) {
+        switch (type) {
+            case 'create-chat':
+                modal.setProps({
+                    title: 'Добавить новый чат',
+                    type: '',
+                    titleCenter: true,
+                    formData: {
+                        label: 'Логин',
+                        value: ''
+                    },
+                    footer: {
+                        footerCenter: true,
+                        btnGroup: [
+                            {
+                                clName: 'modal__btn_wide js-btn-create-chat',
+                                title: 'Добавить'
+                            }
+                        ]
+                    },
+                    radio: undefined,
+                    info: ''
+                });
+                overviewShow();
+                modal.show();
+                this.handleCreateChat();
+                break;
+            case 'add-user':
+                modal.setProps({
+                    title: 'Добавить нового пользователя',
+                    type: '',
+                    titleCenter: true,
+                    formData: {
+                        label: 'Логин',
+                        value: ''
+                    },
+                    footer: {
+                        footerCenter: true,
+                        btnGroup: [
+                            {
+                                clName: 'modal__btn_wide js-btn-search-user-to-add',
+                                title: 'Поиск',
+                                id: this.id
+                            }
+                        ]
+                    },
+                    radio: undefined,
+                    info: ''
+                });
+                overviewShow();
+                modal.show();
+                this.handleSearchUser();
+                break;
+            case 'remove-chat':
+                modal.setProps({
+                    title: 'Удалить чат',
+                    type: 'average',
+                    titleCenter: false,
+                    formData: false,
+                    footer: {
+                        btnGroup: [
+                            {
+                                clName: 'modal__btn_secondary js-btn-close-modal',
+                                title: 'ОТМЕНА'
+                            },
+                            {
+                                clName: 'js-btn-remove-chat',
+                                title: 'УДАЛИТЬ',
+                                id: this.id
+                            }
+                        ]
+                    },
+                    radio: undefined,
+                    info: ''
+                });
+                overviewShow();
+                modal.show();
+                this.handleRemoveChat();
+                break;
+        }
+    }
+    handleCreateChat() {
+        const btn = document.querySelector('.js-btn-create-chat');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const value = escape(document.querySelector('.modal__value'));
+                if (value !== '') {
+                    this.createDialog(value);
+                }
+            });
+        }
+    }
+    handleRemoveChat() {
+        const btn = document.querySelector('.js-btn-remove-chat');
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                const that = e.target;
                 const id = +that.dataset.id;
-                this.removeDialog(id);
-            }
-            if (that.classList.contains('js-btn-search-user-to-add') && value !== '') {
+                if (id) {
+                    this.removeDialog(id);
+                }
+            });
+        }
+    }
+    handleSearchUser() {
+        const btn = document.querySelector('.js-btn-search-user-to-add');
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                const that = e.target;
+                const value = escape(document.querySelector('.modal__value'));
                 const id = +that.dataset.id;
-                this.searchUser(id, value);
-            }
-            if (that.classList.contains('js-btn-search-user-to-remove')) {
-                const id = that.dataset.type;
-                this.getUsers(id);
-            }
-            if (that.classList.contains('js-btn-add-user')) {
+                if (value !== '' && id) {
+                    this.searchUser(id, value);
+                }
+            });
+        }
+    }
+    handleAddUser() {
+        const btn = document.querySelector('.js-btn-add-user');
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                const that = e.target;
                 const idChat = +that.dataset.id;
                 const check = document.querySelector('input[name="user"]:checked');
                 let idUser;
@@ -338,8 +482,14 @@ export class Chat extends Block {
                 if (idUser) {
                     this.addUserToChat(idChat, idUser);
                 }
-            }
-            if (that.classList.contains('js-btn-remove-user')) {
+            });
+        }
+    }
+    handleRemoveUser() {
+        const btn = document.querySelector('.js-btn-remove-user');
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                const that = e.target;
                 const idChat = +that.dataset.id;
                 const check = document.querySelector('input[name="user"]:checked');
                 let idUser;
@@ -349,12 +499,8 @@ export class Chat extends Block {
                 if (idUser) {
                     this.deleteUserToChat(idChat, idUser);
                 }
-            }
-            if (that.classList.contains('js-btn-close-modal') && this.modal) {
-                this.modal.hide();
-                overviewHide();
-            }
-        });
+            });
+        }
     }
     render() {
         const templ = `

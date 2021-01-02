@@ -32,4 +32,4 @@ class Route {
     }
 }
 export { Route };
-//# sourceMappingURL=Route.js.map
+//# sourceMappingURL=route.js.map

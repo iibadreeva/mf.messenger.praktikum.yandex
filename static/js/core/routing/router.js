@@ -1,4 +1,4 @@
-import { Route } from "./Route.js";
+import { Route } from "./route.js";
 import { overviewHide } from "../utils/overview.js";
 export default class Router {
     constructor(rootQuery) {
@@ -88,4 +88,4 @@ export default class Router {
         });
     }
 }
-//# sourceMappingURL=Router.js.map
+//# sourceMappingURL=router.js.map

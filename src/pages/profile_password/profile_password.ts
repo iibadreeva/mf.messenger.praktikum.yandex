@@ -1,7 +1,7 @@
 import Block from '../../core/block';
 import Button from '../../components/button/index';
 import Avatar from '../../components/avatar/index';
-import Templator from '../../core/utils/templator';
+import Templator from '../../core/utils/templator/templator';
 import Input from '../../components/input/index';
 import {IContext, context} from './data';
 import {UserAPI} from "../../modules/http/user-api";

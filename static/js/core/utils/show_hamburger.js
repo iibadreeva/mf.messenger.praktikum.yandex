@@ -1,17 +1,17 @@
-import Modal from "../../components/modal/index.js";
 import render from "./render.js";
-import remove from "./remove.js";
-import { overviewHide, overviewShow } from "./overview.js";
+import { overviewHide, } from "./overview.js";
 import Hamburger, { NavType } from "../../components/hamburger/index.js";
 import router from "../../router.js";
-let show_hamburger = undefined;
+let show_hamburger;
 let modal;
 let id;
-export default function showHamburger(popub) {
-    if (popub && !modal) {
-        modal = new Modal({});
-        render('.container', modal);
+export default function showHamburger(popub = undefined) {
+    if (popub) {
+        modal = popub;
     }
+    show_hamburger = new Hamburger({}, 'nav-list');
+    render('.container', show_hamburger);
+    show_hamburger.hide();
     const body = document.body;
     body.addEventListener('click', (e) => {
         const nav = document.querySelector('.nav-list');
@@ -27,7 +27,7 @@ export default function showHamburger(popub) {
                 id = dialog.dataset.id;
             }
             if (show_hamburger) {
-                remove('body', show_hamburger);
+                show_hamburger.hide();
             }
             const { nav, navWidth, navHeight } = createNav(type);
             const x = e.pageX;
@@ -39,14 +39,14 @@ export default function showHamburger(popub) {
             if (!that.closest('.js-hamburger')) {
                 setTimeout(() => {
                     if (show_hamburger) {
-                        remove('body', show_hamburger);
-                        show_hamburger = undefined;
+                        show_hamburger.hide();
                     }
                 }, 100);
             }
         }
         const overview = that.classList.contains('overview');
-        if (popub && overview) {
+        const close = that.classList.contains('js-btn-close-modal');
+        if (popub && overview || close) {
             modal.hide();
             overviewHide();
         }
@@ -58,183 +58,80 @@ export default function showHamburger(popub) {
                 router.go('/profile');
             }
             else {
-                createModal(type, modal);
             }
         }
     });
-    if (popub) {
-        return modal;
-    }
 }
 function createNav(type) {
     let nav, navHeight = 0, navWidth = 0;
     switch (type) {
         case 'profile':
-            show_hamburger = new Hamburger([
-                {
-                    type: NavType.CreateChat,
-                    title: 'Создать новый чат '
-                },
-                {
-                    title: 'Профиль',
-                    type: NavType.Profile,
-                }
-            ], 'nav-list');
-            render('body', show_hamburger);
+            show_hamburger.setProps({ nav: [
+                    {
+                        type: NavType.CreateChat,
+                        title: 'Создать новый чат '
+                    },
+                    {
+                        title: 'Профиль',
+                        type: NavType.Profile,
+                    }
+                ] });
+            show_hamburger.show();
             nav = document.querySelector('.nav-list');
             navWidth = nav.offsetWidth;
             break;
         case 'chat':
-            show_hamburger = new Hamburger([
-                {
-                    type: NavType.AddUser,
-                    title: 'Добавить пользователя'
-                },
-                {
-                    type: id,
-                    clName: 'js-btn-search-user-to-remove',
-                    title: 'Удалить пользователя'
-                },
-                {
-                    type: NavType.RemoveChat,
-                    title: 'Удалить чат'
-                }
-            ], 'nav-list');
-            render('body', show_hamburger);
+            show_hamburger.setProps({ nav: [
+                    {
+                        type: NavType.AddUser,
+                        title: 'Добавить пользователя'
+                    },
+                    {
+                        type: id,
+                        clName: 'js-btn-search-user-to-remove',
+                        title: 'Удалить пользователя'
+                    },
+                    {
+                        type: NavType.RemoveChat,
+                        title: 'Удалить чат'
+                    }
+                ] });
+            show_hamburger.show();
             nav = document.querySelector('.nav-list');
             navWidth = nav.offsetWidth;
             break;
         case 'files':
-            show_hamburger = new Hamburger([
-                {
-                    type: NavType.Media,
-                    title: 'Фото или Видео'
-                },
-                {
-                    type: NavType.File,
-                    title: 'Файл'
-                },
-                {
-                    type: NavType.Location,
-                    title: 'Локация'
-                }
-            ], 'nav-list');
-            render('body', show_hamburger);
+            show_hamburger.setProps({ nav: [
+                    {
+                        type: NavType.Media,
+                        title: 'Фото или Видео'
+                    },
+                    {
+                        type: NavType.File,
+                        title: 'Файл'
+                    },
+                    {
+                        type: NavType.Location,
+                        title: 'Локация'
+                    }
+                ] });
+            show_hamburger.show();
             nav = document.querySelector('.nav-list');
             navHeight = nav.offsetHeight;
             break;
         case 'avatar':
-            show_hamburger = new Hamburger([
-                {
-                    type: NavType.Avatar,
-                    title: 'Загрузить фото'
-                }
-            ], 'nav-list');
-            render('body', show_hamburger);
+            show_hamburger.setProps({ nav: [
+                    {
+                        type: NavType.Avatar,
+                        title: 'Загрузить фото'
+                    }
+                ] });
+            show_hamburger.show();
             nav = document.querySelector('.nav-list');
             navWidth = nav.offsetWidth / 2;
             break;
     }
     const res = { nav, hamburger: show_hamburger, navWidth, navHeight };
     return res;
-}
-function createModal(type, modal) {
-    switch (type) {
-        case 'create-chat':
-            modal.setProps({
-                title: 'Добавить новый чат',
-                type: '',
-                titleCenter: true,
-                formData: {
-                    label: 'Логин',
-                    value: ''
-                },
-                footer: {
-                    footerCenter: true,
-                    btnGroup: [
-                        {
-                            clName: 'modal__btn_wide js-btn-create-chat',
-                            title: 'Добавить'
-                        }
-                    ]
-                },
-                radio: undefined
-            });
-            overviewShow();
-            modal.show();
-            break;
-        case 'add-user':
-            modal.setProps({
-                title: 'Добавить нового пользователя',
-                type: '',
-                titleCenter: true,
-                formData: {
-                    label: 'Логин',
-                    value: ''
-                },
-                footer: {
-                    footerCenter: true,
-                    btnGroup: [
-                        {
-                            clName: 'modal__btn_wide js-btn-search-user-to-add',
-                            title: 'Поиск',
-                            id: id
-                        }
-                    ]
-                },
-                radio: undefined
-            });
-            overviewShow();
-            modal.show();
-            break;
-        case 'remove-user':
-            modal.setProps({
-                title: 'Удалить пользователя',
-                type: '',
-                titleCenter: true,
-                formData: {
-                    label: 'Логин',
-                    value: ''
-                },
-                footer: {
-                    footerCenter: true,
-                    btnGroup: [
-                        {
-                            clName: 'modal__btn_wide js-btn-search-user-to-remove',
-                            title: 'Поиск',
-                            id: id
-                        }
-                    ]
-                },
-                radio: undefined
-            });
-            overviewShow();
-            modal.show();
-            break;
-        case 'remove-chat':
-            modal.setProps({
-                title: 'Удалить чат',
-                type: 'average',
-                titleCenter: false,
-                formData: false,
-                footer: {
-                    btnGroup: [
-                        {
-                            clName: 'modal__btn_secondary js-btn-close-modal',
-                            title: 'ОТМЕНА'
-                        },
-                        {
-                            clName: 'js-btn-remove-chat',
-                            title: 'УДАЛИТЬ',
-                            id: id
-                        }
-                    ]
-                },
-                radio: undefined
-            });
-            overviewShow();
-            modal.show();
-            break;
-    }
 }
 //# sourceMappingURL=show_hamburger.js.map

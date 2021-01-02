@@ -1,5 +1,5 @@
 import Block from '../../core/block';
-import Templator from '../../core/utils/templator'
+import Templator from '../../core/utils/templator/templator'
 
 interface IContext {
   image: string

@@ -1,7 +1,7 @@
 import Block from "../../core/block.js";
 import Button from "../../components/button/index.js";
 import Input from "../../components/input/index.js";
-import Templator from "../../core/utils/templator.js";
+import Templator from "../../core/utils/templator/templator.js";
 import { overviewShow } from "../../core/utils/overview.js";
 import { forma } from "../../core/utils/form.js";
 import { context } from "./data.js";

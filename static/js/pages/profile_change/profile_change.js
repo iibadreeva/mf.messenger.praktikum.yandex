@@ -1,7 +1,7 @@
 import Block from "../../core/block.js";
 import Button from "../../components/button/index.js";
 import Avatar from "../../components/avatar/index.js";
-import Templator from "../../core/utils/templator.js";
+import Templator from "../../core/utils/templator/templator.js";
 import showHamburger from "../../core/utils/show_hamburger.js";
 import Input from "../../components/input/index.js";
 import { context } from "./data.js";
@@ -42,7 +42,7 @@ export class ProfileChange extends Block {
             }
             this.loadAvatar(avatar, image);
         });
-        showHamburger(false);
+        showHamburger(undefined);
     }
     goBack() {
         router.go('/profile');

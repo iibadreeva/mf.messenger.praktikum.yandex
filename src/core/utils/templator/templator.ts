@@ -1,5 +1,5 @@
 declare let window:any;
-import {ObjectType} from '../types'
+import {ObjectType} from '../../types'
 
 function get<T extends object>(obj:T, path: string, defaultValue:string='something else'): any {
   const keys = path.split('.');

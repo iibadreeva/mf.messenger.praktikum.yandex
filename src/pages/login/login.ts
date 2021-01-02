@@ -1,7 +1,7 @@
 import Block from '../../core/block';
 import Button from '../../components/button/index';
 import Input from '../../components/input/index';
-import Templator from '../../core/utils/templator';
+import Templator from '../../core/utils/templator/templator';
 import {overviewShow} from '../../core/utils/overview';
 import {forma} from '../../core/utils/form';
 import {IContext, context} from './data'

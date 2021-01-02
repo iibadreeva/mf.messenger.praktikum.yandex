@@ -1,5 +1,5 @@
 import Block from "../../core/block.js";
-import Templator from "../../core/utils/templator.js";
+import Templator from "../../core/utils/templator/templator.js";
 export var InputType;
 (function (InputType) {
     InputType["LightForm"] = "lightForm";

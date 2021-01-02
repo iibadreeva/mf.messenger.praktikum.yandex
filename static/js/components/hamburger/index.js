@@ -16,11 +16,12 @@ export default class Hamburger extends Block {
         super('nav', className, props);
     }
     render() {
-        if (Object.keys(this.props).length < 1) {
+        const { nav } = this.props;
+        if (!nav || nav.length < 1) {
             return '';
         }
-        const templ = `${Object.keys(this.props).map(key => {
-            const { type, title, clName, to } = this.props[key];
+        const templ = `${nav.map(item => {
+            const { type, title, clName, to } = item;
             return `
           ${title ?
                 `<li

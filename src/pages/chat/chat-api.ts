@@ -36,7 +36,7 @@ export class ChatApi extends BaseAPI {
     });
   }
 
-  requestChatUser(id: string) {
+  requestChatUser(id: number) {
     return cartAPIInstance.get(`/api/v2/chats/${id}/users`);
   }
 

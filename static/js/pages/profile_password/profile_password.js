@@ -1,7 +1,7 @@
 import Block from "../../core/block.js";
 import Button from "../../components/button/index.js";
 import Avatar from "../../components/avatar/index.js";
-import Templator from "../../core/utils/templator.js";
+import Templator from "../../core/utils/templator/templator.js";
 import Input from "../../components/input/index.js";
 import { context } from "./data.js";
 import { UserAPI } from "../../modules/http/user-api.js";

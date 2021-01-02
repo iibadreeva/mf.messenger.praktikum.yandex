@@ -1,7 +1,7 @@
 import Block from '../../core/block';
 import Button from '../../components/button/index';
 import Input from '../../components/input/index';
-import Templator from '../../core/utils/templator';
+import Templator from '../../core/utils/templator/templator';
 import {overviewShow} from '../../core/utils/overview';
 import {forma} from '../../core/utils/form';
 import {IContext, context} from './data'
@@ -11,7 +11,7 @@ import {RegistrationUserApi} from "./registration-user-api";
 export class Registration extends Block<IContext> {
   constructor() {
     const {formdata: {email, login, first_name, second_name, phone, password, passwordAgain}, btn, link, title}: IContext = context;
-    // console.log('fi', first_name)
+
     super(
       'main',
       '',

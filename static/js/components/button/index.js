@@ -1,5 +1,5 @@
 import Block from "../../core/block.js";
-import Templator from "../../core/utils/templator.js";
+import Templator from "../../core/utils/templator/templator.js";
 var ButtonType;
 (function (ButtonType) {
     ButtonType["Link"] = "link";

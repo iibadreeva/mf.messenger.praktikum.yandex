@@ -320,7 +320,7 @@ h1, h2, h3, h4, h5 {
   display: none;
 }
 .messenger__item:hover .messenger__item__arrow {
-  display: block;
+  opacity: 1;
 }
 .messenger__item_active {
   background: linear-gradient(270deg, rgba(92, 133, 238, 0.14) 17.5%, rgba(92, 133, 238, 0) 50%);
@@ -388,7 +388,7 @@ h1, h2, h3, h4, h5 {
   width: 20px;
   height: 20px;
   text-align: center;
-  display: none;
+  opacity: 0;
 }
 .messenger__chat {
   background: linear-gradient(180deg, rgba(38, 27, 71, 0.24) -0.34%, rgba(196, 196, 196, 0) 100%);
@@ -622,6 +622,7 @@ h1, h2, h3, h4, h5 {
   position: absolute;
   left: 200px;
   top: 20px;
+  z-index: 10;
 }
 .nav-list__item {
   color: #1E1E1E;

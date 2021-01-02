@@ -1,4 +1,4 @@
-import { Route} from './Route';
+import { Route} from './route';
 import {overviewHide} from "../utils/overview";
 
 export default class Router {
