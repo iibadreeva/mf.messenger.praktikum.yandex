@@ -14,14 +14,7 @@
 - Тесты написаны на `Jest`;
 
 # Примеры с netlify
-- «[404](https://messenger-79133f.netlify.app/404)»,
-- «[500](https://messenger-79133f.netlify.app/500)»,
-- «[авторизация](https://messenger-79133f.netlify.app/login)»,
-- «[регистрация](https://messenger-79133f.netlify.app/registration)»,
-- «[список чатов](https://messenger-79133f.netlify.app/chat)»,
-- «[настройки пользователя](https://messenger-79133f.netlify.app/profile)»,
-- «[настройки пользователя - Изменить данные](https://messenger-79133f.netlify.app/change)»,
-- «[настройки пользователя - Изменить пароль](https://messenger-79133f.netlify.app/password)»,
+- [netlify](https://messenger-79133f.netlify.app/)
 
 # Примеры с express
 - «[404](http://localhost:3000/404)»,
