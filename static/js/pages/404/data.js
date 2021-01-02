@@ -4,10 +4,7 @@ export const context = {
     btn: {
         text: 'К чату?',
         clName: 'error__btn',
-        type: 'button',
-        handleClick: () => {
-            console.log('check authorisation before');
-        }
+        type: 'button'
     }
 };
 //# sourceMappingURL=data.js.map

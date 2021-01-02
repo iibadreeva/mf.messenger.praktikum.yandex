@@ -2,7 +2,6 @@ export interface IBtn {
   text: string,
   clName: string,
   type: string,
-  handleClick?: Function,
   url?: string
 }
 
@@ -18,9 +17,6 @@ export const context:IContext = {
   btn: {
     text: 'К чату?',
     clName: 'error__btn',
-    type: 'button',
-    handleClick: () => {
-      console.log('check authorisation before');
-    }
+    type: 'button'
   }
 };

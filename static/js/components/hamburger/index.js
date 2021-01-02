@@ -1,25 +1,33 @@
-import Block from '../../core/block.js';
-var NavType;
+import Block from "../../core/block.js";
+export var NavType;
 (function (NavType) {
     NavType["Location"] = "location";
     NavType["File"] = "file";
     NavType["Media"] = "photo-video";
+    NavType["Avatar"] = "avatar";
+    NavType["CreateChat"] = "create-chat";
+    NavType["RemoveChat"] = "remove-chat";
+    NavType["AddUser"] = "add-user";
+    NavType["RemoveUser"] = "remove-user";
+    NavType["Profile"] = "profiler";
 })(NavType || (NavType = {}));
 export default class Hamburger extends Block {
     constructor(props, className) {
         super('nav', className, props);
     }
     render() {
-        if (Object.keys(this.props).length < 1) {
+        const { nav } = this.props;
+        if (!nav || nav.length < 1) {
             return '';
         }
-        const templ = `${Object.keys(this.props).map(key => {
-            const { type, title } = this.props[key];
+        const templ = `${nav.map(item => {
+            const { type, title, clName, to } = item;
             return `
           ${title ?
                 `<li
-             class="nav-list__item"
+             class="nav-list__item ${clName ? `${clName}` : ''}"
              ${type ? `data-type="${type}"` : ''}
+             ${to ? `to="${to}"` : ''}
              >
              ${type === NavType.Media ?
                     `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +44,10 @@ export default class Hamburger extends Block {
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5 11C20.5 16.247 16.2467 20.5 11 20.5C5.7533 20.5 1.5 16.247 1.5 11C1.5 5.753 5.7533 1.5 11 1.5C16.2467 1.5 20.5 5.753 20.5 11ZM22 11C22 17.075 17.0751 22 11 22C4.9249 22 0 17.075 0 11C0 4.925 4.9249 0 11 0C17.0751 0 22 4.925 22 11ZM11 14C12.6569 14 14 12.657 14 11C14 9.343 12.6569 8 11 8C9.3431 8 8 9.343 8 11C8 12.657 9.3431 14 11 14Z" fill="#2F43F2"></path>
               </svg>` :
                     ''}
-              ${title}
+             ${type === NavType.Avatar ?
+                    `<label for="avatar">${title}</label>` :
+                    `${title}`}
+              
             </li>` :
                 ''}`;
         }).join('')}`;

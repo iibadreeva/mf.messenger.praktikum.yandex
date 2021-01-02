@@ -1,8 +1,8 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from "../../core/block.js";
+import Templator from "../../core/utils/templator/templator.js";
 export default class HeaderPhoto extends Block {
-    constructor(props, className) {
-        super('header', className, props);
+    constructor(props) {
+        super('header', '', props);
     }
     render() {
         const templ = `

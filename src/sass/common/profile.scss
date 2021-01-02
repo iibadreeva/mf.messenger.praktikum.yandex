@@ -1,0 +1,130 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 0 20px $widthLeftProfile;
+
+  &__left {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: $widthLeftProfile;
+    height: 100vh;
+    background-color: rgba($grayColorbg, 30);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__arrow {
+      @include arrow;
+    }
+
+    &:hover {
+      opacity: .9;
+    }
+  }
+
+  &__form {
+    width: 510px;
+    margin: 0 auto;
+  }
+
+  &__photo {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: #EFEFEF url("../images/profil_logo.svg") 50% 50% no-repeat;
+    cursor: pointer;
+    display: flex;
+    overflow: hidden;
+
+    &:hover {
+      .profile__placeholder {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__placeholder {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity .3s;
+
+    &__text {
+      position: absolute;
+      color: #fff;
+      @include centered;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    @include centered;
+  }
+
+  &__name {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  &__items {
+    margin-bottom: 50px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__item {
+    display: flex;
+    border-bottom: 1px solid $grayColorBorder;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__label {
+    &_link {
+      cursor: pointer;
+      color: $blueColorText;
+    }
+    &_exit {
+      cursor: pointer;
+      color: $redColorText;
+    }
+  }
+
+  &__value {
+    color: $grayColorText;
+    text-align: right;
+  }
+
+  &__btn {
+    display: block;
+    @include btn();
+    min-width: 200px;
+    margin: 0 auto;
+
+    &:hover {
+      opacity: .9;
+    }
+  }
+}

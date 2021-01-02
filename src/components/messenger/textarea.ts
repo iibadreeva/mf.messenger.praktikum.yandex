@@ -1,6 +1,6 @@
-import Block from '../../core/block.js';
+import Block from '../../core/block';
 
-export default class Textarea extends Block {
+export default class Textarea extends Block<object> {
   constructor(props: object, className: string) {
     super('footer', className, props);
   }

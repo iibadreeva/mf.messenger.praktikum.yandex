@@ -1,3 +1,14 @@
+export interface UserI {
+  avatar: string | null;
+  display_name: string | null;
+  email: string;
+  first_name: string;
+  id: number;
+  login: string;
+  phone: string;
+  second_name: string;
+}
+
 interface IInput {
   type: string,
   config: {
@@ -8,7 +19,7 @@ interface IInput {
   }
 }
 
-interface ILinks {
+export interface ILinks {
   name: string; url: string; className: string
 }
 
@@ -20,8 +31,8 @@ export interface IContext {
   formdata: {
     email: IInput,
     login: IInput,
-    firstName: IInput,
-    lastName: IInput,
+    first_name: IInput,
+    second_name: IInput,
     phone: IInput,
   },
   links: ILinks[]
@@ -29,8 +40,8 @@ export interface IContext {
 
 export const context:IContext = {
   avatar: {
-    name: 'Инна',
-    image: 'images/static_cat.jpg'
+    name: '',
+    image: ''
   },
   formdata: {
     email: {
@@ -39,7 +50,7 @@ export const context:IContext = {
         type: 'email',
         placeholder: 'Почта',
         disabled: 'disabled',
-        value: 'Inna@yandex.ru'
+        value: '1'
       }
     },
     login: {
@@ -48,25 +59,25 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Логин',
         disabled: 'disabled',
-        value: 'Inna'
+        value: ''
       }
     },
-    firstName: {
+    first_name: {
       type: 'profile',
       config: {
         type: 'text',
         placeholder: 'Имя',
         disabled: 'disabled',
-        value: 'Инна'
+        value: ''
       }
     },
-    lastName: {
+    second_name: {
       type: 'profile',
       config: {
         type: 'text',
         placeholder: 'Фамилия',
         disabled: 'disabled',
-        value: 'Бадреева'
+        value: ''
       }
     },
     phone: {
@@ -75,24 +86,24 @@ export const context:IContext = {
         type: 'tel',
         placeholder: 'Телефон',
         disabled: 'disabled',
-        value: '+7(909)967-30-30'
+        value: ''
       }
     }
   },
   links: [
     {
       name: 'Изменить данные',
-      url: '/profile_change.html',
-      className: 'profile__label_link'
+      url: '/change',
+      className: 'profile__label_link js-change'
     },
     {
       name: 'Изменить пароль',
-      url: '/profile_password.html',
-      className: 'profile__label_link'
+      url: '/password',
+      className: 'profile__label_link js-password'
     },
     {
       name: 'Выйти',
-      url: '#',
+      url: '/',
       className: 'profile__label_exit'
     }
   ]

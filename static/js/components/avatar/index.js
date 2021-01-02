@@ -1,5 +1,5 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from "../../core/block.js";
+import Templator from "../../core/utils/templator/templator.js";
 export default class Avatar extends Block {
     constructor(props) {
         super('div', '', props);
@@ -11,8 +11,7 @@ export default class Avatar extends Block {
                 <img class="profile__image" src="{{ image }}">
                 ${this.props.change ? `
                     <div class="profile__placeholder js-hamburger" data-type="avatar">
-                      <div class="profile__placeholder__text">Поменять
-                        <div>аватар</div>
+                      <div class="profile__placeholder__text">Поменять <br>аватар
                       </div>
                     </div>` :
             ''}

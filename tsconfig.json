@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "module": "ES2015",
+    "moduleResolution": "node",
+    //"types": ["jest"],
     "lib": ["DOM", "ScriptHost", "DOM.Iterable", "ES2015"],
     "sourceMap": true,
     "outDir": "./static/js",
@@ -11,16 +13,23 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,                   /* Report errors on unused locals. */
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "plugins": [
+      {
+        "transform": "./node_modules/@zoltu/typescript-transformer-append-js-extension/output/index.js",
+        "after": true
+      }
+    ]
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/sass"
   ]
 }

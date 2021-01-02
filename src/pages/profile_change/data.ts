@@ -15,30 +15,43 @@ interface IBtn {
   handleClick?: Function
 }
 
+interface IBtnG {
+  clName: string,
+  title: string
+}
+
+interface IModal {
+  title: string,
+  titleCenter: boolean,
+  footer: {
+    footerCenter: boolean,
+    btnGroup: IBtnG[]
+  }
+}
+
 export interface IContext {
   avatar: {
     name: string,
     image: string,
     change: boolean
   },
-  goBack: string,
   formdata: {
     email: IInput,
     login: IInput,
-    firstName: IInput,
-    lastName: IInput,
+    first_name: IInput,
+    second_name: IInput,
     phone: IInput,
   },
-  btn: IBtn
+  btn: IBtn,
+  modal: IModal
 }
 
 export const context:IContext = {
   avatar: {
-    name: 'Инна',
-    image: 'images/static_cat.jpg',
+    name: '',
+    image: '',
     change: true
   },
-  goBack: '/profile.html',
   formdata: {
     email: {
       type: 'profile',
@@ -46,7 +59,7 @@ export const context:IContext = {
         type: 'email',
         placeholder: 'Почта',
         dataType: 'email',
-        value: 'Inna@yandex.ru'
+        value: ''
       }
     },
     login: {
@@ -56,25 +69,25 @@ export const context:IContext = {
         placeholder: 'Логин',
         dataType: 'login',
         dataSize: '3',
-        value: 'Inna'
+        value: ''
       }
     },
-    firstName: {
+    first_name: {
       type: 'profile',
       config: {
         type: 'text',
         placeholder: 'Имя',
-        dataType: 'text',
-        value: 'Инна'
+        dataType: 'first_name',
+        value: ''
       }
     },
-    lastName: {
+    second_name: {
       type: 'profile',
       config: {
         type: 'text',
         placeholder: 'Фамилия',
-        dataType: 'text',
-        value: 'Бадреева'
+        dataType: 'second_name',
+        value: ''
       }
     },
     phone: {
@@ -83,7 +96,7 @@ export const context:IContext = {
         type: 'tel',
         placeholder: 'Телефон',
         dataType: 'phone',
-        value: '+7(909)967-30-30'
+        value: ''
       }
     }
   },
@@ -91,5 +104,18 @@ export const context:IContext = {
     text: 'Сохранить',
     type: 'button',
     clName: 'profile__btn js-submit',
+  },
+  modal: {
+    title: 'Не все поля правильно заполнены',
+    titleCenter: true,
+    footer: {
+      footerCenter: true,
+      btnGroup: [
+        {
+          clName: 'modal__btn_wide js-modal-btn',
+          title: 'Поменять',
+        }
+      ]
+    }
   }
 };

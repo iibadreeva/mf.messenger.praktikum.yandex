@@ -1,10 +1,9 @@
 export const context = {
     avatar: {
-        name: 'Инна',
-        image: 'images/static_cat.jpg',
+        name: '',
+        image: '',
         change: true
     },
-    goBack: '/profile.html',
     formdata: {
         email: {
             type: 'profile',
@@ -12,7 +11,7 @@ export const context = {
                 type: 'email',
                 placeholder: 'Почта',
                 dataType: 'email',
-                value: 'Inna@yandex.ru'
+                value: ''
             }
         },
         login: {
@@ -22,25 +21,25 @@ export const context = {
                 placeholder: 'Логин',
                 dataType: 'login',
                 dataSize: '3',
-                value: 'Inna'
+                value: ''
             }
         },
-        firstName: {
+        first_name: {
             type: 'profile',
             config: {
                 type: 'text',
                 placeholder: 'Имя',
-                dataType: 'text',
-                value: 'Инна'
+                dataType: 'first_name',
+                value: ''
             }
         },
-        lastName: {
+        second_name: {
             type: 'profile',
             config: {
                 type: 'text',
                 placeholder: 'Фамилия',
-                dataType: 'text',
-                value: 'Бадреева'
+                dataType: 'second_name',
+                value: ''
             }
         },
         phone: {
@@ -49,7 +48,7 @@ export const context = {
                 type: 'tel',
                 placeholder: 'Телефон',
                 dataType: 'phone',
-                value: '+7(909)967-30-30'
+                value: ''
             }
         }
     },
@@ -57,6 +56,19 @@ export const context = {
         text: 'Сохранить',
         type: 'button',
         clName: 'profile__btn js-submit',
+    },
+    modal: {
+        title: 'Не все поля правильно заполнены',
+        titleCenter: true,
+        footer: {
+            footerCenter: true,
+            btnGroup: [
+                {
+                    clName: 'modal__btn_wide js-modal-btn',
+                    title: 'Поменять',
+                }
+            ]
+        }
     }
 };
 //# sourceMappingURL=data.js.map

@@ -22,22 +22,22 @@ export const context = {
                 value: ''
             }
         },
-        firstName: {
+        first_name: {
             type: 'lightForm',
             config: {
                 type: 'text',
                 placeholder: 'Имя',
-                dataType: 'text',
+                dataType: 'first_name',
                 dataText: 'Поле не должно быть пустое',
                 value: ''
             }
         },
-        lastName: {
+        second_name: {
             type: 'lightForm',
             config: {
                 type: 'text',
                 placeholder: 'Фамилия',
-                dataType: 'text',
+                dataType: 'second_name',
                 dataText: 'Поле не должно быть пустое',
                 value: ''
             }
@@ -75,9 +75,9 @@ export const context = {
     },
     link: {
         text: 'Войти',
-        clName: 'log-form__btn log-form__btn_gray',
+        clName: 'log-form__btn log-form__btn_gray js-route-link',
         type: 'link',
-        url: '/login.html'
+        url: '/login'
     },
     btn: {
         text: 'Зарегистрироваться',

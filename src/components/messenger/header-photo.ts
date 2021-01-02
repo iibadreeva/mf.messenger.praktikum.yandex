@@ -1,13 +1,13 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js'
+import Block from '../../core/block';
+import Templator from '../../core/utils/templator/templator'
 
 interface IContext {
   image: string
 }
 
-export default class HeaderPhoto extends Block {
-  constructor(props:IContext, className: string) {
-    super('header', className, props);
+export default class HeaderPhoto extends Block<IContext> {
+  constructor(props:IContext) {
+    super('header', '', props);
   }
 
   render() {

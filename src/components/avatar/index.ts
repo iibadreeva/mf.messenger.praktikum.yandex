@@ -1,5 +1,5 @@
-import Block from '../../core/block.js';
-import Templator from '../../core/utils/templator.js';
+import Block from '../../core/block';
+import Templator from '../../core/utils/templator/templator';
 
 interface IContext {
   name: string,
@@ -7,7 +7,7 @@ interface IContext {
   change?: boolean
 }
 
-export default class Avatar extends Block {
+export default class Avatar extends Block<IContext> {
   constructor(props:IContext) {
     super('div', '', props);
   }
@@ -19,8 +19,7 @@ export default class Avatar extends Block {
                 <img class="profile__image" src="{{ image }}">
                 ${this.props.change ? `
                     <div class="profile__placeholder js-hamburger" data-type="avatar">
-                      <div class="profile__placeholder__text">Поменять
-                        <div>аватар</div>
+                      <div class="profile__placeholder__text">Поменять <br>аватар
                       </div>
                     </div>`:
                   ''}

@@ -1,5 +1,6 @@
+import { escape } from "./escape/escape.js";
 export const forma = (function () {
-    const phoneRe = /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
+    const phoneRe = /^\+7|8[-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
     const emailRe = /^[\w-\.]+@[\w-]+\.[a-z]{2,3}$/i;
     let matchList = [];
     return {
@@ -54,17 +55,18 @@ export const forma = (function () {
             }
         },
         send: function (inputs, modal) {
-            const data = [];
+            const data = {};
             matchList = [];
             Array.from(inputs).forEach((input) => {
                 this.validate(input, false);
-                const dataItem = {};
-                dataItem[input.dataset.type] = input.value;
-                data.push(dataItem);
+                const value = escape(input);
+                if (input.dataset.type !== 'password_again') {
+                    data[input.dataset.type] = value;
+                }
             });
             const isValid = matchList.find(item => item === 0);
             if (isValid !== 0) {
-                console.log('Данные: ', data);
+                return data;
             }
             else if (modal) {
                 const overview = document.querySelector('.overview');
@@ -74,7 +76,7 @@ export const forma = (function () {
                 modal.show();
             }
         },
-        listeners: function (form, modal) {
+        listeners: function (form) {
             form.addEventListener("blur", (event) => {
                 const element = event.target;
                 if (element.tagName === 'INPUT') {
@@ -87,11 +89,6 @@ export const forma = (function () {
                     this.validate(element, true);
                 }
             }, true);
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const inputs = form.querySelectorAll('input');
-                this.send(inputs, modal);
-            });
         }
     };
 })();
