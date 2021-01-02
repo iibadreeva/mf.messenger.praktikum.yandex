@@ -1,5 +1,5 @@
 import {ObjectKeyStringType} from "../types";
-import {escape} from "./escape";
+import {escape} from "./escape/escape";
 
 export const forma = (function () {
   const phoneRe = /^\+7|8[-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;

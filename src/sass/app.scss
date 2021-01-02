@@ -14,12 +14,12 @@
 @import "layout/mixins";
 @import "layout/main";
 
-@import "common/error.scss";
-@import "common/log-form.scss";
-@import "common/messenger.scss";
-@import "common/profile.scss";
-@import "common/editor.scss";
-@import "common/nav-list.scss";
-@import "common/modal.scss";
+@import "common/error";
+@import "common/log-form";
+@import "common/messenger";
+@import "common/profile";
+@import "common/editor";
+@import "common/nav-list";
+@import "common/modal";
 
 @import "layout/global";

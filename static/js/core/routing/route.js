@@ -1,4 +1,4 @@
-import { isEqual } from "../utils/is_equal.js";
+import { isEqual } from "../utils/is_iqual/is_equal.js";
 import render from "../utils/render.js";
 class Route {
     constructor(pathname, view, props) {

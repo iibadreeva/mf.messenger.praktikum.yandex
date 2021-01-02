@@ -57,8 +57,6 @@ export default function showHamburger(popub = undefined) {
             if (type === NavType.Profile) {
                 router.go('/profile');
             }
-            else {
-            }
         }
     });
 }

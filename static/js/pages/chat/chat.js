@@ -10,7 +10,7 @@ import { UserAPI } from "../../modules/http/user-api.js";
 import { host } from "../../modules/actions.js";
 import { ChatApi } from "./chat-api.js";
 import Modal from "../../components/modal/index.js";
-import { escape } from "../../core/utils/escape.js";
+import { escape } from "../../core/utils/escape/escape.js";
 import router from "../../router.js";
 import render from "../../core/utils/render.js";
 export class Chat extends Block {
@@ -461,6 +461,7 @@ export class Chat extends Block {
             btn.addEventListener('click', (e) => {
                 const that = e.target;
                 const value = escape(document.querySelector('.modal__value'));
+                console.log('esc', value);
                 const id = +that.dataset.id;
                 if (value !== '' && id) {
                     this.searchUser(id, value);

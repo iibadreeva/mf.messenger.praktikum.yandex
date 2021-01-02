@@ -9,10 +9,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ttsc & node server & browser-sync start --proxy 'localhost:3000' --files 'static'",
-    "style": "sass --watch sass/app.scss static/css/app.css",
+    "style": "sass --watch src/sass/app.scss static/css/app.css",
     "test": "jest",
-    "server": "node server.js",
-    "dev": "tsc --watch"
   },
   "repository": {
     "type": "git",

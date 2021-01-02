@@ -11,6 +11,7 @@
 - Верстка `HTML`, `CSS`, `БЭМ`;
 - Проэкт написан с использование `SCSS` `TYPESCRIPT`
 - Реализация `fetch`;
+- Тесты написаны на `Jest`;
 
 # Примеры с netlify
 - «[404](https://messenger-79133f.netlify.app/404)»,
@@ -48,6 +49,11 @@ npm run start
 # Запуск стилей
 ```sh
 npm run style
+```
+
+# Запуск теста
+```sh
+npm run test
 ```
 
 ### Messenger

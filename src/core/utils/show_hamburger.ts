@@ -1,9 +1,7 @@
 import Modal from "../../components/modal/index";
 import render from "./render";
-// import remove from "./remove";
 import {
   overviewHide,
-  // overviewShow
 } from "./overview";
 import Hamburger, {NavType} from "../../components/hamburger/index";
 import router from "../../router";
@@ -15,22 +13,15 @@ interface INav {
 }
 
 let show_hamburger:Hamburger;
-// создаем модальное окно
 let modal: Modal;
 let id: string;
-// export default function showHamburger(popub: any) {
-// export default function showHamburger(hamburger, popub: Modal | undefined = undefined) {
-export default function showHamburger(popub: Modal | undefined = undefined) {
+export default function showHamburger(popub: Modal | undefined = undefined): void {
   if(popub) {
     modal = popub;
   }
 
-  // show_hamburger = hamburger;
-  // if(!show_hamburger) {
     show_hamburger = new Hamburger({}, 'nav-list');
-    // render('body', show_hamburger);
     render('.container', show_hamburger);
-    // console.log('go', document.querySelector('.messenger'), show_hamburger)
     show_hamburger.hide();
   // }
 
@@ -56,7 +47,6 @@ export default function showHamburger(popub: Modal | undefined = undefined) {
 
       if (show_hamburger) {
         show_hamburger.hide();
-        // remove('body', show_hamburger);
       }
 
       const {nav, navWidth, navHeight}: INav = createNav(type);
@@ -68,14 +58,12 @@ export default function showHamburger(popub: Modal | undefined = undefined) {
       nav.style.top = `${y - navHeight}px`;
     }
 
-    // удаляем меню, если кликаем в нет элемента
+    // скрываем меню, если кликаем в не элемента
     if (nav) {
       if (!that.closest('.js-hamburger')) {
         setTimeout(() => {
           if(show_hamburger) {
             show_hamburger.hide();
-            // remove('body', show_hamburger);
-            // show_hamburger = undefined;
           }
         }, 100);
       }
@@ -98,15 +86,9 @@ export default function showHamburger(popub: Modal | undefined = undefined) {
 
       if(type === NavType.Profile) {
         router.go('/profile');
-      } else {
-        // createModal(type, modal);
       }
     }
   });
-
-  // if(popub) {
-  //   return modal;
-  // }
 }
 
 function createNav(type: string): INav {
