@@ -17,25 +17,22 @@ export default class HTTP {
             const { method, headers, data } = options;
             const timeout = options.timeout || DEFAULT_REQUEST_OPTIONS.timeout;
             let url = `${this.host}${path}`;
-            const that = this;
             return new Promise((resolve, reject) => {
-                if (!method) {
-                    reject('Need to use method');
-                    return;
-                }
                 const xhr = new XMLHttpRequest();
                 if (method === METHOD.GET && data) {
                     url = url + this.queryStringify(data);
                 }
-                xhr.open(method, url);
+                if (method) {
+                    xhr.open(method, url);
+                }
                 xhr.withCredentials = true;
                 if (headers) {
                     Object.keys(headers).forEach(function (key) {
                         xhr.setRequestHeader(key, headers[key]);
                     });
                 }
-                xhr.onload = function () {
-                    resolve(that.parseXHRResult(xhr));
+                xhr.onload = () => {
+                    resolve(this.parseXHRResult(xhr));
                 };
                 xhr.onabort = reject;
                 xhr.onerror = reject;
@@ -51,7 +48,6 @@ export default class HTTP {
             });
         };
         this.host = host;
-        this.request = this.request.bind(this);
     }
     parseXHRResult(xhr) {
         return {
@@ -63,14 +59,29 @@ export default class HTTP {
             json: () => JSON.parse(xhr.responseText),
         };
     }
-    queryStringify(data = {}) {
+    getDeepParams(keyName, object) {
+        return Object.keys(object).reduce((result, key, index, arr) => {
+            const obj = object[key];
+            let params = `${keyName}[${key}]=${obj}`;
+            if (typeof obj === 'object') {
+                params = this.getDeepParams(`${keyName}[${key}]`, obj);
+            }
+            return `${result}${params}${index < arr.length - 1 ? '&' : ''}`;
+        }, '');
+    }
+    queryStringify(data) {
         if (typeof data !== 'object') {
             throw new Error('Data must be object');
         }
         const keys = Object.keys(data);
         return keys.reduce((result, key, index) => {
-            return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-        }, '?');
+            const obj = data[key];
+            let param = `${key}=${obj}`;
+            if (typeof obj === 'object') {
+                param = this.getDeepParams(key, obj);
+            }
+            return `${result}${param}${index < keys.length - 1 ? '&' : ''}`;
+        }, '');
     }
 }
 //# sourceMappingURL=http.js.map

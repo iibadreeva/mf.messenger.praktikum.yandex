@@ -5,8 +5,8 @@ const PORT = 3000;
 
 app.use(
   limiter({
-    max: 300,
-    message: { message: 'Сликом много запросов с одного IP' },
+    max: 100,
+    message: { message: 'Слишком много запросов с одного IP' },
   })
 );
 

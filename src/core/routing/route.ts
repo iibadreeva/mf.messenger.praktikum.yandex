@@ -44,4 +44,4 @@ class Route {
   }
 }
 
-export { Route };
+export { Route, routeProps };

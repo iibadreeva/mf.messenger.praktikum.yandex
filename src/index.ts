@@ -9,7 +9,6 @@ import {Profile} from "./pages/profile/profile";
 import {ProfileChange} from "./pages/profile_change/profile_change";
 import {ProfilePassword} from "./pages/profile_password/profile_password";
 
-
 router
   .useProtect('/chat', Chat)
   .useProtect('/profile', Profile)
@@ -18,25 +17,18 @@ router
   .use('/404', Page404)
   .use('/500', Page500)
 
-const app = function () {
-  new UserAPI().request()
-    .then(res => res.ok)
-    .then((isAuth) => {
-      if(isAuth) {
-        //временно
-        router.use('/login', Login)
-        router.use('/registration', Registration)
+new UserAPI().request()
+  .then(res => res.ok)
+  .then((isAuth) => {
+    if(isAuth) {
+      router.use('/login', Login)
+      router.use('/registration', Registration)
 
-        router.isProtect = false;
-        // router.useDefault('/chat', Page500)
-        router.start();
-      } else {
-        // router.use('/', Login)
-        router.useDefault('/login', Login)
-        router.use('/registration', Registration)
-        router.start();
-      }
-    });
-};
-
-app();
+      router.isProtect = false;
+      router.start();
+    } else {
+      router.useDefault('/login', Login)
+      router.use('/registration', Registration)
+      router.start();
+    }
+  });

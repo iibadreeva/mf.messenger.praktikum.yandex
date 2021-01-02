@@ -5,12 +5,12 @@ import {
   OptionsWithoutMethod,
   RequestResult
 } from './actions';
+import {ObjectKeyStringType} from "../core/types";
 
 export default class HTTP {
   host:string;
   constructor(host: string) {
     this.host = host;
-    this.request = this.request.bind(this);
   }
 
   parseXHRResult(xhr: XMLHttpRequest): RequestResult {
@@ -24,15 +24,33 @@ export default class HTTP {
     };
   }
 
-  queryStringify(data: any = {}) {
+  getDeepParams(keyName: string, object: ObjectKeyStringType): string {
+    return Object.keys(object).reduce((result, key, index, arr) => {
+      const obj = object[key];
+      let params = `${keyName}[${key}]=${obj}`;
+
+      if (typeof obj === 'object') {
+        params = this.getDeepParams(`${keyName}[${key}]`, obj);
+      }
+      return `${result}${params}${index < arr.length - 1 ? '&' : ''}`;
+    }, '');
+  }
+
+  queryStringify(data: ObjectKeyStringType) {
     if (typeof data !== 'object') {
       throw new Error('Data must be object');
     }
 
     const keys = Object.keys(data);
     return keys.reduce((result, key, index) => {
-      return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-    }, '?');
+      const obj = data[key];
+      let param = `${key}=${obj}`;
+
+      if (typeof obj === 'object') {
+        param = this.getDeepParams(key, obj);
+      }
+      return `${result}${param}${index < keys.length - 1 ? '&' : ''}`;
+    }, '');
   }
 
   get = (url: string, options: OptionsWithoutMethod = {}): Promise<RequestResult> => {
@@ -53,18 +71,15 @@ export default class HTTP {
     const {method, headers, data} = options;
     const timeout = options.timeout || DEFAULT_REQUEST_OPTIONS.timeout;
     let url = `${this.host}${path}`;
-    const that = this;
 
     return new Promise<RequestResult>((resolve, reject) => {
-      if (!method) {
-        reject('Need to use method');
-        return;
-      }
       const xhr = new XMLHttpRequest();
       if( method === METHOD.GET && data) {
         url = url + this.queryStringify(data)
       }
-      xhr.open(method, url);
+      if(method) {
+        xhr.open(method, url);
+      }
       xhr.withCredentials = true;
 
       if (headers) {
@@ -73,8 +88,8 @@ export default class HTTP {
         });
       }
 
-      xhr.onload = function() {
-        resolve(that.parseXHRResult(xhr));
+      xhr.onload = () => {
+        resolve(this.parseXHRResult(xhr));
       };
       xhr.onabort = reject;
       xhr.onerror = reject;
