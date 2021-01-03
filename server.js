@@ -5,13 +5,14 @@ const PORT = 3000;
 
 app.use(
   limiter({
-    max: 100,
-    message: { message: 'Слишком много запросов с одного IP' },
+    windowMs: 3000,
+    max: 300,
+    message: 'Слишком много запросов с одного IP'
   })
 );
 
 app.use(express.static(`${__dirname}/static`));
-app.get('*/',function(req, res){//get,put,post,delete
+app.get('*/',function(req, res){
   res.sendfile(__dirname + '/static/index.html');
 });
 
