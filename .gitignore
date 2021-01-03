@@ -10,3 +10,4 @@ atlassian-ide-plugin.xml
 node_modules/
 *.lock
 package-lock.json
+static/js

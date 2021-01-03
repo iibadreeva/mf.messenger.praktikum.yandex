@@ -14,7 +14,7 @@
 - Тесты написаны на `Jest`;
 
 # Примеры с netlify
-- [netlify](https://messenger-79133f.netlify.app/)
+- [netlify](https://messenger-ya.netlify.app/)
 
 # Примеры с express
 - «[404](http://localhost:3000/404)»,

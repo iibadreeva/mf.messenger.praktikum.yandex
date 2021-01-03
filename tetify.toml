@@ -1,7 +1,2 @@
 [build]
-  base = "./"
-  publish = "./static"
-
-[[redirects]]
-  to = "/"
-  status = 404
+  publish = "static"
