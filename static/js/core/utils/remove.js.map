@@ -1,1 +1,0 @@
-{"version":3,"file":"remove.js","sourceRoot":"","sources":["../../../../src/core/utils/remove.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,UAAU,MAAM,CAAC,KAAY,EAAE,KAAS;IACpD,MAAM,IAAI,GAAG,QAAQ,CAAC,aAAa,CAAC,KAAK,CAAC,CAAC;IAC3C,IAAI,IAAI,EAAE;QACR,IAAI,CAAC,WAAW,CAAC,KAAK,CAAC,UAAU,EAAE,CAAC,CAAC;KACtC;IACD,OAAO,IAAI,CAAC;AACd,CAAC"}
