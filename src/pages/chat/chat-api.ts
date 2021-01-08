@@ -1,6 +1,6 @@
-import HTTP from "../../modules/http";
-import {BaseAPI} from "../../modules/http/base-api";
-import {host} from "../../modules/actions";
+import HTTP from "../../core/modules/http";
+import {BaseAPI} from "../../core/modules/http/base-api";
+import {host} from "../../core/modules/actions";
 
 const cartAPIInstance = new HTTP(host);
 

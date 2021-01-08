@@ -3,29 +3,26 @@ import render from "../utils/render";
 
 type routeProps = { rootQuery: string; protect?: boolean };
 
-class Route {
+interface IRoute {
   _pathname: string;
   _blockClass: any;
-  _block: any;
+  _block: Function | null;
+  _props: routeProps;
+
+  match(pathname: string): boolean;
+  render(): void;
+}
+
+class Route implements IRoute {
+  _pathname: string;
+  _blockClass: any;
+  _block: Function | null;
   _props: routeProps;
   constructor(pathname: string, view: Function, props: routeProps) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
     this._props = props;
-  }
-
-  navigate(pathname: string): void {
-    if (this.match(pathname)) {
-      this._pathname = pathname;
-      this.render();
-    }
-  }
-
-  leave() {
-    if (this._block) {
-      this._block.hide();
-    }
   }
 
   match(pathname: string): boolean {
@@ -44,4 +41,4 @@ class Route {
   }
 }
 
-export { Route, routeProps };
+export { Route, IRoute };

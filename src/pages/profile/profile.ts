@@ -2,9 +2,9 @@ import Block from '../../core/block';
 import Avatar from '../../components/avatar/index';
 import Input from '../../components/input/index';
 import {IContext, context} from './data';
-import {UserAPI} from "../../modules/http/user-api";
+import {UserAPI} from "../../core/modules/http/user-api";
 import router from "../../router";
-import {host} from "../../modules/actions";
+import {host} from "../../core/modules/actions";
 
 export class Profile extends Block<IContext> {
   constructor() {

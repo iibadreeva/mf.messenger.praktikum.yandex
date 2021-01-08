@@ -1,5 +1,5 @@
 import Block from '../../core/block';
-import {host} from "../../modules/actions";
+import {host} from "../../core/modules/actions";
 
 interface IDialog {
   title: string;

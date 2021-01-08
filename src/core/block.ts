@@ -1,4 +1,5 @@
 import EventBus from './event-bus';
+import {ObjectKeyStringType} from "./types";
 
 interface IMeta {
   tagName: string,
@@ -6,17 +7,12 @@ interface IMeta {
   props: Record<string, Object>
 }
 
-export type propsObject = {
-  [key: string]: string | number | boolean | Function;
-};
-
-type objectKeyString = { [key: string]: string };
 export default abstract class Block<Props extends Object> {
   public props: Record<string, Props> = {};
   eventBus: () => EventBus;
 
   lastActiveElement: any;
-  EVENTS: objectKeyString = {
+  EVENTS: ObjectKeyStringType = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
@@ -26,7 +22,6 @@ export default abstract class Block<Props extends Object> {
   _element: HTMLElement | null = null;
   _meta: IMeta | null = null;
 
-  // constructor(tagName: string = "div", className:string = '', props = {}) {
   constructor(tagName: string = "div", className:string = '', props = {}) {
     const eventBus = new EventBus();
     this._meta = {
@@ -41,7 +36,6 @@ export default abstract class Block<Props extends Object> {
     } catch (error) {
       console.log(error);
     }
-    this.lastActiveElement;
 
     this.eventBus = () => eventBus;
 
@@ -111,16 +105,7 @@ export default abstract class Block<Props extends Object> {
     if (element) {
       element.innerHTML = block;
     }
-    // this._setLastFocusInput();
   }
-
-  // _setLastFocusInput() {
-  //   const element = this.lastActiveElement;
-  //   if (element && element.tagName === 'INPUT') {
-  //     const className = element.classList[2];
-  //     (document.querySelector(`.${className}`) as HTMLInputElement).focus();
-  //   }
-  // }
 
   // Может переопределять пользователь, необязательно трогать
   render() {}

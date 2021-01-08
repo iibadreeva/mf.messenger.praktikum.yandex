@@ -2,7 +2,7 @@ import Block from '../../core/block';
 import Button from "../../components/button/index";
 import {IBtn, IContext, context} from './data';
 import router from "../../router";
-import {UserAPI} from "../../modules/http/user-api";
+import {UserAPI} from "../../core/modules/http/user-api";
 
 export class Page404 extends Block<IContext> {
   constructor() {

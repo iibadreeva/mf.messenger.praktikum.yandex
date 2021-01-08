@@ -1,23 +1,36 @@
-import { Route, routeProps} from './route';
+import { Route, IRoute} from './route';
 import {overviewHide} from "../utils/overview";
 
-interface IRoute {
-  _props: routeProps;
-  _pathname: string;
-
-  render(): void;
+interface IRouter {
+  _rootQuery: string;
+  routes: IRoute[];
+  history: History;
+  _currentRoute: IRoute | null;
+  __instance: IRouter | undefined;
+  isProtect: boolean;
+  _defaultPath: string;
+  use(pathname: string, block: Function): this;
+  useDefault(pathname: string, block: Function): this;
+  useProtect(pathname: string, block: Function): this;
+  start(): void;
+  _onRoute(pathname: string): void;
+  go(pathname: string): void;
+  back(): void;
+  forward(): void;
+  getRoute(pathname: string): IRoute | void;
 }
 
-export default class Router {
-  _currentRoute: IRoute | null | undefined;
+export default class Router implements IRouter {
+  _currentRoute: IRoute | null = null;
   _rootQuery: string = '';
-  static __instance: Router;
-  private history: History = window.history
-  private _defaultPath: string = '';
-  public isProtect: boolean = true;
-  public isStart: boolean = false;
-  routes: IRoute[] | undefined;
+  __instance: IRouter | undefined;
+  history: History = window.history
+  _defaultPath: string = '';
+  isProtect: boolean = true;
+  isStart: boolean = false;
+  routes: IRoute[] = [];
 
+  static __instance: Router;
   constructor(rootQuery?: string) {
     if (Router.__instance) {
       return Router.__instance;
@@ -33,15 +46,7 @@ export default class Router {
     this.isStart = false;
 
     Router.__instance = this;
-
-    window.addEventListener('hashchange', this._handleHashChange);
   }
-
-  _handleHashChange = (): void => {
-    const path = window.location.pathname;
-
-    this._onRoute(path);
-  };
 
   use(pathname: string, block: Function): this {
     const route = new Route(pathname, block, {rootQuery: this._rootQuery});
@@ -119,11 +124,9 @@ export default class Router {
     this.history.forward();
   }
 
-  getRoute(pathname: string) {
-    if(this.routes) {
-      return this.routes.find((route: { _pathname: string; }) => {
-        return route._pathname.match(pathname);
-      });
-    }
+  getRoute(pathname: string): IRoute | void {
+    return this.routes.find((route: { _pathname: string; }) => {
+      return route._pathname.match(pathname);
+    });
   }
 }

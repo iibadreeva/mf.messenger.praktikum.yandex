@@ -1,5 +1,5 @@
 import router from './router';
-import {UserAPI} from './modules/http/user-api';
+import {UserAPI} from './core/modules/http/user-api';
 import {Page404} from "./pages/404/404";
 import {Page500} from "./pages/500/500";
 import {Login} from "./pages/login/login";
