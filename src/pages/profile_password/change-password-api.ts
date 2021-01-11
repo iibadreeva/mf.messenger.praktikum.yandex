@@ -1,6 +1,6 @@
-import HTTP from "../../core/modules/http";
-import {BaseAPI} from "../../core/modules/http/base-api";
-import {host} from "../../core/modules/actions";
+import HTTP from '../../core/modules/http';
+import {BaseAPI} from '../../core/modules/http/base-api';
+import {host} from '../../core/modules/actions';
 
 const userAPIInstance = new HTTP(host);
 

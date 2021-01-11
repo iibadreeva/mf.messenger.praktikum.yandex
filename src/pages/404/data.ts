@@ -8,13 +8,13 @@ export interface IBtn {
 export interface IContext {
   title: string,
   description: string,
-  btn: IBtn
+  button: IBtn
 }
 
 export const context:IContext = {
   title: '404',
   description: 'Ой! Такой страницы нет на сайте :(',
-  btn: {
+  button: {
     text: 'К чату?',
     clName: 'error__btn',
     type: 'button'

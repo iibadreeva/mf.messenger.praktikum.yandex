@@ -1,5 +1,5 @@
-import { isEqual } from '../utils/is_iqual/is_equal'
-import render from "../utils/render";
+import { isEqual } from '../../utils/is_iqual/is_equal';
+import render from '../../utils/render';
 
 type routeProps = { rootQuery: string; protect?: boolean };
 

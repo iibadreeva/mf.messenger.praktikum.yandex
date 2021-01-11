@@ -1,19 +1,19 @@
 import Block from '../../core/block';
-import HeaderPhoto from '../../components/messenger/header-photo';
-import Input from '../../components/input/index';
-import Dialog from '../../components/messenger/dialog';
-import Templator from '../../core/utils/templator/templator';
-import showHamburger from '../../core/utils/show_hamburger';
 import {IContext, context} from './data';
-import {overviewHide, overviewShow} from "../../core/utils/overview";
-import {UserAPI} from "../../core/modules/http/user-api";
-import {host} from "../../core/modules/actions";
-import {ChatApi} from "./chat-api";
-import Modal from "../../components/modal/index";
-import {escape} from "../../core/utils/escape/escape";
-import {ObjectType} from "../../core/types";
-import router from "../../router";
-import render from "../../core/utils/render";
+import {template} from './template';
+import HeaderPhoto from '../../components/messenger/header-photo/index';
+import Input from '../../components/input/index';
+import Dialog from '../../components/messenger/dialog/index';
+import showHamburger from '../../utils/show_hamburger';
+import {overviewHide, overviewShow} from '../../utils/overview';
+import {UserAPI} from '../../core/modules/http/user-api';
+import {host} from '../../core/modules/actions';
+import {ChatApi} from './chat-api';
+import Modal from '../../components/modal/index';
+import {escape} from '../../utils/escape/escape';
+import {ObjectType} from '../../core/types';
+import router from '../../router';
+import render from '../../utils/render';
 
 export class Chat extends Block<IContext> {
   private modal: Modal | undefined;
@@ -71,7 +71,7 @@ export class Chat extends Block<IContext> {
           if(dialog) {
             this.id = +<string>dialog.dataset.id;
           }
-        })
+        });
       });
     });
   }
@@ -106,25 +106,25 @@ export class Chat extends Block<IContext> {
   setData() {
     this.setProps({
       dialogs: new Dialog(this.dialogs).render(),
-    })
+    });
   }
 
   createDialog(value: string) {
     new ChatApi()
       .createChat({
-        "title": value
+        'title': value
       })
       .then(res => {
         const { status, data } = res;
 
         if(status === 200) {
-          let res = JSON.parse(data);
+          const res = JSON.parse(data);
 
           const dialog = {
             avatar: null,
             id: res.id,
             title: value
-          }
+          };
           const {dialogs} = this.dialogs;
 
           const result = [
@@ -150,7 +150,7 @@ export class Chat extends Block<IContext> {
   removeDialog(id: number) {
     new ChatApi()
       .deleteChat({
-        "chatId": id
+        'chatId': id
       })
       .then(res => {
         const { status } = res;
@@ -180,7 +180,7 @@ export class Chat extends Block<IContext> {
 
   searchUser(id: number, value: string) {
     new ChatApi()
-      .searchUser({"login": value})
+      .searchUser({'login': value})
       .then(res => {
         const { status } = res;
         if(status === 200) {
@@ -193,13 +193,13 @@ export class Chat extends Block<IContext> {
               footerCenter: true,
               btnGroup: [
                 {
-                  clName: `modal__btn_wide js-btn-search-user-to-add`,
+                  clName: 'modal__btn_wide js-btn-search-user-to-add',
                   title: 'Поиск',
                   id: id
                 }
               ]
             }
-          }
+          };
 
           if(data.length > 0 ) {
             result = {
@@ -220,7 +220,7 @@ export class Chat extends Block<IContext> {
                   }
                 ]
               }
-            }
+            };
           }
 
           if(this.modal) {
@@ -251,8 +251,8 @@ export class Chat extends Block<IContext> {
   addUserToChat(idChat: number, idUser: number) {
     new ChatApi()
       .addUserToChat({
-        "users": [idUser],
-        "chatId": idChat
+        'users': [idUser],
+        'chatId': idChat
       })
       .then(res => {
         const { status } = res;
@@ -280,7 +280,7 @@ export class Chat extends Block<IContext> {
         } else {
           alert('Произошла ошибка');
         }
-      })
+      });
   }
 
   getUsers(id: number) {
@@ -295,15 +295,15 @@ export class Chat extends Block<IContext> {
             footerCenter: true,
             btnGroup: [
               {
-                clName: `modal__btn_wide js-btn-close-modal`,
+                clName: 'modal__btn_wide js-btn-close-modal',
                 title: 'ОТМЕНА',
                 id: id
               }
             ]
           }
-        }
+        };
 
-        let userData: any = [];
+        const userData: any = [];
         data.forEach((item: { id: number; }) => {
           if(item.id !== this.myId) {
             userData.push(item);
@@ -329,7 +329,7 @@ export class Chat extends Block<IContext> {
                 }
               ]
             }
-          }
+          };
         }
 
         if(this.modal) {
@@ -354,8 +354,8 @@ export class Chat extends Block<IContext> {
   deleteUserToChat(idChat: number, idUser: number) {
     new ChatApi()
       .deleteUserFromChat({
-        "users": [idUser],
-        "chatId": idChat
+        'users': [idUser],
+        'chatId': idChat
       })
       .then(res => {
         const { status } = res;
@@ -383,88 +383,88 @@ export class Chat extends Block<IContext> {
         } else {
           alert('Произошла ошибка');
         }
-      })
+      });
   }
 
   createModal(type: string, modal: any): void {
     switch (type) {
-      case 'create-chat':
-        modal.setProps({
-          title: 'Добавить новый чат',
-          type: '',
-          titleCenter: true,
-          formData: {
-            label: 'Логин',
-            value: ''
-          },
-          footer: {
-            footerCenter: true,
-            btnGroup: [
-              {
-                clName: 'modal__btn_wide js-btn-create-chat',
-                title: 'Добавить'
-              }
-            ]
-          },
-          radio: undefined,
-          info: ''
-        });
-        overviewShow();
-        modal.show();
-        this.handleCreateChat();
-        break;
-      case 'add-user':
-        modal.setProps({
-          title: 'Добавить нового пользователя',
-          type: '',
-          titleCenter: true,
-          formData: {
-            label: 'Логин',
-            value: ''
-          },
-          footer: {
-            footerCenter: true,
-            btnGroup: [
-              {
-                clName: 'modal__btn_wide js-btn-search-user-to-add',
-                title: 'Поиск',
-                id: this.id
-              }
-            ]
-          },
-          radio: undefined,
-          info: ''
-        });
-        overviewShow();
-        modal.show();
-        this.handleSearchUser();
-        break;
-      case 'remove-chat':
-        modal.setProps({
-          title: 'Удалить чат',
-          type: 'average',
-          titleCenter: false,
-          formData: false,
-          footer: {
-            btnGroup: [
-              {
-                clName: 'modal__btn_secondary js-btn-close-modal',
-                title: 'ОТМЕНА'
-              },
-              {
-                clName: 'js-btn-remove-chat',
-                title: 'УДАЛИТЬ',
-                id: this.id
-              }
-            ]
-          },
-          radio: undefined,
-          info: ''
-        });
-        overviewShow();
-        modal.show();
-        this.handleRemoveChat();
-        break;
+    case 'create-chat':
+      modal.setProps({
+        title: 'Добавить новый чат',
+        type: '',
+        titleCenter: true,
+        formData: {
+          label: 'Логин',
+          value: ''
+        },
+        footer: {
+          footerCenter: true,
+          btnGroup: [
+            {
+              clName: 'modal__btn_wide js-btn-create-chat',
+              title: 'Добавить'
+            }
+          ]
+        },
+        radio: undefined,
+        info: ''
+      });
+      overviewShow();
+      modal.show();
+      this.handleCreateChat();
+      break;
+    case 'add-user':
+      modal.setProps({
+        title: 'Добавить нового пользователя',
+        type: '',
+        titleCenter: true,
+        formData: {
+          label: 'Логин',
+          value: ''
+        },
+        footer: {
+          footerCenter: true,
+          btnGroup: [
+            {
+              clName: 'modal__btn_wide js-btn-search-user-to-add',
+              title: 'Поиск',
+              id: this.id
+            }
+          ]
+        },
+        radio: undefined,
+        info: ''
+      });
+      overviewShow();
+      modal.show();
+      this.handleSearchUser();
+      break;
+    case 'remove-chat':
+      modal.setProps({
+        title: 'Удалить чат',
+        type: 'average',
+        titleCenter: false,
+        formData: false,
+        footer: {
+          btnGroup: [
+            {
+              clName: 'modal__btn_secondary js-btn-close-modal',
+              title: 'ОТМЕНА'
+            },
+            {
+              clName: 'js-btn-remove-chat',
+              title: 'УДАЛИТЬ',
+              id: this.id
+            }
+          ]
+        },
+        radio: undefined,
+        info: ''
+      });
+      overviewShow();
+      modal.show();
+      this.handleRemoveChat();
+      break;
     }
   }
 
@@ -544,20 +544,6 @@ export class Chat extends Block<IContext> {
   }
 
   render() {
-    const templ = `
-      <main class="messenger__left">
-        <div class="messenger__header">{{ header }}</div>
-        <div class="messenger__search">{{ search }}</div>
-        <div class="messenger__items">{{ dialogs }}</div>
-      </main>
-      <aside class="messenger__right">
-        <header class="messenger__header messenger__header_right"></header>
-        <div class="messenger__content messenger__content_center">
-          <p class="messenger__text">{{ description }}</p>
-        </div>
-      </aside>`;
-
-    const tmpl = new Templator(templ);
-    return tmpl.compile(this.props);
+    return template(this.props);
   }
 }

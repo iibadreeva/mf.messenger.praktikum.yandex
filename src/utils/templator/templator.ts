@@ -1,11 +1,11 @@
 declare let window:any;
-import {ObjectType} from '../../types'
+import {ObjectType} from '../../core/types';
 
-function get<T extends object>(obj:T, path: string, defaultValue:string='something else'): any {
+function get<T extends object>(obj:T, path: string, defaultValue='something else'): any {
   const keys = path.split('.');
 
   let result:ObjectType = obj;
-  for (let key of keys) {
+  for (const key of keys) {
     result = result[key];
 
     if (result === undefined) {
@@ -39,16 +39,16 @@ export default class Templator<T extends object> {
         const tmplValue = key[1].trim();
         const data = get(ctx, tmplValue);
 
-        if (typeof data === "function") {
+        if (typeof data === 'function') {
           window[tmplValue] = data;
           tmpl = tmpl.replace(
-            new RegExp(key[0], "gi"),
+            new RegExp(key[0], 'gi'),
             `window.${key[1].trim()}()`
           );
           continue;
         }
 
-        tmpl = tmpl.replace(new RegExp(key[0], "gi"), data);
+        tmpl = tmpl.replace(new RegExp(key[0], 'gi'), data);
       }
     }
 

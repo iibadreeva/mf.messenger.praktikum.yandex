@@ -5,7 +5,7 @@ import {
   OptionsWithoutMethod,
   RequestResult
 } from './actions';
-import {ObjectKeyStringType} from "../types";
+import {ObjectKeyStringType} from '../types';
 
 export default class HTTP {
   host:string;
@@ -75,7 +75,7 @@ export default class HTTP {
     return new Promise<RequestResult>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       if( method === METHOD.GET && data) {
-        url = url + this.queryStringify(data)
+        url = url + this.queryStringify(data);
       }
       if(method) {
         xhr.open(method, url);

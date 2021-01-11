@@ -1,12 +1,12 @@
 import Block from '../../core/block';
+import {IContext, context} from './data';
+import {template} from './template';
 import Button from '../../components/button/index';
 import Input from '../../components/input/index';
-import Templator from '../../core/utils/templator/templator';
-import {overviewShow} from '../../core/utils/overview';
-import {forma} from '../../core/utils/form';
-import {IContext, context} from './data'
-import router from "../../router";
-import {RegistrationUserApi} from "./registration-user-api";
+import {overviewShow} from '../../utils/overview';
+import {forma} from '../../utils/form';
+import router from '../../router';
+import {RegistrationUserApi} from './registration-user-api';
 
 export class Registration extends Block<IContext> {
   constructor() {
@@ -42,10 +42,10 @@ export class Registration extends Block<IContext> {
         } else if (status >= 500) {
           router.go('/500');
         } else {
-          let reason = JSON.parse(data).reason || 'Не правильные данные';
+          const reason = JSON.parse(data).reason || 'Не правильные данные';
           alert(reason);
         }
-      })
+      });
   }
 
   goLogin() {
@@ -77,43 +77,10 @@ export class Registration extends Block<IContext> {
         });
       }
     });
-    overviewShow()
+    overviewShow();
   }
 
   render() {
-    const templ = `
-        <form class="log-form js-form">
-          <div class="js-form-group">
-            <span class="log-form__title">{{ title }}</span>
-            <div class="log-form__control">
-                {{ email }}
-            </div>
-            <div class="log-form__control">
-                {{ login }}
-            </div>
-            <div class="log-form__control">
-                {{ first_name }}
-            </div>
-            <div class="log-form__control">
-                {{ second_name }}
-            </div>
-            <div class="log-form__control">
-                {{ phone }}
-            </div>
-            <div class="log-form__control">
-                {{ password }}
-            </div>
-            <div class="log-form__control">
-                {{ passwordAgain }}
-            </div>
-          </div>
-          <div class="log-form__group-btn js-btn">
-            {{ button }}
-            {{ link }}
-          </div>
-        </form>`;
-
-    const tmpl = new Templator(templ);
-    return tmpl.compile(this.props);
+    return template(this.props);
   }
 }

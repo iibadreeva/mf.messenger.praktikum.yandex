@@ -1,18 +1,18 @@
 import Block from '../../core/block';
+import {IContext, context} from './data';
+import {template} from './template';
 import Button from '../../components/button/index';
 import Avatar from '../../components/avatar/index';
-import Templator from '../../core/utils/templator/templator';
 import Input from '../../components/input/index';
-import {IContext, context} from './data';
-import {UserAPI} from "../../core/modules/http/user-api";
-import {host} from "../../core/modules/actions";
-import router from "../../router";
-import Modal from "../../components/modal/index";
-import render from "../../core/utils/render";
-import {overviewHide} from "../../core/utils/overview";
-import {forma} from "../../core/utils/form";
-import {ObjectKeyStringType} from "../../core/types";
-import {ChangePasswordApi} from "./change-password-api";
+import {UserAPI} from '../../core/modules/http/user-api';
+import {host} from '../../core/modules/actions';
+import router from '../../router';
+import Modal from '../../components/modal/index';
+import render from '../../utils/render';
+import {overviewHide} from '../../utils/overview';
+import {forma} from '../../utils/form';
+import {ObjectKeyStringType} from '../../core/types';
+import {ChangePasswordApi} from './change-password-api';
 
 export class ProfilePassword extends Block<IContext> {
   constructor() {
@@ -54,7 +54,7 @@ export class ProfilePassword extends Block<IContext> {
       .request()
       .then(res => JSON.parse(res.data))
       .then(data => {
-        let {avatar}: IContext = context;
+        const {avatar}: IContext = context;
 
         if (data.avatar) {
           avatar.image = `${host}${data.avatar}`;
@@ -63,7 +63,7 @@ export class ProfilePassword extends Block<IContext> {
 
         this.setProps({
           avatar: new Avatar(avatar).render(),
-        })
+        });
       });
   }
 
@@ -78,10 +78,10 @@ export class ProfilePassword extends Block<IContext> {
         } else if (status >= 500) {
           router.go('/500');
         } else {
-          let reason = data || 'Не правильный пароль';
+          const reason = data || 'Не правильный пароль';
           alert(reason);
         }
-      })
+      });
   }
 
   pupub() {
@@ -96,7 +96,7 @@ export class ProfilePassword extends Block<IContext> {
       btnModal.addEventListener('click', () => {
         popub.hide();
         overviewHide();
-      })
+      });
     }
 
     return popub;
@@ -121,22 +121,6 @@ export class ProfilePassword extends Block<IContext> {
   }
 
   render() {
-    const {avatar,button, oldPassword, newPassword, passwordAgain} = this.props;
-    const templ = `
-        <div class="profile__left">
-          <div class="profile__left__arrow"><i class="fa fa-long-arrow-left"></i></div>
-        </div>
-        <form class="profile__form js-btn">
-          <div class="js-avatar">${avatar}</div>
-          <div class="profile__items js-form">
-            <div class="profile__item">${oldPassword}</div>
-            <div class="profile__item">${newPassword}</div>
-            <div class="profile__item">${passwordAgain}</div>
-          </div>
-          ${button}
-        </form>`;
-
-    const tmpl = new Templator(templ);
-    return tmpl.compile(this.props);
+    return template(this.props);
   }
 }

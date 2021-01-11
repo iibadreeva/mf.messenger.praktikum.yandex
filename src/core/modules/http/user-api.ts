@@ -1,6 +1,6 @@
-import HTTP from "../http";
-import {BaseAPI} from "./base-api";
-import {host} from "../actions";
+import HTTP from '../http';
+import {BaseAPI} from './base-api';
+import {host} from '../actions';
 
 const userAPIInstance = new HTTP(host);
 export class UserAPI extends BaseAPI {

@@ -1,5 +1,5 @@
-import {ObjectKeyStringType} from "../types";
-import {escape} from "./escape/escape";
+import {ObjectKeyStringType} from '../core/types';
+import { escape } from './escape/escape';
 
 export const forma = (function () {
   const phoneRe = /^\+7|8[-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
@@ -34,12 +34,12 @@ export const forma = (function () {
 
       let isPassword;
       if ( input.dataset.type === 'password_again') {
-        const passwordInput = input.parentNode.previousElementSibling.querySelector('input')
+        const passwordInput = input.parentNode.previousElementSibling.querySelector('input');
         isPassword = input.value !== passwordInput.value;
       }
 
       if(focus) {
-        this.hideError(label, input)
+        this.hideError(label, input);
       } else if (isPassword) {
         this.showError(label, input);
       } else if (input.dataset.type === 'email' && !input.value.match(emailRe)) {
@@ -51,7 +51,7 @@ export const forma = (function () {
       } else if (input.value === '') {
         this.showError(label, input);
       } else {
-        this.hideError(label, input)
+        this.hideError(label, input);
       }
     },
     send: function(inputs: NodeListOf<Element>, modal: any):ObjectKeyStringType | undefined {
@@ -79,16 +79,16 @@ export const forma = (function () {
       }
     },
     listeners: function (form:HTMLDivElement) {
-      form.addEventListener("blur", (event: Event) => {
-        const element = <HTMLInputElement>event.target
+      form.addEventListener('blur', (event: Event) => {
+        const element = <HTMLInputElement>event.target;
 
         if (element.tagName === 'INPUT') {
           this.validate(element, false);
         }
       }, true);
 
-      form.addEventListener("focus", (event: Event) => {
-        const element = <HTMLInputElement>event.target
+      form.addEventListener('focus', (event: Event) => {
+        const element = <HTMLInputElement>event.target;
 
         if (element.tagName === 'INPUT') {
           this.validate(element, true);

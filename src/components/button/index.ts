@@ -1,11 +1,11 @@
 import Block from '../../core/block';
-import Templator from '../../core/utils/templator/templator';
+import {template} from './template';
 
-enum ButtonType {
+export enum ButtonType {
   Link = 'link'
 }
 
-interface IContext {
+export interface IContext {
   text: string,
   clName: string,
   type: ButtonType | string,
@@ -19,27 +19,6 @@ export default class Button extends Block<IContext> {
   }
 
   render() {
-    let templ:string = '';
-    const {type} = this.props as unknown as IContext
-
-    switch (type) {
-      case ButtonType.Link:
-        templ = `<a
-                    class="log-form__btn log-form__btn_gray"
-                    href="{{ url }}"
-                 >
-                     {{ text }}
-                 </a>`;
-        break;
-      default:
-        templ = `<button
-                    class="{{ clName }}"
-                 >
-                     {{ text }}
-                 </button>`;
-    }
-
-    const tmpl = new Templator(templ);
-    return tmpl.compile(this.props);
+    return template(this.props);
   }
 }

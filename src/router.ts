@@ -1,4 +1,4 @@
-import Router from "./core/routing/router";
+import Router from './core/routing/router';
 
 const router = new Router('.container');
 

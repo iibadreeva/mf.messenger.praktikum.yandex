@@ -5,7 +5,7 @@ export enum METHOD {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE'
-};
+}
 
 export type IOptions = {
   method?: METHOD;

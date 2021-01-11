@@ -1,35 +1,20 @@
-import Block from '../../core/block';
-import {host} from "../../core/modules/actions";
+import {IContext} from './index';
+import {host} from '../../../core/modules/actions';
 
-interface IDialog {
-  title: string;
-  avatar:  string | null;
-  id: string;
-  isActive?: boolean;
-}
-interface IContext {
-  dialogs?: IDialog[];
-}
-
-export default class Dialog extends Block<IContext> {
-  constructor(props:IContext,) {
-    super('ul', '', props);
-  }
-
-  render() {
-    const {dialogs} = this.props as unknown as IContext;
-    const templ = `
-      ${dialogs ?
+export const template = (props: Record<string, IContext>) => {
+  const {dialogs} = props as unknown as IContext;
+  const templ = `
+    ${dialogs ?
       `${dialogs.map(item => {
         return `
           <li
            class="messenger__item ${item.isActive ? 'messenger__item_active' : ''}"
            ${item.id ? `data-id=${item.id}` : ''}
-           >
+          >
             <div class="messenger__item__photo">
               <img
-                 class="messenger__item__image"
-                 src="${item.avatar ? `${host}${item.avatar}` : ''}"
+               class="messenger__item__image"
+               src="${item.avatar ? `${host}${item.avatar}` : ''}"
                >
              </div>
             <div class="messenger__item__body">
@@ -40,10 +25,8 @@ export default class Dialog extends Block<IContext> {
               </span>
             </div>
           </li>`
-        }).join('')}` :
-      ''}`
+      }).join('')}` :
+    ''}`
 
-    return templ;
-  }
+  return templ;
 }
-

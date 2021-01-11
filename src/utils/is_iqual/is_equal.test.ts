@@ -1,4 +1,4 @@
-import {isEqual} from "./is_equal";
+import {isEqual} from './is_equal';
 
 describe('isEqual', () => {
   it('Возвращает false если ссылки на объекты не равны', () => {

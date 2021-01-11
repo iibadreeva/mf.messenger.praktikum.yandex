@@ -1,5 +1,5 @@
 import { Route, IRoute} from './route';
-import {overviewHide} from "../utils/overview";
+import {overviewHide} from '../../utils/overview';
 
 interface IRouter {
   _rootQuery: string;
@@ -22,12 +22,12 @@ interface IRouter {
 
 export default class Router implements IRouter {
   _currentRoute: IRoute | null = null;
-  _rootQuery: string = '';
+  _rootQuery = '';
   __instance: IRouter | undefined;
   history: History = window.history
-  _defaultPath: string = '';
-  isProtect: boolean = true;
-  isStart: boolean = false;
+  _defaultPath = '';
+  isProtect = true;
+  isStart = false;
   routes: IRoute[] = [];
 
   static __instance: Router;

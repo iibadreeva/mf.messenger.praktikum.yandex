@@ -1,5 +1,5 @@
 import EventBus from './event-bus';
-import {ObjectKeyStringType} from "./types";
+import {ObjectKeyStringType} from './types';
 
 interface IMeta {
   tagName: string,
@@ -11,7 +11,6 @@ export default abstract class Block<Props extends Object> {
   public props: Record<string, Props> = {};
   eventBus: () => EventBus;
 
-  lastActiveElement: any;
   EVENTS: ObjectKeyStringType = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -19,10 +18,10 @@ export default abstract class Block<Props extends Object> {
     FLOW_RENDER: 'flow:render',
   };
 
-  _element: HTMLElement | null = null;
-  _meta: IMeta | null = null;
+  _element: HTMLElement = null!;
+  _meta: IMeta = null!;
 
-  constructor(tagName: string = "div", className:string = '', props = {}) {
+  constructor(tagName = 'div', className = '', props = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -50,10 +49,10 @@ export default abstract class Block<Props extends Object> {
   }
 
   _createResources() {
-    const { tagName, className } = this._meta!;
+    const { tagName, className } = this._meta;
     this._element = this._createDocumentElement(tagName);
     if (className) {
-      this._element.classList.add(className)
+      this._element.classList.add(className);
     }
   }
 
@@ -71,14 +70,10 @@ export default abstract class Block<Props extends Object> {
   // Может переопределять пользователь, необязательно трогать
   componentDidMount(): void {}
 
-  _componentDidUpdate(oldProps:MouseEvent, newProps:MouseEvent): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (response) {}
-  }
+  _componentDidUpdate(): void {}
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidUpdate(oldProps: MouseEvent, newProps: MouseEvent): boolean {
-    if (oldProps && newProps) {}
+  componentDidUpdate(): boolean {
     return true;
   }
 
@@ -87,7 +82,6 @@ export default abstract class Block<Props extends Object> {
       return;
     }
 
-    this.lastActiveElement = document.activeElement;
     Object.assign(this.props, nextProps);
 
     const eventBus = this.eventBus();
@@ -118,13 +112,13 @@ export default abstract class Block<Props extends Object> {
     const proxyProps = new Proxy(props, {
       get(target: any, prop: string) {
         if(prop.indexOf('_') === 0) {
-          throw new Error('Нет прав')
+          throw new Error('Нет прав');
         }
 
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: any, prop: string, val:string) {
+      set(target: ObjectKeyStringType, prop: string, val:string) {
         if(prop.indexOf('_') === 0) {
           throw new Error('Нет прав');
         }
@@ -146,7 +140,7 @@ export default abstract class Block<Props extends Object> {
   }
 
   show(): void {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   hide(): void {
