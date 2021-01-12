@@ -1,11 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
-
-const filename = ext => isDev ? `main.${ext}` : `main.[hash:8].${ext}`
+const filename = (ext) => (isDev ? `main.${ext}` : `main.[hash:8].${ext}`);
 
 module.exports = {
   entry: { main: './src/index.ts' },
@@ -19,8 +18,8 @@ module.exports = {
     extensions: ['.ts', '.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core')
-    }
+      '@core': path.resolve(__dirname, 'src/core'),
+    },
   },
   module: {
     rules: [
@@ -28,11 +27,11 @@ module.exports = {
         test: /\.ts$/,
         use: [
           {
-            loader: "ts-loader",
+            loader: 'ts-loader',
             options: {
               configFile: path.resolve(__dirname, 'tsconfig.json'),
             },
-          }
+          },
         ],
         exclude: /node_modules/,
       },
@@ -44,11 +43,11 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'images/',
-              useRelativePath: true
+              useRelativePath: true,
             },
           },
           {
-            loader: "image-webpack-loader",
+            loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
                 progressive: true,
@@ -73,17 +72,17 @@ module.exports = {
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          { loader: 'sass-loader' }
-        ]
+          { loader: 'sass-loader' },
+        ],
       },
       {
         test: /\.ico$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
               esModule: false,
-              name: "[name].[ext]",
+              name: '[name].[ext]',
             },
           },
         ],
@@ -100,8 +99,8 @@ module.exports = {
       filename: 'index.html',
       minify: {
         removeComments: !isDev,
-        collapseWhitespace: !isDev
-      }
+        collapseWhitespace: !isDev,
+      },
     }),
   ],
   devServer: {
@@ -111,6 +110,5 @@ module.exports = {
     port: 9000,
     //writeToDisk: true,
     historyApiFallback: true,
-  }
+  },
 };
-
