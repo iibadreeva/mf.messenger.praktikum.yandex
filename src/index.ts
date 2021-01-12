@@ -16,7 +16,7 @@ router
   .useProtect('/change', ProfileChange)
   .useProtect('/password', ProfilePassword)
   .use('/404', Page404)
-  .use('/500', Page500)
+  .use('/500', Page500);
 
 new UserAPI()
   .request()
@@ -30,7 +30,7 @@ new UserAPI()
       router.start();
     } else {
       router.useDefault('/login', Login);
-      router.use('/registration', Registration);
+      router.use('/registration', Registration)
       router.start();
     }
-  });
+  })
