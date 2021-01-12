@@ -33,4 +33,4 @@ new UserAPI()
       router.use('/registration', Registration);
       router.start();
     }
-  });
+  })
