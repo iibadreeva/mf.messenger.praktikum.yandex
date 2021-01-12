@@ -30,6 +30,7 @@ new UserAPI()
       router.start();
     } else {
 
+
       router.useDefault('/login', Login);
       router.use('/registration', Registration);
       router.start();
