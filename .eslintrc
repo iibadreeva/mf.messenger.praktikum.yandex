@@ -2,7 +2,8 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "import"
   ],
   "env": {
     "es6": true,
@@ -10,6 +11,8 @@
     "node": true
   },
   "rules": {
+    "import/no-commonjs": "error",
+    "import/no-amd": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-empty-function": "off",
@@ -24,13 +27,19 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   "settings": {
     "import/resolver": {
-      "alias": [
-        ["@", "./src"]
-      ]
+//      "alias": [
+//        ["@", "./src"]
+//      ],
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   }
 }
