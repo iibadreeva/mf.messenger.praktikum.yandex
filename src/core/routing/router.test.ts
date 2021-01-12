@@ -28,7 +28,7 @@ describe('Router', () => {
     // const mock = jest.fn();
     // jest.spyOn(router, '_onRoute').mockImplementation(() => {
     //   mock();
-    // });-s
+    // });-ss
 
     window.history.replaceState({}, '', 'login');
     router.go('/login');
