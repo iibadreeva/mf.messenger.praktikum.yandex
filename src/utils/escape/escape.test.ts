@@ -1,10 +1,10 @@
-import {escape} from './escape';
+import { escape } from './escape';
 
 const input = document.createElement('input');
 
 describe('escape', () => {
   it('Проверка на обычный текст', () => {
-    input.value = 'test'
+    input.value = 'test';
     const actual = escape(input);
     const expected = 'test';
 
@@ -12,7 +12,7 @@ describe('escape', () => {
   });
 
   it('Проверка на разметку', () => {
-    input.value = '<a>test</a>'
+    input.value = '<a>test</a>';
     const actual = escape(input);
     const expected = '&lt;a&gt;test&lt;/a&gt;';
 

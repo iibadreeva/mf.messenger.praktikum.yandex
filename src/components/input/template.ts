@@ -1,12 +1,12 @@
-import {IInput, InputType} from './index';
+import { IInput, InputType } from './index';
 import Templator from '../../utils/templator/templator';
 
 export const template = (props: Record<string, IInput>) => {
   let templ = '';
-  const {type} = props as unknown as IInput;
+  const { type } = (props as unknown) as IInput;
 
   switch (type) {
-    case InputType.LightForm :
+    case InputType.LightForm:
       templ = `
         <input 
           class="log-form__input"
@@ -56,4 +56,4 @@ export const template = (props: Record<string, IInput>) => {
 
   const tmpl = new Templator(templ);
   return tmpl.compile(props);
-}
+};

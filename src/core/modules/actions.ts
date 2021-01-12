@@ -4,15 +4,15 @@ export enum METHOD {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
-  DELETE = 'DELETE'
+  DELETE = 'DELETE',
 }
 
 export type IOptions = {
   method?: METHOD;
-  headers?: {[key: string]:string};
+  headers?: { [key: string]: string };
   data?: any;
   timeout?: number;
-}
+};
 
 export const DEFAULT_REQUEST_OPTIONS = {
   timeout: 5000,
@@ -28,4 +28,3 @@ export interface RequestResult {
   json: <T>() => T;
   headers: string;
 }
-

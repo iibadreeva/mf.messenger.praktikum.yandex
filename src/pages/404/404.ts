@@ -1,9 +1,9 @@
 import Block from '../../core/block';
 import Button from '../../components/button/index';
-import {IBtn, IContext, context} from './data';
-import {template} from './template';
+import { IBtn, IContext, context } from './data';
+import { template } from './template';
 import router from '../../router';
-import {UserAPI} from '../../core/modules/http/user-api';
+import { UserAPI } from '../../core/modules/http/user-api';
 
 export class Page404 extends Block<IContext> {
   constructor() {
@@ -15,10 +15,11 @@ export class Page404 extends Block<IContext> {
   }
 
   goHome() {
-    new UserAPI().request()
-      .then(res => res.ok)
+    new UserAPI()
+      .request()
+      .then((res) => res.ok)
       .then((isAuth) => {
-        if(isAuth) {
+        if (isAuth) {
           router.go('/');
         } else {
           router.go('/login');
@@ -28,7 +29,9 @@ export class Page404 extends Block<IContext> {
 
   componentDidMount() {
     this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-      const link: HTMLLinkElement | null = this.element.querySelector('.error__btn');
+      const link: HTMLLinkElement | null = this.element.querySelector(
+        '.error__btn'
+      );
       if (link) {
         link.addEventListener('click', () => {
           this.goHome();

@@ -1,12 +1,12 @@
 import Block from '../../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 export interface IContext {
-  image: string
+  image: string;
 }
 
 export default class Index extends Block<IContext> {
-  constructor(props:IContext) {
+  constructor(props: IContext) {
     super('header', '', props);
   }
 

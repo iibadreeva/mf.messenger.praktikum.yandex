@@ -1,33 +1,33 @@
 interface IInput {
-  type: string,
+  type: string;
   config: {
-    type: string,
-    placeholder: string,
-    dataType: string,
-    dataText: string,
-    dataSize?: string,
-    value: string
-  }
+    type: string;
+    placeholder: string;
+    dataType: string;
+    dataText: string;
+    dataSize?: string;
+    value: string;
+  };
 }
 
 interface IBtn {
-  text: string,
-  clName: string,
-  type: string,
-  url?: string
+  text: string;
+  clName: string;
+  type: string;
+  url?: string;
 }
 
 export interface IContext {
-  title: string,
+  title: string;
   formdata: {
-    login: IInput,
-    password: IInput
-  },
-  link: IBtn,
-  btn: IBtn
+    login: IInput;
+    password: IInput;
+  };
+  link: IBtn;
+  btn: IBtn;
 }
 
-export const context:IContext = {
+export const context: IContext = {
   title: 'Вход',
   formdata: {
     login: {
@@ -38,8 +38,8 @@ export const context:IContext = {
         dataType: 'login',
         dataText: 'Ведите логин, не мение 3 символов',
         dataSize: '3',
-        value: ''
-      }
+        value: '',
+      },
     },
     password: {
       type: 'lightForm',
@@ -48,19 +48,19 @@ export const context:IContext = {
         placeholder: 'Пароль',
         dataType: 'password',
         dataText: 'Ведите пароль',
-        value: ''
-      }
+        value: '',
+      },
     },
   },
   link: {
     text: 'Регистрация',
     clName: 'log-form__btn log-form__btn_gray js-route-link',
     type: 'link',
-    url: '/registration'
+    url: '/registration',
   },
   btn: {
     text: 'Авторизоваться',
     clName: 'log-form__btn',
     type: 'button',
-  }
+  },
 };

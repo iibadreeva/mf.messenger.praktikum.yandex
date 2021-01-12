@@ -16,7 +16,7 @@
     "no-useless-escape": "off",
     "quotes": ["error", "single"],
     "no-debugger": "error",
-    "indent": ["error", 2],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "semi": [2, "always"],
     "no-var": "error",
     "prefer-const": 2
@@ -25,12 +25,12 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
-//  "settings": {
-//    "import/resolver": {
-//      "alias": [
-//        ["@", "./src"]
-//      ]
-//    }
-//  }
+  ],
+  "settings": {
+    "import/resolver": {
+      "alias": [
+        ["@", "./src"]
+      ]
+    }
+  }
 }

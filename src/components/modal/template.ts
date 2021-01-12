@@ -1,4 +1,4 @@
-import {IModal, IBtnG} from './index';
+import { IModal, IBtnG } from './index';
 
 export const template = (props: Record<string, IModal>) => {
   if (Object.keys(props).length < 1) {
@@ -11,8 +11,8 @@ export const template = (props: Record<string, IModal>) => {
     formData,
     footer,
     radio,
-    info
-  } : IModal= props;
+    info,
+  }: IModal = props;
 
   const templ = `
     <div class="modal">
@@ -21,45 +21,59 @@ export const template = (props: Record<string, IModal>) => {
           <div class="modal__text ${titleCenter ? 'modal__text_center' : ''}">
             ${title}
           </div>
-          ${formData ?
-            `<div class="modal__control">
+          ${
+            formData
+              ? `<div class="modal__control">
               <div class="modal__label">${formData.label}</div>
               <input class="modal__value" value="${formData.value}" autofocus>
-            </div>` :
-          ''}
-          ${radio ?
-            `<ul class="modal__lists">
-              ${radio.map((item) => {
-                return `
+            </div>`
+              : ''
+          }
+          ${
+            radio
+              ? `<ul class="modal__lists">
+              ${radio
+                .map((item) => {
+                  return `
                   <li class="modal__list">
                     <label>
                         <input class="modal__radio" type="radio" name="user" value="${item.id}">${item.login}
                     </label>
-                  </li>`
-              }).join('')}
-            </ul>` :
-          ''}
-          ${info ?
-            `<div class="modal__text modal__text_center">
+                  </li>`;
+                })
+                .join('')}
+            </ul>`
+              : ''
+          }
+          ${
+            info
+              ? `<div class="modal__text modal__text_center">
               ${info}
-            </div>` :
-          ''}
+            </div>`
+              : ''
+          }
         </div>
-        ${footer ?
-          `<footer class="modal__footer ${footer.footerCenter ? 'modal__footer_center' : ''}">
-            ${footer.btnGroup.map((button: IBtnG) => {
-              return `
+        ${
+          footer
+            ? `<footer class="modal__footer ${
+                footer.footerCenter ? 'modal__footer_center' : ''
+              }">
+            ${footer.btnGroup
+              .map((button: IBtnG) => {
+                return `
                 <button
                   class="modal__btn ${button.clName}"
                   ${button.id ? `data-id="${button.id}"` : ''}
                 >
                   ${button.title}
-                </button>`
-            }).join('')}
-          </footer>` :
-        ''}
+                </button>`;
+              })
+              .join('')}
+          </footer>`
+            : ''
+        }
       </div>
     </div>`;
 
   return templ;
-}
+};

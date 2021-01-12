@@ -1,37 +1,37 @@
 import Block from '../../core/block';
-import {IContext, context} from './data';
-import {template} from './template';
+import { IContext, context } from './data';
+import { template } from './template';
 import Button from '../../components/button/index';
 import Avatar from '../../components/avatar/index';
 import showHamburger from '../../utils/show_hamburger';
 import Input from '../../components/input/index';
-import {UserAPI} from '../../core/modules/http/user-api';
-import {host} from '../../core/modules/actions';
-import {forma} from '../../utils/form';
-import {ChangeUserApi} from './change-user-api';
+import { UserAPI } from '../../core/modules/http/user-api';
+import { host } from '../../core/modules/actions';
+import { forma } from '../../utils/form';
+import { ChangeUserApi } from './change-user-api';
 import router from '../../router';
-import {ObjectKeyStringType} from '../../types';
+import { ObjectKeyStringType } from '../../types';
 import Modal from '../../components/modal/index';
 import render from '../../utils/render';
-import {overviewHide} from '../../utils/overview';
+import { overviewHide } from '../../utils/overview';
 
 export class ProfileChange extends Block<IContext> {
   constructor() {
-    const {formdata: {email, login, first_name, second_name, phone}, btn, avatar}: IContext = context;
+    const {
+      formdata: { email, login, first_name, second_name, phone },
+      btn,
+      avatar,
+    }: IContext = context;
 
-    super(
-      'main',
-      'profile',
-      {
-        avatar: new Avatar(avatar).render(),
-        email: new Input(email).render(),
-        login: new Input(login).render(),
-        first_name: new Input(first_name).render(),
-        second_name: new Input(second_name).render(),
-        phone: new Input(phone).render(),
-        button: new Button(btn).render()
-      }
-    );
+    super('main', 'profile', {
+      avatar: new Avatar(avatar).render(),
+      email: new Input(email).render(),
+      login: new Input(login).render(),
+      first_name: new Input(first_name).render(),
+      second_name: new Input(second_name).render(),
+      phone: new Input(phone).render(),
+      button: new Button(btn).render(),
+    });
     this.getData();
   }
 
@@ -39,7 +39,9 @@ export class ProfileChange extends Block<IContext> {
     const popub = this.pupub();
     this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
       const avatar = <HTMLInputElement>this.element.querySelector('#avatar');
-      const image = <HTMLImageElement>this.element.querySelector('.profile__image');
+      const image = <HTMLImageElement>(
+        this.element.querySelector('.profile__image')
+      );
       const form = <HTMLDivElement>this.element.querySelector('.profile__form');
       const back = <HTMLDivElement>this.element.querySelector('.profile__left');
 
@@ -47,7 +49,7 @@ export class ProfileChange extends Block<IContext> {
         this.checkForm(form, avatar, popub);
       }
 
-      if(back) {
+      if (back) {
         back.addEventListener('click', this.goBack);
       }
 
@@ -64,33 +66,29 @@ export class ProfileChange extends Block<IContext> {
   getData() {
     new UserAPI()
       .request()
-      .then(res => JSON.parse(res.data))
-      .then(data => {
+      .then((res) => JSON.parse(res.data))
+      .then((data) => {
         this.setData(data);
       });
   }
 
   updateUser(data: ObjectKeyStringType, input: HTMLInputElement) {
-    new ChangeUserApi()
-      .update(data)
-      .then(res => {
-        const { status } = res;
+    new ChangeUserApi().update(data).then((res) => {
+      const { status } = res;
 
-        if(status === 200) {
-
-          if (input.files?.length) {
-            this.updateAvatar(input);
-          } else {
-            this.setData(data);
-            alert('Данные успешно заменены');
-          }
-
-        } else if (status >= 500) {
-          router.go('/500');
+      if (status === 200) {
+        if (input.files?.length) {
+          this.updateAvatar(input);
         } else {
-          alert('Произошла ошибка');
+          this.setData(data);
+          alert('Данные успешно заменены');
         }
-      });
+      } else if (status >= 500) {
+        router.go('/500');
+      } else {
+        alert('Произошла ошибка');
+      }
+    });
   }
 
   updateAvatar(input: HTMLInputElement) {
@@ -100,26 +98,27 @@ export class ProfileChange extends Block<IContext> {
     }
     formData.append('avatar', input.files[0]);
 
-    new ChangeUserApi()
-      .updateAvatar(formData)
-      .then(res => {
-        const { status, data } = res;
+    new ChangeUserApi().updateAvatar(formData).then((res) => {
+      const { status, data } = res;
 
-        if(status === 200) {
-          const res = JSON.parse(data);
-          this.setData(res);
+      if (status === 200) {
+        const res = JSON.parse(data);
+        this.setData(res);
 
-          alert('Данные успешно заменены');
-        } else if (status >= 500) {
-          router.go('/500');
-        } else {
-          alert('Произошла ошибка');
-        }
-      });
+        alert('Данные успешно заменены');
+      } else if (status >= 500) {
+        router.go('/500');
+      } else {
+        alert('Произошла ошибка');
+      }
+    });
   }
 
   setData(data: ObjectKeyStringType) {
-    const {formdata: {email, login, first_name, second_name, phone}, avatar}: IContext = context;
+    const {
+      formdata: { email, login, first_name, second_name, phone },
+      avatar,
+    }: IContext = context;
 
     email.config.value = data.email;
     login.config.value = data.login;
@@ -163,7 +162,7 @@ export class ProfileChange extends Block<IContext> {
 
   pupub() {
     // Подготавливаем мадальное окно
-    const {modal}: IContext = context;
+    const { modal }: IContext = context;
     const popub = new Modal(modal);
     popub.hide();
     render('.container', popub);

@@ -10,38 +10,40 @@ export interface UserI {
 }
 
 interface IInput {
-  type: string,
+  type: string;
   config: {
-    type: string,
-    placeholder: string,
-    disabled: string,
-    value: string
-  }
+    type: string;
+    placeholder: string;
+    disabled: string;
+    value: string;
+  };
 }
 
 export interface ILinks {
-  name: string; url: string; className: string
+  name: string;
+  url: string;
+  className: string;
 }
 
 export interface IContext {
   avatar: {
-    name: string,
-    image: string
-  },
+    name: string;
+    image: string;
+  };
   formdata: {
-    email: IInput,
-    login: IInput,
-    first_name: IInput,
-    second_name: IInput,
-    phone: IInput,
-  },
-  links: ILinks[]
+    email: IInput;
+    login: IInput;
+    first_name: IInput;
+    second_name: IInput;
+    phone: IInput;
+  };
+  links: ILinks[];
 }
 
-export const context:IContext = {
+export const context: IContext = {
   avatar: {
     name: '',
-    image: ''
+    image: '',
   },
   formdata: {
     email: {
@@ -50,8 +52,8 @@ export const context:IContext = {
         type: 'email',
         placeholder: 'Почта',
         disabled: 'disabled',
-        value: ''
-      }
+        value: '',
+      },
     },
     login: {
       type: 'profile',
@@ -59,8 +61,8 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Логин',
         disabled: 'disabled',
-        value: ''
-      }
+        value: '',
+      },
     },
     first_name: {
       type: 'profile',
@@ -68,8 +70,8 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Имя',
         disabled: 'disabled',
-        value: ''
-      }
+        value: '',
+      },
     },
     second_name: {
       type: 'profile',
@@ -77,8 +79,8 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Фамилия',
         disabled: 'disabled',
-        value: ''
-      }
+        value: '',
+      },
     },
     phone: {
       type: 'profile',
@@ -86,25 +88,25 @@ export const context:IContext = {
         type: 'tel',
         placeholder: 'Телефон',
         disabled: 'disabled',
-        value: ''
-      }
-    }
+        value: '',
+      },
+    },
   },
   links: [
     {
       name: 'Изменить данные',
       url: '/change',
-      className: 'profile__label_link js-change'
+      className: 'profile__label_link js-change',
     },
     {
       name: 'Изменить пароль',
       url: '/password',
-      className: 'profile__label_link js-password'
+      className: 'profile__label_link js-password',
     },
     {
       name: 'Выйти',
       url: '/',
-      className: 'profile__label_exit'
-    }
-  ]
+      className: 'profile__label_exit',
+    },
+  ],
 };

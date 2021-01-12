@@ -1,56 +1,56 @@
 interface IInput {
-  type: string,
+  type: string;
   config: {
-    type: string,
-    placeholder: string,
-    dataType: string,
-    dataSize?: string,
-    value: string
-  }
+    type: string;
+    placeholder: string;
+    dataType: string;
+    dataSize?: string;
+    value: string;
+  };
 }
 interface IBtn {
-  text: string,
-  clName: string,
-  type: string,
-  handleClick?: Function
+  text: string;
+  clName: string;
+  type: string;
+  handleClick?: Function;
 }
 
 interface IBtnG {
-  clName: string,
-  title: string
+  clName: string;
+  title: string;
 }
 
 interface IModal {
-  title: string,
-  titleCenter: boolean,
+  title: string;
+  titleCenter: boolean;
   footer: {
-    footerCenter: boolean,
-    btnGroup: IBtnG[]
-  }
+    footerCenter: boolean;
+    btnGroup: IBtnG[];
+  };
 }
 
 export interface IContext {
   avatar: {
-    name: string,
-    image: string,
-    change: boolean
-  },
+    name: string;
+    image: string;
+    change: boolean;
+  };
   formdata: {
-    email: IInput,
-    login: IInput,
-    first_name: IInput,
-    second_name: IInput,
-    phone: IInput,
-  },
-  btn: IBtn,
-  modal: IModal
+    email: IInput;
+    login: IInput;
+    first_name: IInput;
+    second_name: IInput;
+    phone: IInput;
+  };
+  btn: IBtn;
+  modal: IModal;
 }
 
-export const context:IContext = {
+export const context: IContext = {
   avatar: {
     name: '',
     image: '',
-    change: true
+    change: true,
   },
   formdata: {
     email: {
@@ -59,8 +59,8 @@ export const context:IContext = {
         type: 'email',
         placeholder: 'Почта',
         dataType: 'email',
-        value: ''
-      }
+        value: '',
+      },
     },
     login: {
       type: 'profile',
@@ -69,8 +69,8 @@ export const context:IContext = {
         placeholder: 'Логин',
         dataType: 'login',
         dataSize: '3',
-        value: ''
-      }
+        value: '',
+      },
     },
     first_name: {
       type: 'profile',
@@ -78,8 +78,8 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Имя',
         dataType: 'first_name',
-        value: ''
-      }
+        value: '',
+      },
     },
     second_name: {
       type: 'profile',
@@ -87,8 +87,8 @@ export const context:IContext = {
         type: 'text',
         placeholder: 'Фамилия',
         dataType: 'second_name',
-        value: ''
-      }
+        value: '',
+      },
     },
     phone: {
       type: 'profile',
@@ -96,9 +96,9 @@ export const context:IContext = {
         type: 'tel',
         placeholder: 'Телефон',
         dataType: 'phone',
-        value: ''
-      }
-    }
+        value: '',
+      },
+    },
   },
   btn: {
     text: 'Сохранить',
@@ -114,8 +114,8 @@ export const context:IContext = {
         {
           clName: 'modal__btn_wide js-modal-btn',
           title: 'Поменять',
-        }
-      ]
-    }
-  }
+        },
+      ],
+    },
+  },
 };

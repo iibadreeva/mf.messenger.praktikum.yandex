@@ -1,8 +1,16 @@
-import {IContext} from './data';
+import { IContext } from './data';
 import Templator from '../../utils/templator/templator';
 
 export const template = (props: Record<string, IContext>) => {
-  const {avatar,button, email, login, first_name, second_name, phone} = props;
+  const {
+    avatar,
+    button,
+    email,
+    login,
+    first_name,
+    second_name,
+    phone,
+  } = props;
 
   const templ = `
     <div class="profile__left">
@@ -25,4 +33,4 @@ export const template = (props: Record<string, IContext>) => {
 
   const tmpl = new Templator(templ);
   return tmpl.compile(props);
-}
+};

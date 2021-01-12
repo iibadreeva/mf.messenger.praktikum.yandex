@@ -1,9 +1,9 @@
-import {IContext, ButtonType} from './index';
+import { IContext, ButtonType } from './index';
 import Templator from '../../utils/templator/templator';
 
 export const template = (props: Record<string, IContext>) => {
   let templ = '';
-  const {type} = props as unknown as IContext
+  const { type } = (props as unknown) as IContext;
 
   switch (type) {
     case ButtonType.Link:
@@ -26,4 +26,4 @@ export const template = (props: Record<string, IContext>) => {
 
   const tmpl = new Templator(templ);
   return tmpl.compile(props);
-}
+};

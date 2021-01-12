@@ -1,24 +1,24 @@
 import Block from '../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 export enum InputType {
   LightForm = 'lightForm',
   Profile = 'profile',
-  Search = 'search'
+  Search = 'search',
 }
 
 export interface IInput {
   disabled?: string;
   dataSize?: string;
-  type: InputType | string,
+  type: InputType | string;
   config: {
-    type: string,
-    placeholder: string,
-    value: string,
-    disabled?: string,
-    dataType?: string,
-    dataSize?: string,
-  }
+    type: string;
+    placeholder: string;
+    value: string;
+    disabled?: string;
+    dataType?: string;
+    dataSize?: string;
+  };
 }
 
 export default class Input extends Block<IInput> {

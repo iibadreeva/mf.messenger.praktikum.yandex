@@ -1,44 +1,43 @@
 import Block from '../../core/block';
 import Button from '../../components/button/index';
 import Input from '../../components/input/index';
-import {template} from './template';
-import {overviewShow} from '../../utils/overview';
-import {forma} from '../../utils/form';
-import {IContext, context} from './data';
+import { template } from './template';
+import { overviewShow } from '../../utils/overview';
+import { forma } from '../../utils/form';
+import { IContext, context } from './data';
 import router from '../../router';
-import {LoginAPI} from './login-api';
+import { LoginAPI } from './login-api';
 
 export class Login extends Block<IContext> {
   constructor() {
-    const {formdata: {login, password}, btn, link, title}: IContext = context;
-    super(
-      'main',
-      '',
-      {
-        login: new Input(login).render(),
-        password: new Input(password).render(),
-        button: new Button(btn).render(),
-        link: new Button(link).render(),
-        title
-      }
-    );
+    const {
+      formdata: { login, password },
+      btn,
+      link,
+      title,
+    }: IContext = context;
+    super('main', '', {
+      login: new Input(login).render(),
+      password: new Input(password).render(),
+      button: new Button(btn).render(),
+      link: new Button(link).render(),
+      title,
+    });
   }
 
   signin(data: object) {
-    new LoginAPI()
-      .create(data)
-      .then((data) => {
-        const { status } = data;
+    new LoginAPI().create(data).then((data) => {
+      const { status } = data;
 
-        if(status === 200) {
-          router.isProtect = false;
-          router.go('/chat');
-        } else if (status >= 500) {
-          router.go('/500');
-        } else {
-          alert('Не правильный логин или пароль');
-        }
-      });
+      if (status === 200) {
+        router.isProtect = false;
+        router.go('/chat');
+      } else if (status >= 500) {
+        router.go('/500');
+      } else {
+        alert('Не правильный логин или пароль');
+      }
+    });
   }
 
   goRegistration() {
@@ -63,7 +62,7 @@ export class Login extends Block<IContext> {
         });
       }
       // перейти на страницу регистрации
-      if(link) {
+      if (link) {
         link.addEventListener('click', (event: Event) => {
           event.preventDefault();
           this.goRegistration();

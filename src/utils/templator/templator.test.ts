@@ -1,4 +1,4 @@
-import Templator from "./templator";
+import Templator from './templator';
 
 const tmpl = '<div>Text</div>';
 const tmplWithProp = '<div>{{ text }}</div>';

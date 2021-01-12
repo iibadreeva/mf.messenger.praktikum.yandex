@@ -1,14 +1,18 @@
-import {IContext} from './index';
-import {host} from '../../../core/modules/actions';
+import { IContext } from './index';
+import { host } from '../../../core/modules/actions';
 
 export const template = (props: Record<string, IContext>) => {
-  const {dialogs} = props as unknown as IContext;
+  const { dialogs } = (props as unknown) as IContext;
   const templ = `
-    ${dialogs ?
-      `${dialogs.map(item => {
-        return `
+    ${
+      dialogs
+        ? `${dialogs
+            .map((item) => {
+              return `
           <li
-           class="messenger__item ${item.isActive ? 'messenger__item_active' : ''}"
+           class="messenger__item ${
+             item.isActive ? 'messenger__item_active' : ''
+           }"
            ${item.id ? `data-id=${item.id}` : ''}
           >
             <div class="messenger__item__photo">
@@ -24,9 +28,11 @@ export const template = (props: Record<string, IContext>) => {
                 <i class="fa fa-caret-down"></i>
               </span>
             </div>
-          </li>`
-      }).join('')}` :
-    ''}`
+          </li>`;
+            })
+            .join('')}`
+        : ''
+    }`;
 
   return templ;
-}
+};

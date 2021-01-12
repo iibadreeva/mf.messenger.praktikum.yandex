@@ -1,20 +1,20 @@
 import Block from '../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 export enum ButtonType {
-  Link = 'link'
+  Link = 'link',
 }
 
 export interface IContext {
-  text: string,
-  clName: string,
-  type: ButtonType | string,
-  handleClick?: Function,
-  url?: string
+  text: string;
+  clName: string;
+  type: ButtonType | string;
+  handleClick?: Function;
+  url?: string;
 }
 
 export default class Button extends Block<IContext> {
-  constructor(props:IContext) {
+  constructor(props: IContext) {
     super('div', '', props);
   }
 

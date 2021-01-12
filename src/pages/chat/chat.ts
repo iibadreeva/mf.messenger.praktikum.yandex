@@ -1,17 +1,17 @@
 import Block from '../../core/block';
-import {IContext, context} from './data';
-import {template} from './template';
+import { IContext, context } from './data';
+import { template } from './template';
 import HeaderPhoto from '../../components/messenger/header-photo/index';
 import Input from '../../components/input/index';
 import Dialog from '../../components/messenger/dialog/index';
 import showHamburger from '../../utils/show_hamburger';
-import {overviewHide, overviewShow} from '../../utils/overview';
-import {UserAPI} from '../../core/modules/http/user-api';
-import {host} from '../../core/modules/actions';
-import {ChatApi} from './chat-api';
+import { overviewHide, overviewShow } from '../../utils/overview';
+import { UserAPI } from '../../core/modules/http/user-api';
+import { host } from '../../core/modules/actions';
+import { ChatApi } from './chat-api';
 import Modal from '../../components/modal/index';
-import {escape} from '../../utils/escape/escape';
-import {ObjectType} from '../../types';
+import { escape } from '../../utils/escape/escape';
+import { ObjectType } from '../../types';
 import router from '../../router';
 import render from '../../utils/render';
 
@@ -21,37 +21,35 @@ export class Chat extends Block<IContext> {
   private myId: number | undefined;
   private id: number | undefined;
   constructor() {
-    const {avatar, search}: IContext = context;
+    const { avatar, search }: IContext = context;
 
-    super(
-      'div',
-      'messenger',
-      {
-        description: context.description,
-        header: new HeaderPhoto(avatar).render(),
-        search: new Input(search).render(),
-        dialogs: new Dialog({}).render(),
-      }
-    );
+    super('div', 'messenger', {
+      description: context.description,
+      header: new HeaderPhoto(avatar).render(),
+      search: new Input(search).render(),
+      dialogs: new Dialog({}).render(),
+    });
     this.getData();
   }
 
   componentDidMount() {
     const modal = new Modal({});
 
-    if(!this.modal) {
+    if (!this.modal) {
       render('.container', modal);
       this.modal = modal;
       showHamburger(modal);
 
-      const navList = <HTMLElement>document.getElementsByClassName('nav-list')[0];
+      const navList = <HTMLElement>(
+        document.getElementsByClassName('nav-list')[0]
+      );
       if (navList) {
         navList.addEventListener('click', (e: MouseEvent) => {
-          const element: HTMLElement = <HTMLElement> e.target;
+          const element: HTMLElement = <HTMLElement>e.target;
           const type = element.dataset.type || '';
 
-          if(element.classList.contains('js-btn-search-user-to-remove')) {
-            if(this.id) {
+          if (element.classList.contains('js-btn-search-user-to-remove')) {
+            if (this.id) {
               this.getUsers(this.id);
             }
           } else {
@@ -65,11 +63,13 @@ export class Chat extends Block<IContext> {
       const hamburgers = this.element.querySelectorAll('.js-hamburger');
       Array.from(hamburgers).forEach((list) => {
         list.addEventListener('click', (e: Event) => {
-          const element: HTMLElement = <HTMLElement> e.target;
-          const dialog: HTMLDivElement | null = element.closest('.messenger__item');
+          const element: HTMLElement = <HTMLElement>e.target;
+          const dialog: HTMLDivElement | null = element.closest(
+            '.messenger__item'
+          );
 
-          if(dialog) {
-            this.id = +<string>dialog.dataset.id;
+          if (dialog) {
+            this.id = +(<string>dialog.dataset.id);
           }
         });
       });
@@ -77,12 +77,12 @@ export class Chat extends Block<IContext> {
   }
 
   getData() {
-    const {avatar}: IContext = context;
+    const { avatar }: IContext = context;
 
     new UserAPI()
       .request()
-      .then(res => JSON.parse(res.data))
-      .then(data => {
+      .then((res) => JSON.parse(res.data))
+      .then((data) => {
         this.myId = data.id;
 
         if (data.avatar) {
@@ -96,9 +96,9 @@ export class Chat extends Block<IContext> {
 
     new ChatApi()
       .request()
-      .then(res => JSON.parse(res.data))
-      .then(data => {
-        this.dialogs = {dialogs: data};
+      .then((res) => JSON.parse(res.data))
+      .then((data) => {
+        this.dialogs = { dialogs: data };
         this.setData();
       });
   }
@@ -112,33 +112,29 @@ export class Chat extends Block<IContext> {
   createDialog(value: string) {
     new ChatApi()
       .createChat({
-        'title': value
+        title: value,
       })
-      .then(res => {
+      .then((res) => {
         const { status, data } = res;
 
-        if(status === 200) {
+        if (status === 200) {
           const res = JSON.parse(data);
 
           const dialog = {
             avatar: null,
             id: res.id,
-            title: value
+            title: value,
           };
-          const {dialogs} = this.dialogs;
+          const { dialogs } = this.dialogs;
 
-          const result = [
-            ...dialogs,
-            dialog
-          ];
+          const result = [...dialogs, dialog];
           this.dialogs.dialogs = result;
           this.setData();
 
-          if(this.modal) {
+          if (this.modal) {
             this.modal.hide();
             overviewHide();
           }
-
         } else if (status >= 500) {
           router.go('/500');
         } else {
@@ -150,26 +146,25 @@ export class Chat extends Block<IContext> {
   removeDialog(id: number) {
     new ChatApi()
       .deleteChat({
-        'chatId': id
+        chatId: id,
       })
-      .then(res => {
+      .then((res) => {
         const { status } = res;
-        if(status === 200) {
-          const {dialogs} = this.dialogs;
+        if (status === 200) {
+          const { dialogs } = this.dialogs;
           const index = dialogs.findIndex((item: ObjectType) => item.id === id);
 
           const result = [
             ...dialogs.slice(0, index),
-            ...dialogs.slice(index+1)
+            ...dialogs.slice(index + 1),
           ];
           this.dialogs.dialogs = result;
           this.setData();
 
-          if(this.modal) {
+          if (this.modal) {
             this.modal.hide();
             overviewHide();
           }
-
         } else if (status >= 500) {
           router.go('/500');
         } else {
@@ -179,85 +174,82 @@ export class Chat extends Block<IContext> {
   }
 
   searchUser(id: number, value: string) {
-    new ChatApi()
-      .searchUser({'login': value})
-      .then(res => {
-        const { status } = res;
-        if(status === 200) {
-          const data = JSON.parse(res.data);
+    new ChatApi().searchUser({ login: value }).then((res) => {
+      const { status } = res;
+      if (status === 200) {
+        const data = JSON.parse(res.data);
 
-          let result = {
-            radio: false,
-            info: 'Пользователь не найден',
+        let result = {
+          radio: false,
+          info: 'Пользователь не найден',
+          footer: {
+            footerCenter: true,
+            btnGroup: [
+              {
+                clName: 'modal__btn_wide js-btn-search-user-to-add',
+                title: 'Поиск',
+                id: id,
+              },
+            ],
+          },
+        };
+
+        if (data.length > 0) {
+          result = {
+            radio: data,
+            info: '',
             footer: {
               footerCenter: true,
               btnGroup: [
                 {
-                  clName: 'modal__btn_wide js-btn-search-user-to-add',
-                  title: 'Поиск',
-                  id: id
-                }
-              ]
-            }
+                  clName: 'modal__btn_secondary js-btn-close-modal',
+                  title: 'ОТМЕНА',
+                  id: id,
+                },
+                {
+                  clName: 'js-btn-add-user',
+                  title: 'Добавить',
+                  id: id,
+                },
+              ],
+            },
           };
-
-          if(data.length > 0 ) {
-            result = {
-              radio: data,
-              info: '',
-              footer: {
-                footerCenter: true,
-                btnGroup: [
-                  {
-                    clName: 'modal__btn_secondary js-btn-close-modal',
-                    title: 'ОТМЕНА',
-                    id: id
-                  },
-                  {
-                    clName: 'js-btn-add-user',
-                    title: 'Добавить',
-                    id: id
-                  }
-                ]
-              }
-            };
-          }
-
-          if(this.modal) {
-            this.modal.setProps({
-              formData: {
-                label: 'Логин',
-                value: value
-              },
-              footer: result.footer,
-              radio: result.radio,
-              info: result.info
-            });
-          }
-          if(data.length > 0 ) {
-            this.handleAddUser();
-          } else {
-            this.handleSearchUser();
-          }
-
-        } else if (status >= 500) {
-          router.go('/500');
-        } else {
-          alert('Произошла ошибка');
         }
-      });
+
+        if (this.modal) {
+          this.modal.setProps({
+            formData: {
+              label: 'Логин',
+              value: value,
+            },
+            footer: result.footer,
+            radio: result.radio,
+            info: result.info,
+          });
+        }
+        if (data.length > 0) {
+          this.handleAddUser();
+        } else {
+          this.handleSearchUser();
+        }
+      } else if (status >= 500) {
+        router.go('/500');
+      } else {
+        alert('Произошла ошибка');
+      }
+    });
   }
 
   addUserToChat(idChat: number, idUser: number) {
     new ChatApi()
       .addUserToChat({
-        'users': [idUser],
-        'chatId': idChat
+        users: [idUser],
+        chatId: idChat,
       })
-      .then(res => {
+      .then((res) => {
         const { status } = res;
 
-        if(status === 200) {
+        if (status === 200) {
           if (this.modal) {
             this.modal.setProps({
               title: 'Пользователь добавлен',
@@ -267,12 +259,12 @@ export class Chat extends Block<IContext> {
                 btnGroup: [
                   {
                     clName: 'modal__btn_wide js-btn-close-modal',
-                    title: 'Принять'
-                  }
-                ]
+                    title: 'Принять',
+                  },
+                ],
               },
               radio: undefined,
-              info: ''
+              info: '',
             });
           }
         } else if (status >= 500) {
@@ -286,8 +278,8 @@ export class Chat extends Block<IContext> {
   getUsers(id: number) {
     new ChatApi()
       .requestChatUser(id)
-      .then(res => JSON.parse(res.data))
-      .then(data => {
+      .then((res) => JSON.parse(res.data))
+      .then((data) => {
         let result = {
           radio: false,
           info: 'Пользователь не найден',
@@ -297,20 +289,20 @@ export class Chat extends Block<IContext> {
               {
                 clName: 'modal__btn_wide js-btn-close-modal',
                 title: 'ОТМЕНА',
-                id: id
-              }
-            ]
-          }
+                id: id,
+              },
+            ],
+          },
         };
 
         const userData: any = [];
-        data.forEach((item: { id: number; }) => {
-          if(item.id !== this.myId) {
+        data.forEach((item: { id: number }) => {
+          if (item.id !== this.myId) {
             userData.push(item);
           }
         });
 
-        if(userData.length > 0) {
+        if (userData.length > 0) {
           result = {
             radio: userData,
             info: '',
@@ -320,19 +312,19 @@ export class Chat extends Block<IContext> {
                 {
                   clName: 'modal__btn_secondary js-btn-close-modal',
                   title: 'ОТМЕНА',
-                  id: id
+                  id: id,
                 },
                 {
                   clName: 'js-btn-remove-user',
                   title: 'Удалить',
-                  id: id
-                }
-              ]
-            }
+                  id: id,
+                },
+              ],
+            },
           };
         }
 
-        if(this.modal) {
+        if (this.modal) {
           this.modal.show();
           overviewShow();
           this.modal.setProps({
@@ -342,10 +334,10 @@ export class Chat extends Block<IContext> {
             formData: false,
             footer: result.footer,
             radio: result.radio,
-            info: result.info
+            info: result.info,
           });
         }
-        if(userData.length > 0) {
+        if (userData.length > 0) {
           this.handleRemoveUser();
         }
       });
@@ -354,13 +346,13 @@ export class Chat extends Block<IContext> {
   deleteUserToChat(idChat: number, idUser: number) {
     new ChatApi()
       .deleteUserFromChat({
-        'users': [idUser],
-        'chatId': idChat
+        users: [idUser],
+        chatId: idChat,
       })
-      .then(res => {
+      .then((res) => {
         const { status } = res;
 
-        if(status === 200) {
+        if (status === 200) {
           if (this.modal) {
             this.modal.setProps({
               title: 'Пользователь удален',
@@ -370,12 +362,12 @@ export class Chat extends Block<IContext> {
                 btnGroup: [
                   {
                     clName: 'modal__btn_wide js-btn-close-modal',
-                    title: 'Принять'
-                  }
-                ]
+                    title: 'Принять',
+                  },
+                ],
               },
               radio: undefined,
-              info: ''
+              info: '',
             });
           }
         } else if (status >= 500) {
@@ -395,19 +387,19 @@ export class Chat extends Block<IContext> {
         titleCenter: true,
         formData: {
           label: 'Логин',
-          value: ''
+          value: '',
         },
         footer: {
           footerCenter: true,
           btnGroup: [
             {
               clName: 'modal__btn_wide js-btn-create-chat',
-              title: 'Добавить'
-            }
-          ]
+              title: 'Добавить',
+            },
+          ],
         },
         radio: undefined,
-        info: ''
+        info: '',
       });
       overviewShow();
       modal.show();
@@ -420,7 +412,7 @@ export class Chat extends Block<IContext> {
         titleCenter: true,
         formData: {
           label: 'Логин',
-          value: ''
+          value: '',
         },
         footer: {
           footerCenter: true,
@@ -428,12 +420,12 @@ export class Chat extends Block<IContext> {
             {
               clName: 'modal__btn_wide js-btn-search-user-to-add',
               title: 'Поиск',
-              id: this.id
-            }
-          ]
+              id: this.id,
+            },
+          ],
         },
         radio: undefined,
-        info: ''
+        info: '',
       });
       overviewShow();
       modal.show();
@@ -449,17 +441,17 @@ export class Chat extends Block<IContext> {
           btnGroup: [
             {
               clName: 'modal__btn_secondary js-btn-close-modal',
-              title: 'ОТМЕНА'
+              title: 'ОТМЕНА',
             },
             {
               clName: 'js-btn-remove-chat',
               title: 'УДАЛИТЬ',
-              id: this.id
-            }
-          ]
+              id: this.id,
+            },
+          ],
         },
         radio: undefined,
-        info: ''
+        info: '',
       });
       overviewShow();
       modal.show();
@@ -470,9 +462,11 @@ export class Chat extends Block<IContext> {
 
   handleCreateChat() {
     const btn = document.querySelector('.js-btn-create-chat');
-    if(btn) {
+    if (btn) {
       btn.addEventListener('click', () => {
-        const value = escape(document.querySelector('.modal__value') as HTMLInputElement);
+        const value = escape(
+          document.querySelector('.modal__value') as HTMLInputElement
+        );
         if (value !== '') {
           this.createDialog(value);
         }
@@ -482,10 +476,10 @@ export class Chat extends Block<IContext> {
 
   handleRemoveChat() {
     const btn = document.querySelector('.js-btn-remove-chat');
-    if(btn) {
+    if (btn) {
       btn.addEventListener('click', (e: Event) => {
         const that = <HTMLElement>e.target;
-        const id = +<string>that.dataset.id;
+        const id = +(<string>that.dataset.id);
         if (id) {
           this.removeDialog(id);
         }
@@ -495,11 +489,13 @@ export class Chat extends Block<IContext> {
 
   handleSearchUser() {
     const btn = document.querySelector('.js-btn-search-user-to-add');
-    if(btn) {
+    if (btn) {
       btn.addEventListener('click', (e: Event) => {
         const that = <HTMLElement>e.target;
-        const value = escape(document.querySelector('.modal__value') as HTMLInputElement);
-        const id = +<string>that.dataset.id;
+        const value = escape(
+          document.querySelector('.modal__value') as HTMLInputElement
+        );
+        const id = +(<string>that.dataset.id);
         if (value !== '' && id) {
           this.searchUser(id, value);
         }
@@ -509,16 +505,18 @@ export class Chat extends Block<IContext> {
 
   handleAddUser() {
     const btn = document.querySelector('.js-btn-add-user');
-    if(btn) {
+    if (btn) {
       btn.addEventListener('click', (e: Event) => {
         const that = <HTMLElement>e.target;
-        const idChat = +<string>that.dataset.id;
-        const check: HTMLInputElement | null = document.querySelector('input[name="user"]:checked');
+        const idChat = +(<string>that.dataset.id);
+        const check: HTMLInputElement | null = document.querySelector(
+          'input[name="user"]:checked'
+        );
         let idUser;
-        if(check) {
+        if (check) {
           idUser = +check.value;
         }
-        if(idUser) {
+        if (idUser) {
           this.addUserToChat(idChat, idUser);
         }
       });
@@ -527,16 +525,18 @@ export class Chat extends Block<IContext> {
 
   handleRemoveUser() {
     const btn = document.querySelector('.js-btn-remove-user');
-    if(btn) {
+    if (btn) {
       btn.addEventListener('click', (e: Event) => {
         const that = <HTMLElement>e.target;
-        const idChat = +<string>that.dataset.id;
-        const check: HTMLInputElement | null = document.querySelector('input[name="user"]:checked');
+        const idChat = +(<string>that.dataset.id);
+        const check: HTMLInputElement | null = document.querySelector(
+          'input[name="user"]:checked'
+        );
         let idUser;
-        if(check) {
+        if (check) {
           idUser = +check.value;
         }
-        if(idUser) {
+        if (idUser) {
           this.deleteUserToChat(idChat, idUser);
         }
       });

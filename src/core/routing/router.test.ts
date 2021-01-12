@@ -1,5 +1,5 @@
-import Router from "./router";
-import Block from "../block";
+import Router from './router';
+import Block from '../block';
 
 describe('Router', () => {
   it('Проверка на pathname', () => {
@@ -42,8 +42,7 @@ describe('Router', () => {
 
   it('Изменение страниц', () => {
     const router = new Router();
-    interface IContext {
-    }
+    interface IContext {}
 
     class Component extends Block<IContext> {
       render() {

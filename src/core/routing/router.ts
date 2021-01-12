@@ -1,5 +1,5 @@
-import { Route, IRoute} from './route';
-import {overviewHide} from '../../utils/overview';
+import { Route, IRoute } from './route';
+import { overviewHide } from '../../utils/overview';
 
 interface IRouter {
   _rootQuery: string;
@@ -24,7 +24,7 @@ export default class Router implements IRouter {
   _currentRoute: IRoute | null = null;
   _rootQuery = '';
   __instance: IRouter | undefined;
-  history: History = window.history
+  history: History = window.history;
   _defaultPath = '';
   isProtect = true;
   isStart = false;
@@ -49,8 +49,8 @@ export default class Router implements IRouter {
   }
 
   use(pathname: string, block: Function): this {
-    const route = new Route(pathname, block, {rootQuery: this._rootQuery});
-    if(this.routes) {
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+    if (this.routes) {
       this.routes.push(route);
     }
     return this;
@@ -58,11 +58,11 @@ export default class Router implements IRouter {
 
   useDefault(pathname: string, block: Function): this {
     const route = new Route(pathname, block, {
-      rootQuery: this._rootQuery
+      rootQuery: this._rootQuery,
     });
     this._defaultPath = pathname;
     this.isStart = true;
-    if(this.routes) {
+    if (this.routes) {
       this.routes.push(route);
     }
     return this;
@@ -73,18 +73,18 @@ export default class Router implements IRouter {
       rootQuery: this._rootQuery,
       protect: true,
     });
-    if(this.routes) {
+    if (this.routes) {
       this.routes.push(route);
     }
     return this;
   }
 
   start(): void {
-    window.onpopstate = ((event: PopStateEvent): void => {
+    window.onpopstate = (event: PopStateEvent): void => {
       this._onRoute((<Window>event.currentTarget).location.pathname);
-    });
+    };
 
-    history.pushState( '', '', window.location.pathname );
+    history.pushState('', '', window.location.pathname);
     this._onRoute(window.location.pathname);
   }
 
@@ -125,7 +125,7 @@ export default class Router implements IRouter {
   }
 
   getRoute(pathname: string): IRoute | void {
-    return this.routes.find((route: { _pathname: string; }) => {
+    return this.routes.find((route: { _pathname: string }) => {
       return route._pathname.match(pathname);
     });
   }

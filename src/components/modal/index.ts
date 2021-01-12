@@ -1,10 +1,10 @@
 import Block from '../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 export interface IBtnG {
-  clName: string,
-  title: string,
-  id?: string
+  clName: string;
+  title: string;
+  id?: string;
 }
 
 export interface IModal {
@@ -14,18 +14,22 @@ export interface IModal {
   formData?: {
     label: string;
     value: string;
-  },
-  footer?: {
-    footerCenter: boolean;
-    btnGroup: IBtnG[];
-  } | undefined;
-  radio?: [
-    {
-      id: number;
-      login: string;
-    }
-  ] | undefined;
-  info?: string
+  };
+  footer?:
+    | {
+        footerCenter: boolean;
+        btnGroup: IBtnG[];
+      }
+    | undefined;
+  radio?:
+    | [
+        {
+          id: number;
+          login: string;
+        }
+      ]
+    | undefined;
+  info?: string;
 }
 
 export default class Modal extends Block<IModal> {

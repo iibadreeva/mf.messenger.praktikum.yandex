@@ -31,7 +31,7 @@ class Route implements IRoute {
 
   render(): void {
     const app = document.querySelector(this._props.rootQuery);
-    if(app) {
+    if (app) {
       app.innerHTML = '';
 
       this._block = new this._blockClass();

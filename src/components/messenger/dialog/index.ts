@@ -1,9 +1,9 @@
 import Block from '../../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 interface IDialog {
   title: string;
-  avatar:  string | null;
+  avatar: string | null;
   id: string;
   isActive?: boolean;
 }
@@ -13,7 +13,7 @@ export interface IContext {
 }
 
 export default class Index extends Block<IContext> {
-  constructor(props:IContext,) {
+  constructor(props: IContext) {
     super('ul', '', props);
   }
 
@@ -21,4 +21,3 @@ export default class Index extends Block<IContext> {
     return template(this.props);
   }
 }
-

@@ -1,4 +1,4 @@
-import {IContext} from './data';
+import { IContext } from './data';
 import Templator from '../../utils/templator/templator';
 
 export const template = (props: Record<string, IContext>) => {
@@ -17,4 +17,4 @@ export const template = (props: Record<string, IContext>) => {
 
   const tmpl = new Templator(templ);
   return tmpl.compile(props);
-}
+};

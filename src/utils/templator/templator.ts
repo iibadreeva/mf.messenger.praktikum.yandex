@@ -1,10 +1,14 @@
-declare let window:any;
-import {ObjectType} from '../../types';
+declare let window: any;
+import { ObjectType } from '../../types';
 
-function get<T extends object>(obj:T, path: string, defaultValue='something else'): any {
+function get<T extends object>(
+  obj: T,
+  path: string,
+  defaultValue = 'something else'
+): any {
   const keys = path.split('.');
 
-  let result:ObjectType = obj;
+  let result: ObjectType = obj;
   for (const key of keys) {
     result = result[key];
 
@@ -18,21 +22,20 @@ function get<T extends object>(obj:T, path: string, defaultValue='something else
 
 export default class Templator<T extends object> {
   private TEMPLATE_REGEXP = /\{\{(.*?)\}\}/gi;
-  private readonly _template:string;
+  private readonly _template: string;
 
-  constructor(template:string) {
+  constructor(template: string) {
     this._template = template;
   }
 
-  compile(ctx:T) {
+  compile(ctx: T) {
     const template: string = this._template;
     return this._compileTemplate(template, ctx);
   }
 
-  _compileTemplate(template:string, ctx:T) {
+  _compileTemplate(template: string, ctx: T) {
     let tmpl = template;
     let key = null;
-
 
     while ((key = this.TEMPLATE_REGEXP.exec(tmpl))) {
       if (key[1]) {
@@ -55,4 +58,3 @@ export default class Templator<T extends object> {
     return tmpl;
   }
 }
-

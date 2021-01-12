@@ -1,5 +1,5 @@
 import Block from '../../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 export default class Index extends Block<object> {
   constructor(props: object, className: string) {
@@ -10,4 +10,3 @@ export default class Index extends Block<object> {
     return template();
   }
 }
-

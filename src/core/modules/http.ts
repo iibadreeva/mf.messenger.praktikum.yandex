@@ -3,12 +3,12 @@ import {
   IOptions,
   DEFAULT_REQUEST_OPTIONS,
   OptionsWithoutMethod,
-  RequestResult
+  RequestResult,
 } from './actions';
-import {ObjectKeyStringType} from '../../types';
+import { ObjectKeyStringType } from '../../types';
 
 export default class HTTP {
-  host:string;
+  host: string;
   constructor(host: string) {
     this.host = host;
   }
@@ -53,31 +53,37 @@ export default class HTTP {
     }, '');
   }
 
-  get = (url: string, options: OptionsWithoutMethod = {}): Promise<RequestResult> => {
-    return this.request(url,{ ...options, method: METHOD.GET });
+  get = (
+    url: string,
+    options: OptionsWithoutMethod = {}
+  ): Promise<RequestResult> => {
+    return this.request(url, { ...options, method: METHOD.GET });
   };
 
   post = (url: string, options: IOptions = {}): Promise<RequestResult> => {
-    return this.request(url,{ ...options, method: METHOD.POST });
+    return this.request(url, { ...options, method: METHOD.POST });
   };
   put = (url: string, options: IOptions = {}): Promise<RequestResult> => {
-    return this.request(url,{...options, method: METHOD.PUT});
+    return this.request(url, { ...options, method: METHOD.PUT });
   };
   delete = (url: string, options: IOptions = {}): Promise<RequestResult> => {
-    return this.request(url,{...options, method: METHOD.DELETE});
+    return this.request(url, { ...options, method: METHOD.DELETE });
   };
 
-  request = (path: string, options: IOptions = { method: METHOD.GET}): Promise<RequestResult> => {
-    const {method, headers, data} = options;
+  request = (
+    path: string,
+    options: IOptions = { method: METHOD.GET }
+  ): Promise<RequestResult> => {
+    const { method, headers, data } = options;
     const timeout = options.timeout || DEFAULT_REQUEST_OPTIONS.timeout;
     let url = `${this.host}${path}`;
 
     return new Promise<RequestResult>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      if( method === METHOD.GET && data) {
+      if (method === METHOD.GET && data) {
         url = url + this.queryStringify(data);
       }
-      if(method) {
+      if (method) {
         xhr.open(method, url);
       }
       xhr.withCredentials = true;

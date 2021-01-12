@@ -1,5 +1,5 @@
 import Block from '../../core/block';
-import {template} from './template';
+import { template } from './template';
 
 export enum NavType {
   Location = 'location',
