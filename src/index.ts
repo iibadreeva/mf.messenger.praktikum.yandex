@@ -24,11 +24,11 @@ new UserAPI()
   .then((isAuth) => {
     if (isAuth) {
       router.use('/login', Login);
-      router.use('/registration', Registration);
+      router.use('/registration', Registration)
 
       router.isProtect = false;
       router.start();
-    } else {s
+    } else {
 
       router.useDefault('/login', Login);
       router.use('/registration', Registration);
