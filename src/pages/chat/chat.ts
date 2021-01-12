@@ -380,83 +380,83 @@ export class Chat extends Block<IContext> {
 
   createModal(type: string, modal: any): void {
     switch (type) {
-    case 'create-chat':
-      modal.setProps({
-        title: 'Добавить новый чат',
-        type: '',
-        titleCenter: true,
-        formData: {
-          label: 'Логин',
-          value: '',
-        },
-        footer: {
-          footerCenter: true,
-          btnGroup: [
-            {
-              clName: 'modal__btn_wide js-btn-create-chat',
-              title: 'Добавить',
-            },
-          ],
-        },
-        radio: undefined,
-        info: '',
-      });
-      overviewShow();
-      modal.show();
-      this.handleCreateChat();
-      break;
-    case 'add-user':
-      modal.setProps({
-        title: 'Добавить нового пользователя',
-        type: '',
-        titleCenter: true,
-        formData: {
-          label: 'Логин',
-          value: '',
-        },
-        footer: {
-          footerCenter: true,
-          btnGroup: [
-            {
-              clName: 'modal__btn_wide js-btn-search-user-to-add',
-              title: 'Поиск',
-              id: this.id,
-            },
-          ],
-        },
-        radio: undefined,
-        info: '',
-      });
-      overviewShow();
-      modal.show();
-      this.handleSearchUser();
-      break;
-    case 'remove-chat':
-      modal.setProps({
-        title: 'Удалить чат',
-        type: 'average',
-        titleCenter: false,
-        formData: false,
-        footer: {
-          btnGroup: [
-            {
-              clName: 'modal__btn_secondary js-btn-close-modal',
-              title: 'ОТМЕНА',
-            },
-            {
-              clName: 'js-btn-remove-chat',
-              title: 'УДАЛИТЬ',
-              id: this.id,
-            },
-          ],
-        },
-        radio: undefined,
-        info: '',
-      });
-      overviewShow();
-      modal.show();
-      this.handleRemoveChat();
-      break;
+      case 'create-chat':
+        modal.setProps({
+          title: 'Добавить новый чат',
+          type: '',
+          titleCenter: true,
+          formData: {
+            label: 'Логин',
+            value: '',
+          },
+          footer: {
+            footerCenter: true,
+            btnGroup: [
+              {
+                clName: 'modal__btn_wide js-btn-create-chat',
+                title: 'Добавить',
+              },
+            ],
+          },
+          radio: undefined,
+          info: '',
+        });
+        overviewShow();
+        modal.show();
+        this.handleCreateChat();
+        break;
+      case 'add-user':
+        modal.setProps({
+          title: 'Добавить нового пользователя',
+          type: '',
+          titleCenter: true,
+          formData: {
+            label: 'Логин',
+            value: '',
+          },
+          footer: {
+            footerCenter: true,
+            btnGroup: [
+              {
+                clName: 'modal__btn_wide js-btn-search-user-to-add',
+                title: 'Поиск',
+                id: this.id,
+              },
+            ],
+          },
+          radio: undefined,
+          info: '',
+        });
+        overviewShow();
+        modal.show();
+        this.handleSearchUser();
+        break;
+      case 'remove-chat':
+        modal.setProps({
+          title: 'Удалить чат',
+          type: 'average',
+          titleCenter: false,
+          formData: false,
+          footer: {
+            btnGroup: [
+              {
+                clName: 'modal__btn_secondary js-btn-close-modal',
+                title: 'ОТМЕНА',
+              },
+              {
+                clName: 'js-btn-remove-chat',
+                title: 'УДАЛИТЬ',
+                id: this.id,
+              },
+            ],
+          },
+          radio: undefined,
+          info: '',
+        });
+        overviewShow();
+        modal.show();
+        this.handleRemoveChat();
+        break;
     }
   }
 
