@@ -87,8 +87,9 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,ts}": [
+    "src/**/*.{js,ts,scss,html}": [
       "npm test",
+      "prettier --write",
       "eslint --fix src/",
       "eslint --fix --ext .ts ./src",
       "git add"
