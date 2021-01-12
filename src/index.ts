@@ -28,8 +28,8 @@ new UserAPI()
 
       router.isProtect = false;
       router.start();
-    } else {
-      
+    } else {s
+
       router.useDefault('/login', Login);
       router.use('/registration', Registration);
       router.start();
