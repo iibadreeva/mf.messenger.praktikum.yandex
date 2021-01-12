@@ -1,7 +1,7 @@
-import Router from './router';
-import Block from '../block';
+import Router from "./router";
+import Block from "../block";
 
-describe('Router', () => {
+describe("Router", () => {
   /*it('Проверка на pathname', () => {
     const router = new Router();
     const mock = jest.fn();
@@ -23,57 +23,57 @@ describe('Router', () => {
     mock.mockRestore();
   });*/
 
-  it('Изменения пути при вызове router.go()', () => {
+  it("Изменения пути при вызове router.go()", () => {
     const router = new Router();
-    const mock = jest.fn();
-    jest.spyOn(router, '_onRoute').mockImplementation(() => {
-      mock();
-    });
+    // const mock = jest.fn();
+    // jest.spyOn(router, '_onRoute').mockImplementation(() => {
+    //   mock();
+    // });
 
-    window.history.replaceState({}, '', 'login');
-    router.go('/login');
-    expect(window.location.pathname).toEqual('/login');
+    window.history.replaceState({}, "", "login");
+    router.go("/login");
+    expect(window.location.pathname).toEqual("/login");
   });
 
-  it('Вызов страницы при изменении пути', () => {
+  it("Вызов страницы при изменении пути", () => {
     const router = new Router();
 
     const Mock = jest.fn();
 
-    jest.spyOn(router, '_onRoute').mockImplementation(() => {
+    jest.spyOn(router, "_onRoute").mockImplementation(() => {
       Mock();
     });
 
-    router.use('/login', Mock).start();
-    window.history.replaceState({}, '', '/login');
+    router.use("/login", Mock).start();
+    window.history.replaceState({}, "", "/login");
 
     expect(Mock).toBeCalled();
   });
 
-  it('Изменение страниц', () => {
+  it("Изменение страниц", () => {
     const router = new Router();
     interface IContext {}
 
     class Component extends Block<IContext> {
       render() {
-        return '<div>Login</div>';
+        return "<div>Login</div>";
       }
     }
     class Component2 extends Block<IContext> {
       render() {
-        return '<div>Registration</div>';
+        return "<div>Registration</div>";
       }
     }
 
     const mock = jest.fn();
-    jest.spyOn(router, '_onRoute').mockImplementation(() => {
+    jest.spyOn(router, "_onRoute").mockImplementation(() => {
       mock();
     });
 
-    router.use('/login', Component).use('/registration', Component2).start();
+    router.use("/login", Component).use("/registration", Component2).start();
 
-    window.history.replaceState({}, '', '/login');
-    window.history.replaceState({}, '', '/registration');
+    window.history.replaceState({}, "", "/login");
+    window.history.replaceState({}, "", "/registration");
 
     expect(mock).toBeCalled();
   });
