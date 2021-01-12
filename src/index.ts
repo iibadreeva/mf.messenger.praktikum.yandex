@@ -34,3 +34,4 @@ new UserAPI()
       router.start();
     }
   })
+  console.log
