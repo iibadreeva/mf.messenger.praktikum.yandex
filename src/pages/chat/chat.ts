@@ -11,7 +11,7 @@ import {host} from '../../core/modules/actions';
 import {ChatApi} from './chat-api';
 import Modal from '../../components/modal/index';
 import {escape} from '../../utils/escape/escape';
-import {ObjectType} from '../../core/types';
+import {ObjectType} from '../../types';
 import router from '../../router';
 import render from '../../utils/render';
 

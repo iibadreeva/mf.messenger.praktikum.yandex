@@ -16,7 +16,7 @@ interface IRoute {
 class Route implements IRoute {
   _pathname: string;
   _blockClass: any;
-  _block: Function | null;
+  _block: any;
   _props: routeProps;
   constructor(pathname: string, view: Function, props: routeProps) {
     this._pathname = pathname;

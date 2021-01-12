@@ -5,7 +5,7 @@ import {
   OptionsWithoutMethod,
   RequestResult
 } from './actions';
-import {ObjectKeyStringType} from '../types';
+import {ObjectKeyStringType} from '../../types';
 
 export default class HTTP {
   host:string;

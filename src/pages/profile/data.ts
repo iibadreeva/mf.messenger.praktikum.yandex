@@ -50,7 +50,7 @@ export const context:IContext = {
         type: 'email',
         placeholder: 'Почта',
         disabled: 'disabled',
-        value: '1'
+        value: ''
       }
     },
     login: {

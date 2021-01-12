@@ -1,4 +1,4 @@
-import {ObjectKeyStringType} from '../core/types';
+import {ObjectKeyStringType} from '../types';
 import { escape } from './escape/escape';
 
 export const forma = (function () {

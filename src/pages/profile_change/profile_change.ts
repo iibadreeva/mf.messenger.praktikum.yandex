@@ -10,7 +10,7 @@ import {host} from '../../core/modules/actions';
 import {forma} from '../../utils/form';
 import {ChangeUserApi} from './change-user-api';
 import router from '../../router';
-import {ObjectKeyStringType} from '../../core/types';
+import {ObjectKeyStringType} from '../../types';
 import Modal from '../../components/modal/index';
 import render from '../../utils/render';
 import {overviewHide} from '../../utils/overview';

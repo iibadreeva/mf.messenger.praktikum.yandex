@@ -1,3 +1,4 @@
+import './sass/app.scss';
 import router from './router';
 import {UserAPI} from './core/modules/http/user-api';
 import {Page404} from './pages/404/404';

@@ -11,7 +11,7 @@ import Modal from '../../components/modal/index';
 import render from '../../utils/render';
 import {overviewHide} from '../../utils/overview';
 import {forma} from '../../utils/form';
-import {ObjectKeyStringType} from '../../core/types';
+import {ObjectKeyStringType} from '../../types';
 import {ChangePasswordApi} from './change-password-api';
 
 export class ProfilePassword extends Block<IContext> {

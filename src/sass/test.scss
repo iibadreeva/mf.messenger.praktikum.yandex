@@ -1,0 +1,28 @@
+$color: red;
+
+.error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+
+  &__dd {
+    display: block;
+  }
+
+  //&:before {
+  //  content: "";
+  //  display: block;
+  //  position: absolute;
+  //  left: -10%;
+  //  right: 0;
+  //  background-image: url('../images/error.png');
+  //  min-height: 100vh;
+  //  background-size: 80% auto;
+  //  background-position: 50% 50%;
+  //  background-repeat: no-repeat;
+  //  opacity: 0.75;
+  //}
+}

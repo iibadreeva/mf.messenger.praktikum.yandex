@@ -29,7 +29,7 @@ export default class EventBus {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event].forEach(function(listener: Function) {
+    this.listeners[event].forEach(function (listener: Function) {
       listener(...args);
     });
   }

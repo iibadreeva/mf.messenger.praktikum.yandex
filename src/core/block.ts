@@ -1,10 +1,10 @@
 import EventBus from './event-bus';
-import {ObjectKeyStringType} from './types';
+import { ObjectKeyStringType } from '../types';
 
 interface IMeta {
-  tagName: string,
-  className?: string,
-  props: Record<string, Object>
+  tagName: string;
+  className?: string;
+  props: Record<string, Object>;
 }
 
 export default abstract class Block<Props extends Object> {
@@ -26,9 +26,8 @@ export default abstract class Block<Props extends Object> {
     this._meta = {
       tagName,
       className,
-      props
+      props,
     };
-
 
     try {
       this.props = this._makePropsProxy(props);
@@ -42,10 +41,10 @@ export default abstract class Block<Props extends Object> {
     eventBus.emit(this.EVENTS.INIT);
   }
 
-  _registerEvents(eventBus:EventBus) {
+  _registerEvents(eventBus: EventBus) {
     eventBus.on(this.EVENTS.INIT, this.init.bind(this));
     eventBus.on(this.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(this.EVENTS.FLOW_RENDER, this._render.bind(this));//--
+    eventBus.on(this.EVENTS.FLOW_RENDER, this._render.bind(this)); //--
   }
 
   _createResources() {
@@ -95,7 +94,7 @@ export default abstract class Block<Props extends Object> {
   _render(): void {
     const block = this.render();
 
-    const element:any = this._element;
+    const element: any = this._element;
     if (element) {
       element.innerHTML = block;
     }
@@ -111,15 +110,15 @@ export default abstract class Block<Props extends Object> {
   _makePropsProxy(props: object) {
     const proxyProps = new Proxy(props, {
       get(target: any, prop: string) {
-        if(prop.indexOf('_') === 0) {
+        if (prop.indexOf('_') === 0) {
           throw new Error('Нет прав');
         }
 
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: ObjectKeyStringType, prop: string, val:string) {
-        if(prop.indexOf('_') === 0) {
+      set(target: ObjectKeyStringType, prop: string, val: string) {
+        if (prop.indexOf('_') === 0) {
           throw new Error('Нет прав');
         }
 
@@ -128,7 +127,7 @@ export default abstract class Block<Props extends Object> {
       },
       deleteProperty() {
         throw new Error('No access');
-      }
+      },
     });
 
     return proxyProps;
