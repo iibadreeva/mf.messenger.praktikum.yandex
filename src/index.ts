@@ -24,7 +24,7 @@ new UserAPI()
   .then((isAuth) => {
     if (isAuth) {
       router.use('/login', Login);
-      router.use('/registration', Registration)
+      router.use('/registration', Registration)d
 
       router.isProtect = false;
       router.start();
