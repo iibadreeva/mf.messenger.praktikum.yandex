@@ -9,11 +9,13 @@ import { Chat } from "./pages/chat/chat";
 import { Profile } from "./pages/profile/profile";
 import { ProfileChange } from "./pages/profile_change/profile_change";
 import { ProfilePassword } from "./pages/profile_password/profile_password";
+import { dtsDtsxOrDtsDtsxMapRegex } from "ts-loader/dist/constants";
+import { brotliCompressSync } from "zlib";
 
 ssdsdss;
 d;
 sf;
-
+brotliCompressSync();
 router
   .useProtect("/chat", Chat)
   .useProtect("/profile", Profile)
