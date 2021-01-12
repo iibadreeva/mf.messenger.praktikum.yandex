@@ -10,7 +10,8 @@ import { Profile } from './pages/profile/profile';
 import { ProfileChange } from './pages/profile_change/profile_change';
 import { ProfilePassword } from './pages/profile_password/profile_password';
 
-ssdsdsf;
+ssdsdss;
+sf;
 
 router
   .useProtect('/chat', Chat)
