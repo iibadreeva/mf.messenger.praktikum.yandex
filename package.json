@@ -84,7 +84,8 @@
 
   "lint-staged": {
     "src/**/*.{js,ts,scss,html}": [
-      "npm run lint:fix",
+      "node_modules/.bin/eslint --max-warnings=0",
+      "prettier --write",
       "git add"
     ]
   }
