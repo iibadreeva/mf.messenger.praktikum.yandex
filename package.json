@@ -87,6 +87,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
+      "npm run test",
       "npm run lint:fix",
       "prettier --write",
       "git add"
