@@ -25,10 +25,10 @@ describe('Router', () => {
 
   it('Изменения пути при вызове router.go()', () => {
     const router = new Router();
-    // const mock = jest.fn();
-    // jest.spyOn(router, '_onRoute').mockImplementation(() => {
-    //   mock();
-    // });-ssr
+    const mock = jest.fn();
+    jest.spyOn(router, '_onRoute').mockImplementation(() => {
+      mock();
+    });
 
     window.history.replaceState({}, '', 'login');
     router.go('/login');
