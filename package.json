@@ -88,7 +88,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts,scss,html}": [
-      "tslint --fix",
+      "npm run lint:fix",
       "git add"
     ]
   }
