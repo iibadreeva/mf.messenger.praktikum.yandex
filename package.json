@@ -12,7 +12,8 @@
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "test": "jest",
     "lint": "eslint --ext .ts ./src",
-    "lint:fix": "eslint --fix --ext .ts ./src"
+    "lint:fix": "eslint --fix --ext .ts ./src",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -80,12 +81,7 @@
     "express": "4.17.1",
     "express-rate-limit": "^5.2.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
-  },
+
   "lint-staged": {
     "src/**/*.{js,ts,scss,html}": [
       "npm run lint:fix",
