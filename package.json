@@ -88,9 +88,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts,scss,html}": [
-      "prettier --write",
-      "eslint --fix src/",
-      "eslint --fix --ext .ts ./src",
+      "npm run lint:fix",
       "git add"
     ]
   }
