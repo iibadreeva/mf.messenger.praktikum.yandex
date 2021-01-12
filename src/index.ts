@@ -33,6 +33,5 @@ new UserAPI()
       router.use('/registration', Registration);
       router.start();
     }
-  })
-  console.log("dads")
-  ee
+  });
+console.log('dads');
