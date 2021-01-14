@@ -23,17 +23,17 @@ describe('Router', () => {
     mock.mockRestore();
   });*/
 
-  // it('Изменения пути при вызове router.go()', () => {
-  //   const router = new Router();
-  //   const mock = jest.fn();
-  //   jest.spyOn(router, '_onRoute').mockImplementation(() => {
-  //     mock();
-  //   });
-  //
-  //   window.history.replaceState({}, '', 'login');
-  //   router.go('/login');
-  //   expect(window.location.pathname).toEqual('/login');
-  // });
+  it('Изменения пути при вызове router.go()', () => {
+    const router = new Router();
+    const mock = jest.fn();
+    jest.spyOn(router, '_onRoute').mockImplementation(() => {
+      mock();
+    });
+
+    window.history.replaceState({}, '', 'login');
+    router.go('/login');
+    expect(window.location.pathname).toEqual('/login');
+  });
 
   it('Вызов страницы при изменении пути1', () => {
     const router = new Router();
