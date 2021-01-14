@@ -9,7 +9,7 @@
   align-items: center;
 
   &__file {
-    color: #B4B4B4;
+    color: #b4b4b4;
     height: 28px;
     cursor: pointer;
   }
@@ -33,7 +33,8 @@
   }
 
   &__btn {
-    @include arrow;
     cursor: pointer;
+
+    @include arrow;
   }
 }

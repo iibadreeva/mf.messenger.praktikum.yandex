@@ -1,12 +1,13 @@
 .modal {
   position: absolute;
-  @include centered;
   z-index: 1001;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.25);
   width: 300px;
+
+  @include centered;
 
   &_average {
     width: 450px;
@@ -37,9 +38,10 @@
   }
 
   &__btn {
-    @include btn;
     margin-right: 10px;
     transition: background-color .2s;
+
+    @include btn;
 
     &:hover {
       background-color: rgba($mainColor, 0.9);

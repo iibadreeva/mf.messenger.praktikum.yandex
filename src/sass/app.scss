@@ -5,7 +5,7 @@
 }
 
 @mixin phones() {
-  @media screen and (max-width:479px) and (max-aspect-ratio: 13/9) {
+  @media screen and (max-width: 479px) and (max-aspect-ratio: 13/9) {
     @content;
   }
 }
@@ -13,7 +13,6 @@
 @import "layout/variables";
 @import "layout/mixins";
 @import "layout/main";
-
 @import "common/error";
 @import "common/log-form";
 @import "common/messenger";
@@ -21,5 +20,3 @@
 @import "common/editor";
 @import "common/nav-list";
 @import "common/modal";
-
-@import "layout/global";

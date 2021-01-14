@@ -12,7 +12,7 @@
     position: absolute;
     left: -10%;
     right: 0;
-    background-image: url('@/assets/images/error.png');
+    background-image: url("../../assets/images/error.png");
     min-height: 100vh;
     background-size: 80% auto;
     background-position: 50% 50%;
@@ -21,7 +21,7 @@
   }
 
   &__title {
-    text-shadow: 4px 4px 7px #ECECEC;
+    text-shadow: 4px 4px 7px #ececec;
     font-size: 144px;
     color: #000;
     z-index: 1;
@@ -32,9 +32,10 @@
   }
 
   &__btn {
-    @include btn();
     min-width: 150px;
     margin-top: 30px;
+
+    @include btn();
 
     &:hover {
       opacity: .9;
