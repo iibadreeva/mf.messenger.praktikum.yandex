@@ -1,13 +1,18 @@
 import EventBus from './event-bus';
 import { ObjectKeyStringType } from '../types';
 
+export type BlockProps = Record<
+  string,
+  string | number | boolean | object | Function
+>;
+
 interface IMeta {
   tagName: string;
   className?: string;
-  props: Record<string, Object>;
+  props: BlockProps;
 }
 
-export default abstract class Block<Props extends Object> {
+export default abstract class Block<Props extends object> {
   public props: Record<string, Props> = {};
   eventBus: () => EventBus;
 
