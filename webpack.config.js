@@ -104,11 +104,9 @@ module.exports = {
     }),
   ],
   devServer: {
-    //contentBase: path.join(__dirname, 'build'),
     inline: true,
     hot: isDev,
     port: 9000,
-    //writeToDisk: true,
     historyApiFallback: true,
   },
 };
