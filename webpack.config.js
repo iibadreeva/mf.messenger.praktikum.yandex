@@ -72,7 +72,8 @@ module.exports = {
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          { loader: 'sass-loader' },
+          'sass-loader',
+          // { loader: 'sass-loader' },
         ],
       },
       {
