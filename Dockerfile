@@ -1,6 +1,6 @@
 FROM node:13
 
-WORKDIR /usr/home/app
+WORKDIR /usr/app
 
 COPY . .
 

@@ -6,3 +6,4 @@ build
 **/*.test.ts
 **/template.ts
 webpack.config.js
+server.js
