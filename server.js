@@ -11,9 +11,9 @@ app.use(
   })
 );
 
-app.use(express.static(`${__dirname}/static`));
+app.use(express.static(`${__dirname}/build`));
 app.get('*/',function(req, res){
-  res.sendfile(__dirname + '/static/index.html');
+  res.sendfile(__dirname + '/build/index.html');
 });
 
 app.listen(PORT, function() {
