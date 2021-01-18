@@ -34,9 +34,6 @@
   ],
   "settings": {
     "import/resolver": {
-//      "alias": [
-//        ["@", "./src"]
-//      ],
       "node": {
         "extensions": [".ts", ".tsx"]
       }

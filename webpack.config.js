@@ -16,10 +16,6 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   resolve: {
     extensions: ['.ts', '.js'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core'),
-    },
   },
   module: {
     rules: [
