@@ -2,7 +2,6 @@ import Modal from '../components/modal';
 import render from './render';
 import { overviewHide } from './overview';
 import Hamburger, { NavType } from '../components/hamburger/index';
-import router from '../router';
 
 interface INav {
   nav: HTMLElement;
@@ -71,17 +70,6 @@ export default function showHamburger(
     if ((popub && overview) || close) {
       modal.hide();
       overviewHide();
-    }
-
-    // генерируем модальное
-    const navList = <HTMLElement>that.closest('.nav-list');
-    if (navList) {
-      const element: HTMLElement = <HTMLElement>e.target;
-      const type = element.dataset.type || '';
-
-      if (type === NavType.Profile) {
-        router.go('/profile');
-      }
     }
   });
 }

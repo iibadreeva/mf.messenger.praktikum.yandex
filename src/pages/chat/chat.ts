@@ -4,7 +4,6 @@ import { template } from './template';
 import HeaderPhoto from '../../components/messenger/header-photo/index';
 import Input from '../../components/input/index';
 import Dialog from '../../components/messenger/dialog/index';
-import Messege from '../../components/messenger/messege/index';
 import Textarea from '../../components/messenger/textarea/index';
 import showHamburger from '../../utils/show_hamburger';
 import { overviewHide, overviewShow } from '../../utils/overview';
@@ -22,6 +21,7 @@ export class Chat extends Block<IContext> {
   private modal: Modal | undefined;
   private dialogs: any;
   private idUser: number | undefined;
+  private ping: ReturnType<typeof setTimeout> | undefined;
   idChat: number | undefined;
   ws: any;
   token: string;
@@ -77,11 +77,11 @@ export class Chat extends Block<IContext> {
           );
           if (dialog) {
             const idChat = +(<string>dialog.dataset.id);
-            this.idChat = idChat;
-          }
 
-          if (!element.classList.contains('fa')) {
-            this.showMessages();
+            if (!element.classList.contains('fa') && idChat !== this.idChat) {
+              this.idChat = idChat;
+              this.showMessages();
+            }
           }
         });
       });
@@ -122,13 +122,13 @@ export class Chat extends Block<IContext> {
   }
 
   showMessages() {
-    // if (this.ws) {
-    //   this.ws.setClose();
-    // }
+    if (this.ws && this.ping) {
+      clearInterval(this.ping);
+      this.ws.setClose();
+    }
 
     this.setProps({
       description: '',
-      messege: new Messege({ currentChat: [] }).render(),
       editor: new Textarea({}).render(),
     });
 
@@ -140,12 +140,14 @@ export class Chat extends Block<IContext> {
           if (data.token && this.idUser && this.idChat) {
             this.token = data.token;
 
-            console.log('new chat', this.idChat);
             this.ws = new WebSocketServer(this.idUser, this.idChat, this.token);
 
             this.ws.onOpen();
-            this.ws.onClose();
+            this.ws.onClose(this);
             this.ws.onMessage(this, this.idUser, this.idChat);
+            this.ping = setInterval(() => {
+              this.ws.onPing();
+            }, 1000 * 10);
           }
         });
     }
@@ -473,7 +475,7 @@ export class Chat extends Block<IContext> {
         modal.show();
         this.handleSearchUser();
         break;
-      case 'remove-messege':
+      case 'remove-chat':
         modal.setProps({
           title: 'Удалить чат',
           type: 'average',
@@ -498,6 +500,12 @@ export class Chat extends Block<IContext> {
         overviewShow();
         modal.show();
         this.handleRemoveChat();
+        break;
+      case 'profiler':
+        if (this.ws) {
+          this.ws.setClose();
+        }
+        router.go('/profile');
         break;
     }
   }

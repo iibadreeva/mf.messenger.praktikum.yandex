@@ -8,6 +8,7 @@ export interface IInfo {
   timeOnly?: string;
   date?: string;
   user_id?: number;
+  user_name?: string;
   userId?: number;
 }
 

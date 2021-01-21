@@ -209,6 +209,13 @@ $widthLeftMessenger: 350px;
       cursor: pointer;
     }
 
+    &__title {
+      position: relative;
+      font-size: .8em;
+      top: -5px;
+      color: $mainColor;
+    }
+
     &__body-empty {
       flex: 1 1 auto;
     }

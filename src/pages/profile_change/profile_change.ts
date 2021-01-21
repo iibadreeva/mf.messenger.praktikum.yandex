@@ -56,7 +56,6 @@ export class ProfileChange extends Block<IContext> {
       this.loadAvatar(avatar, image);
     });
     showHamburger(undefined);
-    // showHamburger(false);
   }
 
   goBack() {

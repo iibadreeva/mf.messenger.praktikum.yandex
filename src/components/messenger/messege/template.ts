@@ -16,6 +16,9 @@ export const template = (props: Record<string, IContext>) => {
               <div class="${
                 item.isMy ? 'messenger__chat__out' : 'messenger__chat__in'
               }" >
+                <div class="messenger__chat__title">
+                    ${item.user_name ? item.user_name : ''}
+                </div>
                 ${item.content ? `${item.content}` : ''}
                 <span class="messenger__chat__time">
                   ${item.timeOnly}

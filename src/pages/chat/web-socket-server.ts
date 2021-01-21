@@ -5,21 +5,30 @@ import Messege, {
 import { Chat } from './chat';
 import { ObjectType } from '../../types';
 import { padleft } from '../../utils/actions';
+import { ChatApi } from './chat-api';
+
+interface IUsers {
+  display_name?: string;
+  first_name?: string;
+  second_name?: string;
+  id: number;
+}
 
 export default class WebSocketServer {
   chatId: number;
   url: string;
-  instance: WebSocket;
+  public instance!: WebSocket;
   data: IChat[];
+  users: IUsers[] = [];
 
   constructor(userId: number, chatId: number, tokenChat: string) {
     this.chatId = chatId;
-    this.url = `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${tokenChat}`;
-    this.instance = new WebSocket(this.url);
     this.data = [];
+    this.url = `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${tokenChat}`;
   }
 
   onOpen(): void {
+    this.instance = new WebSocket(this.url);
     this.instance.addEventListener('open', () => {
       this.instance.send(
         JSON.stringify({
@@ -28,6 +37,14 @@ export default class WebSocketServer {
         })
       );
     });
+  }
+
+  onPing() {
+    this.instance.send(
+      JSON.stringify({
+        content: '',
+      })
+    );
   }
 
   onSend(value: string) {
@@ -40,29 +57,42 @@ export default class WebSocketServer {
   }
 
   onMessage(chat: Chat, myId: number, chatId: number): void {
+    new ChatApi()
+      .requestChatUser(chatId)
+      .then((res) => JSON.parse(res.data))
+      .then((data) => {
+        this.users = data;
+      });
+
     this.instance.addEventListener('message', (event) => {
       const data = JSON.parse(event.data);
-      if (chat.idChat) console.log('chat.idChat', chat.idChat);
+      if (data.type !== 'error') {
+        if (data.length > 0 && this.chatId) {
+          const newData: IChat[] = this.filterDate(data, myId);
+          this.data = newData;
 
-      if (data.length > 0) {
-        const newData: IChat[] = this.filterDate(data, myId);
-        this.data = newData;
-
-        if (newData) {
+          if (newData) {
+            chat.setProps({
+              messege: new Messege({ currentChat: newData }).render(),
+            });
+          }
+        } else if (Object.keys(data).length === 0) {
           chat.setProps({
-            messege: new Messege({ currentChat: newData }).render(),
+            messege: new Messege({ currentChat: [] }).render(),
           });
-        }
-      } else if (Object.keys(data).length === 0) {
-        chat.setProps({
-          messege: new Messege({ currentChat: [] }).render(),
-        });
-      } else if (data.id && chat.idChat === chatId) {
-        this.filterChat(data, myId);
-        if (this.data.length > 0) {
-          const last = this.data.length - 1;
-          if (this.data[last].date === data.date) {
-            this.data[last].info.push(data);
+        } else if (data.id && chat.idChat === chatId) {
+          this.filterChat(data, myId);
+          if (this.data.length > 0) {
+            const last = this.data.length - 1;
+            if (this.data[last].date === data.date) {
+              this.data[last].info.push(data);
+            } else {
+              const item = {
+                date: data.date,
+                info: [data],
+              };
+              this.data.push(item);
+            }
           } else {
             const item = {
               date: data.date,
@@ -70,21 +100,15 @@ export default class WebSocketServer {
             };
             this.data.push(item);
           }
-        } else {
-          const item = {
-            date: data.date,
-            info: [data],
-          };
-          this.data.push(item);
+
+          chat.setProps({
+            messege: new Messege({ currentChat: this.data }).render(),
+          });
         }
 
-        chat.setProps({
-          messege: new Messege({ currentChat: this.data }).render(),
-        });
+        chat.handlerSendMessege();
+        chat.scrollDown();
       }
-
-      chat.handlerSendMessege();
-      chat.scrollDown();
     });
   }
 
@@ -121,6 +145,14 @@ export default class WebSocketServer {
   filterChat(item: IInfo, myId: number) {
     if (item.user_id === myId || item.userId === myId) {
       item.isMy = true;
+    } else if (this.users.length > 0) {
+      this.users.forEach((user) => {
+        if (item.user_id === user.id || item.userId === user.id) {
+          item.user_name = user.display_name
+            ? user.display_name
+            : `${user.first_name} ${user.second_name}`;
+        }
+      });
     }
     item.date = item.time.slice(0, 10);
     const dayNow: Date = new Date();
@@ -148,11 +180,16 @@ export default class WebSocketServer {
     this.instance.close();
   }
 
-  onClose() {
+  onClose(chat: Chat) {
     this.instance.addEventListener('close', (event) => {
       if (event.wasClean) {
         console.log('Соединение закрыто чисто');
       } else {
+        chat.idChat = undefined;
+        chat.setProps({
+          description:
+            'Пожалуйста, выберите чат, чтобы начать обмен сообщениями',
+        });
         console.log('Обрыв соединения');
       }
 
