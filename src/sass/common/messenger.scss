@@ -225,6 +225,7 @@ $widthLeftMessenger: 350px;
       padding: 15px 15px 20px;
       margin-bottom: 10px;
       max-width: 400px;
+      min-width: 50px;
       border-radius: 10px;
       position: relative;
     }
@@ -244,6 +245,7 @@ $widthLeftMessenger: 350px;
     &__out {
       background-color: rgba($mainColor, .15);
       align-self: flex-end;
+      text-align: right;
     }
 
     &__time {

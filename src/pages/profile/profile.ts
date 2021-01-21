@@ -82,7 +82,7 @@ export class Profile extends Block<IContext> {
   }
 
   goChat() {
-    router.go('/chat');
+    router.go('/messege');
   }
 
   componentDidMount(): void {

@@ -20,7 +20,7 @@ export class Page500 extends Block<IContext> {
       .then((res) => res.ok)
       .then((isAuth) => {
         if (isAuth) {
-          router.go('/chat');
+          router.go('/messege');
         } else {
           router.go('/login');
         }

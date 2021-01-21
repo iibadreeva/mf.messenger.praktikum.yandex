@@ -31,7 +31,7 @@ export class Login extends Block<IContext> {
 
       if (status === 200) {
         router.isProtect = false;
-        router.go('/chat');
+        router.go('/messege');
       } else if (status >= 500) {
         router.go('/500');
       } else {

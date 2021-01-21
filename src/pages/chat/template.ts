@@ -2,6 +2,7 @@ import { IContext } from './data';
 import Templator from '../../utils/templator/templator';
 
 export const template = (props: Record<string, IContext>) => {
+  const { description } = props;
   const templ = `
     <main class="messenger__left">
       <div class="messenger__header">{{ header }}</div>
@@ -10,9 +11,18 @@ export const template = (props: Record<string, IContext>) => {
     </main>
     <aside class="messenger__right">
       <header class="messenger__header messenger__header_right"></header>
-      <div class="messenger__content messenger__content_center">
-        <p class="messenger__text">{{ description }}</p>
-      </div>
+      ${
+        description
+          ? `<div class="messenger__content messenger__content_center">
+              <p class="messenger__text">{{ description }}</p>
+            </div>`
+          : `
+          <div class="messenger__content">
+            {{ messege }}
+            {{ editor }}
+          </div>`
+      }
+      
     </aside>`;
 
   const tmpl = new Templator(templ);

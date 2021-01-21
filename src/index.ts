@@ -11,7 +11,7 @@ import { ProfileChange } from './pages/profile_change/profile_change';
 import { ProfilePassword } from './pages/profile_password/profile_password';
 
 router
-  .useProtect('/chat', Chat)
+  .useProtect('/messege', Chat)
   .useProtect('/profile', Profile)
   .useProtect('/change', ProfileChange)
   .useProtect('/password', ProfilePassword)
@@ -20,7 +20,13 @@ router
 
 new UserAPI()
   .request()
-  .then((res) => res.ok)
+  .then((res) => {
+    if (res.status === 200) {
+      return res.ok;
+    } else {
+      router.use('/500', Login);
+    }
+  })
   .then((isAuth) => {
     if (isAuth) {
       router.use('/login', Login);
@@ -33,4 +39,5 @@ new UserAPI()
       router.use('/registration', Registration);
       router.start();
     }
-  });
+  })
+  .catch(() => router.go('/500'));

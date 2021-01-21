@@ -57,4 +57,12 @@ export class ChatApi extends BaseAPI {
       data: JSON.stringify(data),
     });
   }
+
+  getToken(id: number) {
+    return cartAPIInstance.post(`/api/v2/chats/token/${id}`, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
 }

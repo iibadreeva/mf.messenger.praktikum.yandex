@@ -4,11 +4,14 @@ import { template } from './template';
 import HeaderPhoto from '../../components/messenger/header-photo/index';
 import Input from '../../components/input/index';
 import Dialog from '../../components/messenger/dialog/index';
+import Messege from '../../components/messenger/messege/index';
+import Textarea from '../../components/messenger/textarea/index';
 import showHamburger from '../../utils/show_hamburger';
 import { overviewHide, overviewShow } from '../../utils/overview';
 import { UserAPI } from '../../core/modules/http/user-api';
 import { host } from '../../core/modules/actions';
 import { ChatApi } from './chat-api';
+import WebSocketServer from './web-socket-server';
 import Modal from '../../components/modal/index';
 import { escape } from '../../utils/escape/escape';
 import { ObjectType } from '../../types';
@@ -18,17 +21,20 @@ import render from '../../utils/render';
 export class Chat extends Block<IContext> {
   private modal: Modal | undefined;
   private dialogs: any;
-  private myId: number | undefined;
-  private id: number | undefined;
+  private idUser: number | undefined;
+  idChat: number | undefined;
+  ws: any;
+  token: string;
   constructor() {
     const { avatar, search }: IContext = context;
-
     super('div', 'messenger', {
       description: context.description,
       header: new HeaderPhoto(avatar).render(),
       search: new Input(search).render(),
       dialogs: new Dialog({}).render(),
     });
+
+    this.token = '';
     this.getData();
   }
 
@@ -49,8 +55,8 @@ export class Chat extends Block<IContext> {
           const type = element.dataset.type || '';
 
           if (element.classList.contains('js-btn-search-user-to-remove')) {
-            if (this.id) {
-              this.getUsers(this.id);
+            if (this.idChat) {
+              this.getUsers(this.idChat);
             }
           } else {
             this.createModal(type, modal);
@@ -60,16 +66,22 @@ export class Chat extends Block<IContext> {
     }
 
     this.eventBus().on(this.EVENTS.FLOW_RENDER, () => {
-      const hamburgers = this.element.querySelectorAll('.js-hamburger');
-      Array.from(hamburgers).forEach((list) => {
+      const lists = this.element.querySelectorAll('.messenger__item');
+
+      Array.from(lists).forEach((list) => {
         list.addEventListener('click', (e: Event) => {
           const element: HTMLElement = <HTMLElement>e.target;
+
           const dialog: HTMLDivElement | null = element.closest(
             '.messenger__item'
           );
-
           if (dialog) {
-            this.id = +(<string>dialog.dataset.id);
+            const idChat = +(<string>dialog.dataset.id);
+            this.idChat = idChat;
+          }
+
+          if (!element.classList.contains('fa')) {
+            this.showMessages();
           }
         });
       });
@@ -83,7 +95,7 @@ export class Chat extends Block<IContext> {
       .request()
       .then((res) => JSON.parse(res.data))
       .then((data) => {
-        this.myId = data.id;
+        this.idUser = data.id;
 
         if (data.avatar) {
           avatar.image = `${host}${data.avatar}`;
@@ -107,6 +119,36 @@ export class Chat extends Block<IContext> {
     this.setProps({
       dialogs: new Dialog(this.dialogs).render(),
     });
+  }
+
+  showMessages() {
+    // if (this.ws) {
+    //   this.ws.setClose();
+    // }
+
+    this.setProps({
+      description: '',
+      messege: new Messege({ currentChat: [] }).render(),
+      editor: new Textarea({}).render(),
+    });
+
+    if (this.idChat) {
+      new ChatApi()
+        .getToken(this.idChat)
+        .then((res) => JSON.parse(res.data))
+        .then((data) => {
+          if (data.token && this.idUser && this.idChat) {
+            this.token = data.token;
+
+            console.log('new chat', this.idChat);
+            this.ws = new WebSocketServer(this.idUser, this.idChat, this.token);
+
+            this.ws.onOpen();
+            this.ws.onClose();
+            this.ws.onMessage(this, this.idUser, this.idChat);
+          }
+        });
+    }
   }
 
   createDialog(value: string) {
@@ -297,7 +339,7 @@ export class Chat extends Block<IContext> {
 
         const userData: any = [];
         data.forEach((item: { id: number }) => {
-          if (item.id !== this.myId) {
+          if (item.id !== this.idUser) {
             userData.push(item);
           }
         });
@@ -393,7 +435,7 @@ export class Chat extends Block<IContext> {
             footerCenter: true,
             btnGroup: [
               {
-                clName: 'modal__btn_wide js-btn-create-chat',
+                clName: 'modal__btn_wide js-btn-create-messege',
                 title: 'Добавить',
               },
             ],
@@ -420,7 +462,7 @@ export class Chat extends Block<IContext> {
               {
                 clName: 'modal__btn_wide js-btn-search-user-to-add',
                 title: 'Поиск',
-                id: this.id,
+                id: this.idChat,
               },
             ],
           },
@@ -431,7 +473,7 @@ export class Chat extends Block<IContext> {
         modal.show();
         this.handleSearchUser();
         break;
-      case 'remove-chat':
+      case 'remove-messege':
         modal.setProps({
           title: 'Удалить чат',
           type: 'average',
@@ -444,9 +486,9 @@ export class Chat extends Block<IContext> {
                 title: 'ОТМЕНА',
               },
               {
-                clName: 'js-btn-remove-chat',
+                clName: 'js-btn-remove-messege',
                 title: 'УДАЛИТЬ',
-                id: this.id,
+                id: this.idChat,
               },
             ],
           },
@@ -461,7 +503,7 @@ export class Chat extends Block<IContext> {
   }
 
   handleCreateChat() {
-    const btn = document.querySelector('.js-btn-create-chat');
+    const btn = document.querySelector('.js-btn-create-messege');
     if (btn) {
       btn.addEventListener('click', () => {
         const value = escape(
@@ -475,7 +517,7 @@ export class Chat extends Block<IContext> {
   }
 
   handleRemoveChat() {
-    const btn = document.querySelector('.js-btn-remove-chat');
+    const btn = document.querySelector('.js-btn-remove-messege');
     if (btn) {
       btn.addEventListener('click', (e: Event) => {
         const that = <HTMLElement>e.target;
@@ -540,6 +582,32 @@ export class Chat extends Block<IContext> {
           this.deleteUserToChat(idChat, idUser);
         }
       });
+    }
+  }
+
+  handlerSendMessege() {
+    const btn = document.querySelector('.editor__btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const editor = <HTMLElement>document.querySelector('.editor__value');
+        const value = editor.innerHTML
+          .trim()
+          .replace(/&nbsp;/gi, '')
+          .replace(/<div><br><\/div>/gi, '')
+          .replace(/<p><br><\/p>/gi, '');
+
+        if (value) {
+          this.ws.onSend(value);
+        }
+      });
+    }
+  }
+
+  scrollDown() {
+    const chart = document.querySelector('.messenger__chat');
+
+    if (chart) {
+      chart.scrollTop = chart.scrollHeight;
     }
   }
 
