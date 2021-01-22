@@ -1,7 +1,7 @@
 import Messege, {
   IChat,
   IInfo,
-} from '../../components/messenger/messege/index'; // IContext, // IChat,
+} from '../../components/messenger/messege/index';
 import { Chat } from './chat';
 import { ObjectType } from '../../types';
 import { padleft } from '../../utils/actions';
